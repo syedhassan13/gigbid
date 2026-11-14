@@ -1,0 +1,26 @@
+{
+  "env": {
+    "commit": "5bbac50",
+    "profile": "open_small",
+    "rag_variant": "v_best",
+    "embeddings": "BAAI/bge-small-en-v1.5",
+    "reranker": "Xenova/ms-marco-MiniLM-L-6-v2",
+    "python": "3.14.2",
+    "machine": "AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD",
+    "cpu_count": 4,
+    "ts": "2026-11-14T22:57:16"
+  },
+  "n": 30,
+  "quadratic_weighted_kappa": 0.0,
+  "exact_agreement": 0.8,
+  "within_one": 0.9667,
+  "disagreements_ge2": [
+    {
+      "item": "P22",
+      "human": "3",
+      "judge": "5",
+      "judge_reason": "The proposal is highly specific to the client\u2019s problem, cites a concrete past project with measurable results, outlines a clear plan (deployment, handover, runbook), provides a price, and ends with a relevant question. All criteria for a score of 5 are met."
+    }
+  ],
+  "rubric": "Score 1-5. 5 = specific to this client's problem, every experience claim concrete and plausible, clear plan, price and one good question, 110-220 words. 3 = relevant but partly generic or vague claims. 1 = generic template, off-topic, fabricated-sounding or non-compliant (contact details, guarantees)."
+}

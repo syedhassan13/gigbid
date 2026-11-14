@@ -19,6 +19,7 @@ COPY pyproject.toml ./
 RUN python -c 'import tomllib,subprocess,sys;d=tomllib.load(open("pyproject.toml","rb"))["project"]["dependencies"];subprocess.check_call([sys.executable,"-m","pip","install",*d])'
 COPY --chown=app . .
 COPY --from=web --chown=app /web/dist /app/apps/web/dist
+RUN mkdir -p /app/var /data && chown -R app /app/var /data && chown app /app
 USER app
 RUN GIGBID_HOME=/app python -c "from rag.index.models import embed, rerank; embed(['warm']); rerank('q',['d'])" && \
     mkdir -p /data/var && cp -r /app/var/models /data/var/models 2>/dev/null || true
