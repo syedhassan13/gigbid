@@ -1,0 +1,25 @@
+# Render Blueprint: New + → Blueprint → pick this repo. Single container (GigSim + API + web build), free plan.
+services:
+  - type: web
+    name: gigbid
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: GIGBID_PROFILE
+        value: open
+      - key: PORT
+        value: "7860"
+      - key: GIGBID_SCOUT_MAX
+        value: "3"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: TOKEN_ENC_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: REVIEWER_EMAIL
+        sync: false
+      - key: REVIEWER_PASSWORD
+        sync: false
