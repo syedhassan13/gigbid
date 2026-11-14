@@ -1,0 +1,10 @@
+# GigSim platform policy versions. GIGSIM_POLICY_VERSION selects one (default: latest active).
+versions:
+  1:
+    effective: "2026-10-01"
+    connects:
+      fixed: [[100, 4], [500, 8], [1000, 12], [1000000000, 16]]
+      hourly: 12
+    max_cover_letter_chars: 5000
+    required_phrases: []
+    weekly_free_connects: 80
