@@ -8,3 +8,14 @@ versions:
     max_cover_letter_chars: 5000
     required_phrases: []
     weekly_free_connects: 80
+  2:
+    # "Platform policy update" released 2026-11-02 (the assignment's change request):
+    #  (a) Connects become more expensive for large fixed-price jobs and for hourly jobs;
+    #  (b) every proposal must disclose AI assistance with a fixed statement, else it is rejected (HTTP 422).
+    effective: "2026-11-02"
+    connects:
+      fixed: [[100, 4], [500, 8], [1000, 12], [1000000000, 24]]
+      hourly: 16
+    max_cover_letter_chars: 5000
+    required_phrases: ["Drafted with AI assistance and reviewed by me."]
+    weekly_free_connects: 80

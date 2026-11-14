@@ -134,7 +134,9 @@ def auth(request: Request, authorization: str = Header(default="")) -> dict:
 
 
 def public_job(j: dict) -> dict:
-    return {k: v for k, v in j.items() if k not in ("gold",)}
+    out = {k: v for k, v in j.items() if k not in ("gold",)}
+    out["connects_cost"] = connects_cost(j, policy())  # always priced by the ACTIVE policy version
+    return out
 
 
 def public_client(cl: dict) -> dict:
