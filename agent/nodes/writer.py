@@ -31,10 +31,19 @@ def _section(text: str, heading: str) -> str:
 async def gather_evidence(fit: dict, persona: str) -> list[dict]:
     """Best evidence per covered requirement, de-duplicated by project, with full case-study text."""
     out, seen_proj = [], set()
+    # rank projects by how many requirements their case study / repo backs (most relevant proof first)
+    proj_hits: dict[str, int] = {}
     for m in fit.get("matches", []):
+        if m["covered"]:
+            for eid in m["evidence_ids"][:3]:
+                if eid.startswith(("case:", "repo:")):
+                    proj_hits[eid.split(":", 1)[1]] = proj_hits.get(eid.split(":", 1)[1], 0) + 1
+    ranked = sorted(fit.get("matches", []), key=lambda m: -max([proj_hits.get(e.split(":", 1)[-1], 0) for e in m["evidence_ids"][:3]] or [0]))
+    for m in ranked:
         if not m["covered"]:
             continue
-        for eid in m["evidence_ids"][:2]:
+        ids = sorted(m["evidence_ids"][:3], key=lambda e: -proj_hits.get(e.split(":", 1)[-1], 0))
+        for eid in ids[:2]:
             try:
                 cs = await call_tool("writer", "portfolio", "get_case_study", {"id": eid, "persona": persona})
             except Exception:
