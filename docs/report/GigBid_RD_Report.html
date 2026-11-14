@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset='utf-8'><title>GigBid R&D report</title><style>body{font-family:Georgia,'Times New Roman',serif;font-size:10.5pt;line-height:1.42;color:#111;max-width:180mm;margin:auto}h1{font-size:19pt;margin:0 0 4px}h2{font-size:13pt;border-bottom:1px solid #999;margin:14px 0 6px}table{border-collapse:collapse;width:100%;font-size:8.6pt;margin:6px 0}th,td{border:1px solid #bbb;padding:3px 5px;text-align:left}th{background:#eef}code{font-size:8.6pt;background:#f4f4f4;padding:0 2px}blockquote{font-size:9pt;color:#333;border-left:3px solid #aaa;margin:6px 0;padding-left:8px}</style></head><body><h1>GigBid: R&amp;D design review</h1>
-<p><em>AI-4016 · Individual · Repository commit <code>bf94439</code> · every number cites a file in <code>evals/results/</code>.</em></p>
+<p><em>AI-4016 · Individual · Repository commit <code>cf53cd4</code> · every number cites a file in <code>evals/results/</code>.</em></p>
 <p><strong>Profiles.</strong> Retrieval and decision numbers are model-independent (embeddings + rules). Proposal-text numbers were produced with the <code>offline</code> profile; where that is <code>offline</code>, the writer is the deterministic template fallback, not an LLM. Results produced with the Groq <code>open</code> profile are reported separately where available.</p>
 <h2>1. Problem and constraints</h2>
 <p>Freelancers spend hours scanning feeds, spend paid Connects on unwinnable jobs, send generic proposals, and meet scams. GigBid automates <em>discovery, assessment and drafting</em>. <strong>The human makes every outward decision.</strong> Never automated: submitting a proposal, sending a message, spending Connects (all behind LangGraph <code>interrupt()</code>), claiming experience the portfolio does not show (R5), or any live-platform write except a draft the user confirms on Upwork. Declared budgets (<code>agent/config.yaml → budgets</code>): p95 ≤ 25 s and ≤ $0.002 per job analysed; p95 ≤ 60 s and ≤ $0.01 per proposal; ≤ 40 steps and ≤ 60k tokens per thread.</p>
@@ -8,7 +8,41 @@
 <p>Why each agent exists (merged/split decisions): the Scout and Pricing Strategist are deterministic (no LLM): their inputs are structured and their outputs must be auditable. The verifier is split from the Critic so unsupported claims are removed <em>before</em> critique (B3), which makes 'unsupported claims before/after' measurable.</p>
 <h2>3. R&amp;D question A: tool granularity</h2>
 <p><strong>Hypothesis.</strong> Fine-grained tools with disambiguating descriptions beat coarse action-dispatch tools on argument accuracy at a modest token cost.</p>
-<p><strong>Pending:</strong> <code>python -m evals.runners.tool_design</code> needs an LLM profile (<code>GROQ_API_KEY</code>); no number is reported without a run.</p>
+<table>
+<thead>
+<tr>
+<th>Tool set</th>
+<th>Tools</th>
+<th>Selection acc.</th>
+<th>Argument acc.</th>
+<th>Tokens/task</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fine</td>
+<td>13</td>
+<td>0.900</td>
+<td>0.825</td>
+<td>448</td>
+</tr>
+<tr>
+<td>coarse</td>
+<td>2</td>
+<td>0.825</td>
+<td>0.600</td>
+<td>414</td>
+</tr>
+<tr>
+<td>best</td>
+<td>13</td>
+<td>0.975</td>
+<td>0.950</td>
+<td>625</td>
+</tr>
+</tbody>
+</table>
+<p><em>40 tasks with known correct calls, model <code>openai/gpt-oss-20b</code> (<code>evals/results/tool_design.json</code>).</em></p>
 <h2>4. R&amp;D question B: retrieval, verification and the shipped choice</h2>
 <p><strong>Hypothesis (stated before running).</strong> <em>Requirement decomposition + hybrid retrieval raises evidence Recall@5 by ≥ 15 points over V0 on jobs with four or more requirements.</em></p>
 <table>
@@ -246,8 +280,61 @@
 <p><strong>Claim verification (B3).</strong> Every draft is split into claims and grounded against retrieved evidence (key-term coverage + cosine, and numbers must appear verbatim); unsupported claims are removed before the Critic. Unsupported claims per proposal before → after verification: V0 0.07 → 0.00; v_best 0.08 → 0.00 (<code>gigsim_outcomes.json</code>, n = 60).</p>
 <p><strong>Where better retrieval did not raise replies.</strong> Mean GigSim reply probability moved 0.325 → 0.346 while sampled replies were 0.333 → 0.217 on the same 60 jobs: a near-doubling of evidence recall barely moved the outcome. GigSim's clients reward must-have-skill coverage, use of the client's own terms and a non-generic opening; the writer uses only the top 1–2 evidence items, so recall beyond rank 2 cannot change the letter, and sampling noise at n = 60 exceeds the effect.</p>
 <p><strong>Judge calibration.</strong> Pending: 30 proposals in <code>evals/datasets/judge_labels.csv</code> await the author's human scores; κ is computed only from human labels.</p>
+<p><strong>Groq <code>open</code> profile (LLM writer and critic), same harness.</strong>
+| Variant | n | Unsupported before→after | Reply p | Sampled reply | p95 s / proposal | Cost / proposal | Injection success |
+|---|---|---|---|---|---|---|---|
+| v0_naive | 12 | 0.25 → 0.00 | 0.372 | 0.250 | 56.8 | $0.00150 | 0.000 |
+| v_best | 12 | 0.33 → 0.00 | 0.379 | 0.500 | 43.1 | $0.00120 | 0.000 |</p>
+<p><em><code>gigsim_outcomes_open.json</code>.</em></p>
 <h2>5. R&amp;D question C: is the multi-agent design worth it?</h2>
-<p><strong>Pending:</strong> <code>python -m evals.runners.multiagent_compare</code> requires the Groq profile. The graph side alone is measured in §8 (bid F1 0.987, 600 jobs).</p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Bid/skip acc.</th>
+<th>Unsupported / proposal</th>
+<th>Violations caught</th>
+<th>Reply p</th>
+<th>Tokens / job</th>
+<th>p95 s</th>
+<th>Errors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a_react</td>
+<td>0.667</td>
+<td>0.50</td>
+<td>1.00</td>
+<td>0.346</td>
+<td>1408</td>
+<td>47.7</td>
+<td>9</td>
+</tr>
+<tr>
+<td>b_supervisor</td>
+<td>0.500</td>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>157</td>
+<td>9.8</td>
+<td>11</td>
+</tr>
+<tr>
+<td>c_graph</td>
+<td>1.000</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.420</td>
+<td>1842</td>
+<td>76.7</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><em>(a) one ReAct agent with all read tools, (b) <code>langgraph-supervisor</code>, (c) GigBid's graph; <code>multiagent_compare.json</code>.</em></p>
+<p>Per job type, single-agent accuracy: {"standard": 0.5, "multi_req": 1.0, "scam": 1.0, "low_budget": 1.0, "injection": 0.0, "vague": 0.0}</p>
 <h2>6. The change request (2 Nov platform policy update)</h2>
 <p>GigSim policy v2 (commit <em>GigSim: platform policy update v2</em>) raised Connects for fixed jobs ≥ $1,000 (16 → 24) and hourly jobs (12 → 16) and made an AI-assistance disclosure mandatory (missing ⇒ HTTP 422). <strong>What we edited:</strong> one line of configuration, the <code>required_statements</code> entry in <code>data/policy_pack/rules.yaml</code>, which the Compliance Guard appends and the writer is told about. Connects prices needed <strong>no</strong> change: they are read from the marketplace per job and flow into the expected-value check and the dry-run preview. Commit: <code>4037a4a Fix compliance over-redaction of interview slots; human-readable slot times; regression tests</code>; diff: <code>.gitignore                        |   1 +
  agent/nodes/liaison.py            |   2 +-
@@ -416,4 +503,12 @@
 <h2>Appendix A: reproduction</h2>
 <pre><code>make seed &amp;&amp; make eval      # regenerates every file cited here
 python scripts/build_report.py
-</code></pre></body></html>
+</code></pre>
+<h2>Appendix B: single agent, one grounded proposal (Part A)</h2>
+<p>Tool calls: ['get_job', 'get_client_history', 'search_evidence', 'search_evidence', 'search_evidence', 'search_evidence', 'get_market_stats']; claims {'claims': 3, 'supported': 0, 'partial': 3, 'unsupported': 0}.</p>
+<blockquote>
+<p>Your real‑estate team is losing revenue because inventory either runs out or sits idle each season, and you need reliable weekly SKU‑level forecasts with confidence intervals.  </p>
+<p>I have shipped production‑grade forecasting services that use <strong>statsmodels</strong> for the statistical backbone [repo:ai_ml-forecast-02] and have integrated <strong>machine‑learning</strong> models into the same pipelines [case:ai_ml-churn-deploy-06]. My codebase is built entirely in <strong>Python</strong>, with clean, test‑driven modules that your engineers can extend [case:ai_ml-forecast-12]. I specialize in <strong>time‑series</strong> analysis, having reduced forecast error by over 30 % for a real‑estate scale‑up [case:ai_ml-forecast-12], and I have delivered end‑to‑end <strong>forecasting</strong> solutions that generate weekly SKU predictions and prediction intervals [case:ai_ml-forecast-02].  </p>
+<p>Based on current market rates for AI/ML work (median $40 /hr, 75th percentile $85 /hr), I propose an hourly rate of <strong>$45</strong> to ensure high‑quality, well‑documented code and comprehensive tests.  </p>
+<p>Would you like me to share a short demo of the forecasting pipeline and discuss the first‑week rollout plan?</p>
+</blockquote></body></html>

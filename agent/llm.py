@@ -72,6 +72,8 @@ def chat(node: str, messages: list[dict], *, json_mode: bool = False, temperatur
                     body["response_format"] = {"type": "json_object"}
                 if "gpt-oss" in m:
                     body["reasoning_effort"] = "low"
+                    # reasoning tokens count against max_tokens: small caps returned empty answers (judge/critic/verifier)
+                    body["max_tokens"] = max(max_tokens, 1500)
                 r = httpx.post(f"{p['base_url']}/chat/completions", json=body, timeout=60,
                                headers={"Authorization": f"Bearer {os.getenv(p.get('api_key_env', ''), 'none')}"})
                 if r.status_code in (429, 500, 502, 503, 504):

@@ -101,24 +101,32 @@ async def main_async(n: int) -> dict:
             gold = j["gold"]["action"]
             for sys_name in systems:
                 start_run()
-                try:
-                    if sys_name == "c_graph":
-                        t0 = time.time()
-                        a = await analyse(j, client, persona)
-                        out = {"action": a["decision"]["action"], "price": (a.get("price") or {}).get("amount")}
-                        tok = a["usage"]["tokens"]
-                        if out["action"] == "bid":
-                            p = await propose(j, client, persona, arm="A")
-                            out["cover_letter"] = p["state"]["draft"]["cover_letter"]
-                            tok += p["usage"]["tokens"]
-                        lat = time.time() - t0
-                    elif sys_name == "a_react":
-                        out, tok, lat = await run_react(j, persona, floor, tools)
-                    else:
-                        out, tok, lat = await run_supervisor(j, persona, floor, tools)
-                    err = None
-                except Exception as e:  # count failures honestly
-                    out, tok, lat, err = {}, 0, 0.0, str(e)[:200]
+                out, tok, lat, err = {}, 0, 0.0, None
+                for attempt in range(5):  # provider rate limits (HTTP 429) are infrastructure, not agent failures: retry them
+                    try:
+                        if sys_name == "c_graph":
+                            t0 = time.time()
+                            a = await analyse(j, client, persona)
+                            out = {"action": a["decision"]["action"], "price": (a.get("price") or {}).get("amount")}
+                            tok = a["usage"]["tokens"]
+                            if out["action"] == "bid":
+                                pr = await propose(j, client, persona, arm="A")
+                                out["cover_letter"] = pr["state"]["draft"]["cover_letter"]
+                                tok += pr["usage"]["tokens"]
+                            lat = time.time() - t0
+                        elif sys_name == "a_react":
+                            out, tok, lat = await run_react(j, persona, floor, tools)
+                        else:
+                            out, tok, lat = await run_supervisor(j, persona, floor, tools)
+                        err = None
+                        break
+                    except Exception as e:  # genuine agent failures (e.g. calling a tool that does not exist) are counted
+                        err = str(e)[:200]
+                        if "429" in err and attempt < 4:
+                            await asyncio.sleep(30 * (attempt + 1))
+                            continue
+                        out, tok, lat = {}, 0, 0.0
+                        break
                 act = "bid" if str(out.get("action", "")).lower().startswith("bid") else "skip"
                 row = {"job_id": j["id"], "persona": persona, "job_type": j["gold"]["job_type"], "gold": gold, "pred": act,
                        "correct": act == gold or (gold == "watch"), "tokens": tok, "latency_s": round(lat, 2), "error": err,
@@ -135,7 +143,7 @@ async def main_async(n: int) -> dict:
                       "unsupported_claims_per_proposal": mean([r["unsupported"] for r in drafted]),
                       "compliance_violations_caught_per_proposal": mean([r["violations_caught"] for r in drafted]),
                       "reply_prob_mean": mean([r["p_reply"] for r in drafted]), "tokens_per_job": mean([r["tokens"] for r in rows]),
-                      "p95_latency_s": pctl([r["latency_s"] for r in rows], 95), "errors": sum(bool(r["error"]) for r in rows)}
+                      "p95_latency_s": pctl([r["latency_s"] for r in rows], 95), "errors": sum(bool(r["error"]) for r in rows), "errors_rate_limit": sum("429" in (r["error"] or "") for r in rows), "errors_invalid_tool_call": sum("Tool call validation" in (r["error"] or "") for r in rows)}
         print(k, summary[k])
     return {"summary": summary, "rows": systems}
 

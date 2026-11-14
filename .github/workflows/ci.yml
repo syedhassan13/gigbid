@@ -44,10 +44,16 @@ jobs:
         with: { node-version: 22, cache: npm, cache-dependency-path: apps/web/package-lock.json }
       - run: pip install -e .
       - run: cd apps/web && npm ci && npm run build && npx playwright install --with-deps chromium
+      - uses: actions/cache@v4
+        with: { path: "var/models\nvar/emb_cache", key: models-bge-small-v1 }
+      - name: Warm embedding models and portfolio indexes (first analysis would otherwise exceed the e2e timeout)
+        env: { GIGBID_PROFILE: offline, PYTHONPATH: . }
+        run: |
+          python scripts/generate_personas.py && python scripts/prepare_data.py
+          python -c "from rag.retriever import retrieve; [retrieve('python api', p) for p in ('ai_ml','fullstack','data_analyst')]"
       - name: Start GigSim + API (serves the build)
         env: { GIGBID_PROFILE: offline, PYTHONPATH: ., REVIEWER_EMAIL: ci@gigbid.test, REVIEWER_PASSWORD: ci-password-123, GIGBID_AUTOSCOUT: "0", JWT_SECRET: ci }
         run: |
-          python scripts/generate_personas.py && python scripts/prepare_data.py
           nohup uvicorn gigsim.app:app --port 8100 > gigsim.log 2>&1 &
           nohup uvicorn apps.api.main:app --port 8000 > api.log 2>&1 &
           for i in $(seq 1 90); do curl -sf localhost:8000/api/health && break; sleep 2; done

@@ -1,6 +1,6 @@
 # GigBid: R&D design review
 
-*AI-4016 · Individual · Repository commit `bf94439` · every number cites a file in `evals/results/`.*
+*AI-4016 · Individual · Repository commit `cf53cd4` · every number cites a file in `evals/results/`.*
 
 **Profiles.** Retrieval and decision numbers are model-independent (embeddings + rules). Proposal-text numbers were produced with the `offline` profile; where that is `offline`, the writer is the deterministic template fallback, not an LLM. Results produced with the Groq `open` profile are reported separately where available.
 
@@ -18,7 +18,13 @@ Why each agent exists (merged/split decisions): the Scout and Pricing Strategist
 
 **Hypothesis.** Fine-grained tools with disambiguating descriptions beat coarse action-dispatch tools on argument accuracy at a modest token cost.
 
-**Pending:** `python -m evals.runners.tool_design` needs an LLM profile (`GROQ_API_KEY`); no number is reported without a run.
+| Tool set | Tools | Selection acc. | Argument acc. | Tokens/task |
+|---|---|---|---|---|
+| fine | 13 | 0.900 | 0.825 | 448 |
+| coarse | 2 | 0.825 | 0.600 | 414 |
+| best | 13 | 0.975 | 0.950 | 625 |
+
+*40 tasks with known correct calls, model `openai/gpt-oss-20b` (`evals/results/tool_design.json`).*
 
 ## 4. R&D question B: retrieval, verification and the shipped choice
 
@@ -75,9 +81,25 @@ Why each agent exists (merged/split decisions): the Scout and Pricing Strategist
 
 **Judge calibration.** Pending: 30 proposals in `evals/datasets/judge_labels.csv` await the author's human scores; κ is computed only from human labels.
 
+**Groq `open` profile (LLM writer and critic), same harness.**
+| Variant | n | Unsupported before→after | Reply p | Sampled reply | p95 s / proposal | Cost / proposal | Injection success |
+|---|---|---|---|---|---|---|---|
+| v0_naive | 12 | 0.25 → 0.00 | 0.372 | 0.250 | 56.8 | $0.00150 | 0.000 |
+| v_best | 12 | 0.33 → 0.00 | 0.379 | 0.500 | 43.1 | $0.00120 | 0.000 |
+
+*`gigsim_outcomes_open.json`.*
+
 ## 5. R&D question C: is the multi-agent design worth it?
 
-**Pending:** `python -m evals.runners.multiagent_compare` requires the Groq profile. The graph side alone is measured in §8 (bid F1 0.987, 600 jobs).
+| System | Bid/skip acc. | Unsupported / proposal | Violations caught | Reply p | Tokens / job | p95 s | Errors |
+|---|---|---|---|---|---|---|---|
+| a_react | 0.667 | 0.50 | 1.00 | 0.346 | 1408 | 47.7 | 9 |
+| b_supervisor | 0.500 | – | – | – | 157 | 9.8 | 11 |
+| c_graph | 1.000 | 0.00 | 0.00 | 0.420 | 1842 | 76.7 | 0 |
+
+*(a) one ReAct agent with all read tools, (b) `langgraph-supervisor`, (c) GigBid's graph; `multiagent_compare.json`.*
+
+Per job type, single-agent accuracy: {"standard": 0.5, "multi_req": 1.0, "scam": 1.0, "low_budget": 1.0, "injection": 0.0, "vague": 0.0}
 
 ## 6. The change request (2 Nov platform policy update)
 
@@ -143,3 +165,14 @@ The hidden test set runs against the deployed URL after the deadline; it is not 
 make seed && make eval      # regenerates every file cited here
 python scripts/build_report.py
 ```
+
+## Appendix B: single agent, one grounded proposal (Part A)
+Tool calls: ['get_job', 'get_client_history', 'search_evidence', 'search_evidence', 'search_evidence', 'search_evidence', 'get_market_stats']; claims {'claims': 3, 'supported': 0, 'partial': 3, 'unsupported': 0}.
+
+> Your real‑estate team is losing revenue because inventory either runs out or sits idle each season, and you need reliable weekly SKU‑level forecasts with confidence intervals.  
+> 
+> I have shipped production‑grade forecasting services that use **statsmodels** for the statistical backbone [repo:ai_ml-forecast-02] and have integrated **machine‑learning** models into the same pipelines [case:ai_ml-churn-deploy-06]. My codebase is built entirely in **Python**, with clean, test‑driven modules that your engineers can extend [case:ai_ml-forecast-12]. I specialize in **time‑series** analysis, having reduced forecast error by over 30 % for a real‑estate scale‑up [case:ai_ml-forecast-12], and I have delivered end‑to‑end **forecasting** solutions that generate weekly SKU predictions and prediction intervals [case:ai_ml-forecast-02].  
+> 
+> Based on current market rates for AI/ML work (median $40 /hr, 75th percentile $85 /hr), I propose an hourly rate of **$45** to ensure high‑quality, well‑documented code and comprehensive tests.  
+> 
+> Would you like me to share a short demo of the forecasting pipeline and discuss the first‑week rollout plan?

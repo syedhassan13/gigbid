@@ -38,7 +38,7 @@
 
 | Bid F1 | Accuracy | Scam precision | Scam recall | Price in fair band | p95 s / job analysed |
 |---|---|---|---|---|---|
-| 0.974 | 0.980 | 0.983 | 1.000 | 1.000 | 0.21 |
+| 0.987 | 0.990 | 1.000 | 1.000 | 1.000 | 0.18 |
 
 ### X2 proposal A/B (paired)
 
@@ -48,4 +48,20 @@
 | B question-first | 0.327 | 0.383 |
 
 Paired t-test p = 0.0019, Wilcoxon p = 0.0050, McNemar p = 0.0987 (n = 60 jobs).
+
+### R&D C: single agent vs supervisor vs graph
+
+| System | Bid/skip acc. | Unsupported claims | Violations caught | Reply p | Tokens / job | p95 s |
+|---|---|---|---|---|---|---|
+| a_react | 0.667 | 0.50 | 1.00 | 0.346 | 1408 | 47.7 |
+| b_supervisor | 0.500 | – | – | – | 157 | 9.8 |
+| c_graph | 1.000 | 0.00 | 0.00 | 0.420 | 1842 | 76.7 |
+
+### R&D A: tool granularity
+
+| Tool set | Tools | Selection acc. | Argument acc. | Tokens / task |
+|---|---|---|---|---|
+| fine | 13 | 0.900 | 0.825 | 448 |
+| coarse | 2 | 0.825 | 0.600 | 414 |
+| best | 13 | 0.975 | 0.950 | 625 |
 <!-- results:end -->
