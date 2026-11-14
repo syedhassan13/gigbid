@@ -14,6 +14,13 @@ from apps.api.auth.security import user_from_token
 router = APIRouter(tags=["runs"])
 
 
+def _run_status(thread_id: str) -> str | None:
+    from sqlalchemy import select
+    with db.engine.connect() as c:
+        r = c.execute(select(db.runs.c.status).where(db.runs.c.thread_id == thread_id)).first()
+    return r[0] if r else None
+
+
 @router.get("/runs/{thread_id}/stream")
 async def stream(thread_id: str, token: str = Query(...), after: int = 0):
     user = user_from_token(token)  # EventSource cannot set headers -> token in query
@@ -30,7 +37,7 @@ async def stream(thread_id: str, token: str = Query(...), after: int = 0):
             idle = 0 if evs else idle + 1
             if evs and evs[-1].get("type") == "done":
                 await asyncio.sleep(1.5)
-                if not db.events_after(thread_id, last):
+                if not db.events_after(thread_id, last) and _run_status(thread_id) not in ("running", "resuming"):
                     yield {"event": "end", "data": "{}"}
                     return
             await asyncio.sleep(0.4)

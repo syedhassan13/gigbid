@@ -122,4 +122,14 @@ def multivector(docs: list[Document]) -> list[Chunk]:
     return out
 
 
-CHUNKERS = {"fixed": fixed, "structure": structure, "contextual": contextual, "multivector": multivector}
+def contextual_multivector(docs: list[Document]) -> list[Chunk]:
+    """V5 + V6: multi-vector items, each with its generated context line."""
+    out = []
+    for c in multivector(docs):
+        c.text = context_line(c) + "\n" + c.text
+        out.append(c)
+    return out
+
+
+CHUNKERS = {"fixed": fixed, "structure": structure, "contextual": contextual, "multivector": multivector,
+            "contextual_multivector": contextual_multivector}

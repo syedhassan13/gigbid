@@ -276,7 +276,7 @@ def run(cfg: PipelineConfig, job: dict | str, persona: str, k: int = 8, requirem
         else:
             evs = retrieve_one(ix, cfg, q, k, industry)
         res.evidence = _dedupe_docs(evs, k)
-    if cfg.chunking == "multivector":  # group: return one item per project, best chunk wins
+    if "multivector" in cfg.chunking:  # group: return one item per project, best chunk wins
         seen, grouped = set(), []
         for e in res.evidence:
             key = e.project or e.doc_id

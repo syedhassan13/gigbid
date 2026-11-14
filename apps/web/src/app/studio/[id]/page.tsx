@@ -42,7 +42,7 @@ export default function Studio() {
       <p><Link to={`/jobs/${id}`}>← Job detail</Link></p>
       <h1>Proposal studio</h1>
       <p className="muted small">{String((d.job as Record<string, unknown>).title)} · arm {draft?.variant ?? "–"} · status <span className="chip">{d.status}</span></p>
-      {running && <div className="panel"><RunTimeline threadId={running} onDone={() => { setRunning(null); load(); }} /></div>}
+      {running && <div className="panel"><RunTimeline threadId={running} onDone={() => load()} /></div>}
       {!intr && d.status !== "awaiting_approval" && <div className="banner warn">Nothing is waiting for approval on this job (status: {d.status}).</div>}
       <div className="grid2">
         <section className="panel">

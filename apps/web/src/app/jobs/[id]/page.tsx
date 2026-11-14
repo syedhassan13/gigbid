@@ -40,7 +40,7 @@ export default function JobDetail() {
         {d.thread_id && <Link className="btn" to={`/runs/${encodeURIComponent(d.thread_id)}`}>Agent run</Link>}
       </div>
       {d.error && <div className="banner warn">{d.error}</div>}
-      {running && <div className="panel"><RunTimeline threadId={running} onDone={() => { setRunning(null); load(); }} /></div>}
+      {running && <div className="panel"><RunTimeline threadId={running} onDone={() => load()} /></div>}
       <div className="grid2">
         <section className="panel">
           <h2>Job post <span className="small muted">(untrusted client text)</span></h2>

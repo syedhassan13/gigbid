@@ -16,10 +16,12 @@ export default function RunTimeline({ threadId, onDone }: { threadId: string; on
       setState("live");
       const ev = JSON.parse(e.data) as Ev;
       setEvents((xs) => (xs.some((x) => x.id === ev.id) ? xs : [...xs, ev]));
-      if (ev.type === "done") { setState("done"); doneRef.current?.(ev.status); }
+      if (ev.type === "done") lastStatus = ev.status;
     };
+    let lastStatus: string | null | undefined;
     ["update", "interrupt", "done"].forEach((t) => es.addEventListener(t, push as EventListener));
-    es.addEventListener("end", () => es.close());
+    // the server closes the stream only when the run is no longer running/resuming (replayed "done" events don't count)
+    es.addEventListener("end", () => { es.close(); setState("done"); doneRef.current?.(lastStatus); });
     es.onerror = () => setState((s) => (s === "done" ? s : "error"));
     return () => es.close();
   }, [threadId]);

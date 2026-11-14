@@ -1,0 +1,654 @@
+{
+  "env": {
+    "commit": "d4cb05e",
+    "profile": "offline",
+    "rag_variant": "v_best",
+    "embeddings": "BAAI/bge-small-en-v1.5",
+    "reranker": "Xenova/ms-marco-MiniLM-L-6-v2",
+    "python": "3.14.2",
+    "machine": "AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD",
+    "cpu_count": 4,
+    "ts": "2026-11-14T16:42:37"
+  },
+  "variants": {
+    "v0_naive": {
+      "n": 180,
+      "p50_latency_s": 0.0887,
+      "p95_latency_s": 0.1785,
+      "breakdown": {
+        "ai_ml": {
+          "recall@5": 0.3833,
+          "mrr": 0.6571,
+          "ndcg@10": 0.4733
+        },
+        "type:standard": {
+          "recall@5": 0.4196,
+          "mrr": 0.6146,
+          "ndcg@10": 0.4873
+        },
+        "all": {
+          "recall@5": 0.4361,
+          "mrr": 0.6542,
+          "ndcg@10": 0.5085
+        },
+        "type:multi_req": {
+          "recall@5": 0.4396,
+          "mrr": 0.6964,
+          "ndcg@10": 0.5159
+        },
+        "type:low_budget": {
+          "recall@5": 0.4118,
+          "mrr": 0.6588,
+          "ndcg@10": 0.5551
+        },
+        "type:injection": {
+          "recall@5": 0.4294,
+          "mrr": 0.5608,
+          "ndcg@10": 0.4729
+        },
+        "type:vague": {
+          "recall@5": 0.4789,
+          "mrr": 0.693,
+          "ndcg@10": 0.53
+        },
+        "fullstack": {
+          "recall@5": 0.5117,
+          "mrr": 0.6597,
+          "ndcg@10": 0.5662
+        },
+        "data_analyst": {
+          "recall@5": 0.4133,
+          "mrr": 0.6457,
+          "ndcg@10": 0.4861
+        }
+      }
+    },
+    "v1_decompose": {
+      "n": 180,
+      "p50_latency_s": 0.0151,
+      "p95_latency_s": 0.0463,
+      "breakdown": {
+        "ai_ml": {
+          "recall@5": 0.4367,
+          "mrr": 0.8799,
+          "ndcg@10": 0.4739
+        },
+        "type:standard": {
+          "recall@5": 0.4107,
+          "mrr": 0.7759,
+          "ndcg@10": 0.4306
+        },
+        "all": {
+          "recall@5": 0.4647,
+          "mrr": 0.8814,
+          "ndcg@10": 0.5019
+        },
+        "type:multi_req": {
+          "recall@5": 0.5061,
+          "mrr": 0.9278,
+          "ndcg@10": 0.5474
+        },
+        "type:low_budget": {
+          "recall@5": 0.5059,
+          "mrr": 0.9265,
+          "ndcg@10": 0.5383
+        },
+        "type:injection": {
+          "recall@5": 0.4471,
+          "mrr": 0.8314,
+          "ndcg@10": 0.4919
+        },
+        "type:vague": {
+          "recall@5": 0.3605,
+          "mrr": 0.886,
+          "ndcg@10": 0.3964
+        },
+        "fullstack": {
+          "recall@5": 0.4808,
+          "mrr": 0.9153,
+          "ndcg@10": 0.5284
+        },
+        "data_analyst": {
+          "recall@5": 0.4767,
+          "mrr": 0.8492,
+          "ndcg@10": 0.5034
+        }
+      }
+    },
+    "v2_hybrid": {
+      "n": 180,
+      "p50_latency_s": 0.0095,
+      "p95_latency_s": 0.0132,
+      "breakdown": {
+        "ai_ml": {
+          "recall@5": 0.6167,
+          "mrr": 0.7992,
+          "ndcg@10": 0.6226
+        },
+        "type:standard": {
+          "recall@5": 0.525,
+          "mrr": 0.7411,
+          "ndcg@10": 0.5705
+        },
+        "all": {
+          "recall@5": 0.5728,
+          "mrr": 0.8247,
+          "ndcg@10": 0.6294
+        },
+        "type:multi_req": {
+          "recall@5": 0.589,
+          "mrr": 0.8388,
+          "ndcg@10": 0.6441
+        },
+        "type:low_budget": {
+          "recall@5": 0.5176,
+          "mrr": 0.848,
+          "ndcg@10": 0.6487
+        },
+        "type:injection": {
+          "recall@5": 0.5941,
+          "mrr": 0.8725,
+          "ndcg@10": 0.6418
+        },
+        "type:vague": {
+          "recall@5": 0.5842,
+          "mrr": 0.7807,
+          "ndcg@10": 0.6128
+        },
+        "fullstack": {
+          "recall@5": 0.5583,
+          "mrr": 0.8653,
+          "ndcg@10": 0.6503
+        },
+        "data_analyst": {
+          "recall@5": 0.5433,
+          "mrr": 0.8097,
+          "ndcg@10": 0.6152
+        }
+      }
+    },
+    "v3_rerank": {
+      "n": 180,
+      "p50_latency_s": 2.8453,
+      "p95_latency_s": 5.9376,
+      "breakdown": {
+        "ai_ml": {
+          "recall@5": 0.4,
+          "mrr": 0.6903,
+          "ndcg@10": 0.492
+        },
+        "type:standard": {
+          "recall@5": 0.3393,
+          "mrr": 0.5269,
+          "ndcg@10": 0.444
+        },
+        "all": {
+          "recall@5": 0.3772,
+          "mrr": 0.6081,
+          "ndcg@10": 0.4858
+        },
+        "type:multi_req": {
+          "recall@5": 0.4305,
+          "mrr": 0.7089,
+          "ndcg@10": 0.5249
+        },
+        "type:low_budget": {
+          "recall@5": 0.2235,
+          "mrr": 0.3373,
+          "ndcg@10": 0.3766
+        },
+        "type:injection": {
+          "recall@5": 0.3412,
+          "mrr": 0.5422,
+          "ndcg@10": 0.4485
+        },
+        "type:vague": {
+          "recall@5": 0.4053,
+          "mrr": 0.6535,
+          "ndcg@10": 0.5434
+        },
+        "fullstack": {
+          "recall@5": 0.405,
+          "mrr": 0.5464,
+          "ndcg@10": 0.5079
+        },
+        "data_analyst": {
+          "recall@5": 0.3267,
+          "mrr": 0.5877,
+          "ndcg@10": 0.4575
+        }
+      }
+    },
+    "v4_outcome": {
+      "n": 180,
+      "p50_latency_s": 2.3653,
+      "p95_latency_s": 5.8102,
+      "breakdown": {
+        "ai_ml": {
+          "recall@5": 0.6033,
+          "mrr": 0.9056,
+          "ndcg@10": 0.6328
+        },
+        "type:standard": {
+          "recall@5": 0.5107,
+          "mrr": 0.6762,
+          "ndcg@10": 0.5495
+        },
+        "all": {
+          "recall@5": 0.5083,
+          "mrr": 0.7685,
+          "ndcg@10": 0.5878
+        },
+        "type:multi_req": {
+          "recall@5": 0.5378,
+          "mrr": 0.7988,
+          "ndcg@10": 0.6039
+        },
+        "type:low_budget": {
+          "recall@5": 0.4118,
+          "mrr": 0.7225,
+          "ndcg@10": 0.581
+        },
+        "type:injection": {
+          "recall@5": 0.4647,
+          "mrr": 0.7794,
+          "ndcg@10": 0.5578
+        },
+        "type:vague": {
+          "recall@5": 0.5421,
+          "mrr": 0.7953,
+          "ndcg@10": 0.6343
+        },
+        "fullstack": {
+          "recall@5": 0.4517,
+          "mrr": 0.6416,
+          "ndcg@10": 0.5626
+        },
+        "data_analyst": {
+          "recall@5": 0.47,
+          "mrr": 0.7583,
+          "ndcg@10": 0.568
+        }
+      }
+    },
+    "v5_multivector": {
+      "n": 180,
+      "p50_latency_s": 0.0092,
+      "p95_latency_s": 0.0126,
+      "breakdown": {
+        "ai_ml": {
+          "recall@5": 0.7133,
+          "mrr": 0.875,
+          "ndcg@10": 0.6068
+        },
+        "type:standard": {
+          "recall@5": 0.7,
+          "mrr": 0.7976,
+          "ndcg@10": 0.5996
+        },
+        "all": {
+          "recall@5": 0.7356,
+          "mrr": 0.887,
+          "ndcg@10": 0.6435
+        },
+        "type:multi_req": {
+          "recall@5": 0.7415,
+          "mrr": 0.9146,
+          "ndcg@10": 0.6552
+        },
+        "type:low_budget": {
+          "recall@5": 0.7294,
+          "mrr": 0.8824,
+          "ndcg@10": 0.6382
+        },
+        "type:injection": {
+          "recall@5": 0.7529,
+          "mrr": 0.9118,
+          "ndcg@10": 0.6611
+        },
+        "type:vague": {
+          "recall@5": 0.7368,
+          "mrr": 0.8596,
+          "ndcg@10": 0.6308
+        },
+        "fullstack": {
+          "recall@5": 0.7767,
+          "mrr": 0.9389,
+          "ndcg@10": 0.7073
+        },
+        "data_analyst": {
+          "recall@5": 0.7167,
+          "mrr": 0.8472,
+          "ndcg@10": 0.6163
+        }
+      }
+    },
+    "v6_contextual": {
+      "n": 180,
+      "p50_latency_s": 0.0095,
+      "p95_latency_s": 0.014,
+      "breakdown": {
+        "ai_ml": {
+          "recall@5": 0.67,
+          "mrr": 0.9264,
+          "ndcg@10": 0.7202
+        },
+        "type:standard": {
+          "recall@5": 0.6214,
+          "mrr": 0.9643,
+          "ndcg@10": 0.7102
+        },
+        "all": {
+          "recall@5": 0.6611,
+          "mrr": 0.9477,
+          "ndcg@10": 0.7485
+        },
+        "type:multi_req": {
+          "recall@5": 0.6713,
+          "mrr": 0.9299,
+          "ndcg@10": 0.758
+        },
+        "type:low_budget": {
+          "recall@5": 0.6118,
+          "mrr": 0.9314,
+          "ndcg@10": 0.7463
+        },
+        "type:injection": {
+          "recall@5": 0.7,
+          "mrr": 0.9706,
+          "ndcg@10": 0.7765
+        },
+        "type:vague": {
+          "recall@5": 0.65,
+          "mrr": 0.9737,
+          "ndcg@10": 0.7162
+        },
+        "fullstack": {
+          "recall@5": 0.6667,
+          "mrr": 0.95,
+          "ndcg@10": 0.7842
+        },
+        "data_analyst": {
+          "recall@5": 0.6467,
+          "mrr": 0.9667,
+          "ndcg@10": 0.7412
+        }
+      }
+    },
+    "v7_hyde": {
+      "n": 180,
+      "p50_latency_s": 0.0797,
+      "p95_latency_s": 0.1432,
+      "breakdown": {
+        "ai_ml": {
+          "recall@5": 0.5867,
+          "mrr": 0.795,
+          "ndcg@10": 0.623
+        },
+        "type:standard": {
+          "recall@5": 0.5179,
+          "mrr": 0.7798,
+          "ndcg@10": 0.5845
+        },
+        "all": {
+          "recall@5": 0.585,
+          "mrr": 0.8456,
+          "ndcg@10": 0.6281
+        },
+        "type:multi_req": {
+          "recall@5": 0.611,
+          "mrr": 0.8886,
+          "ndcg@10": 0.651
+        },
+        "type:low_budget": {
+          "recall@5": 0.5765,
+          "mrr": 0.7794,
+          "ndcg@10": 0.6185
+        },
+        "type:injection": {
+          "recall@5": 0.6353,
+          "mrr": 0.9167,
+          "ndcg@10": 0.6556
+        },
+        "type:vague": {
+          "recall@5": 0.4895,
+          "mrr": 0.6886,
+          "ndcg@10": 0.5529
+        },
+        "fullstack": {
+          "recall@5": 0.5917,
+          "mrr": 0.8931,
+          "ndcg@10": 0.6467
+        },
+        "data_analyst": {
+          "recall@5": 0.5767,
+          "mrr": 0.8486,
+          "ndcg@10": 0.6146
+        }
+      }
+    },
+    "v8_corrective": {
+      "n": 180,
+      "p50_latency_s": 4.6832,
+      "p95_latency_s": 8.6866,
+      "breakdown": {
+        "ai_ml": {
+          "recall@5": 0.4133,
+          "mrr": 0.7857,
+          "ndcg@10": 0.4321
+        },
+        "type:standard": {
+          "recall@5": 0.3893,
+          "mrr": 0.7914,
+          "ndcg@10": 0.4174
+        },
+        "all": {
+          "recall@5": 0.4572,
+          "mrr": 0.8864,
+          "ndcg@10": 0.4952
+        },
+        "type:multi_req": {
+          "recall@5": 0.489,
+          "mrr": 0.9146,
+          "ndcg@10": 0.5351
+        },
+        "type:low_budget": {
+          "recall@5": 0.4706,
+          "mrr": 0.9314,
+          "ndcg@10": 0.5133
+        },
+        "type:injection": {
+          "recall@5": 0.4471,
+          "mrr": 0.8403,
+          "ndcg@10": 0.4802
+        },
+        "type:vague": {
+          "recall@5": 0.4263,
+          "mrr": 0.9474,
+          "ndcg@10": 0.4482
+        },
+        "fullstack": {
+          "recall@5": 0.4617,
+          "mrr": 0.9319,
+          "ndcg@10": 0.5112
+        },
+        "data_analyst": {
+          "recall@5": 0.4967,
+          "mrr": 0.9417,
+          "ndcg@10": 0.5423
+        }
+      }
+    },
+    "v9_skill_graph": {
+      "n": 180,
+      "p50_latency_s": 0.0177,
+      "p95_latency_s": 0.0235,
+      "breakdown": {
+        "ai_ml": {
+          "recall@5": 0.5533,
+          "mrr": 0.975,
+          "ndcg@10": 0.5674
+        },
+        "type:standard": {
+          "recall@5": 0.5696,
+          "mrr": 0.9375,
+          "ndcg@10": 0.5849
+        },
+        "all": {
+          "recall@5": 0.5794,
+          "mrr": 0.9622,
+          "ndcg@10": 0.6054
+        },
+        "type:multi_req": {
+          "recall@5": 0.6159,
+          "mrr": 0.978,
+          "ndcg@10": 0.648
+        },
+        "type:low_budget": {
+          "recall@5": 0.5647,
+          "mrr": 1.0,
+          "ndcg@10": 0.608
+        },
+        "type:injection": {
+          "recall@5": 0.6176,
+          "mrr": 0.9559,
+          "ndcg@10": 0.6394
+        },
+        "type:vague": {
+          "recall@5": 0.3816,
+          "mrr": 0.9079,
+          "ndcg@10": 0.3889
+        },
+        "fullstack": {
+          "recall@5": 0.5883,
+          "mrr": 0.9575,
+          "ndcg@10": 0.6259
+        },
+        "data_analyst": {
+          "recall@5": 0.5967,
+          "mrr": 0.9542,
+          "ndcg@10": 0.623
+        }
+      }
+    },
+    "v_best_rejected_candidate": {
+      "n": 180,
+      "p50_latency_s": 4.6053,
+      "p95_latency_s": 13.3569,
+      "breakdown": {
+        "ai_ml": {
+          "recall@5": 0.5433,
+          "mrr": 0.9361,
+          "ndcg@10": 0.5793
+        },
+        "type:standard": {
+          "recall@5": 0.4821,
+          "mrr": 0.881,
+          "ndcg@10": 0.5223
+        },
+        "all": {
+          "recall@5": 0.5569,
+          "mrr": 0.925,
+          "ndcg@10": 0.5932
+        },
+        "type:multi_req": {
+          "recall@5": 0.6183,
+          "mrr": 0.9654,
+          "ndcg@10": 0.6672
+        },
+        "type:low_budget": {
+          "recall@5": 0.5412,
+          "mrr": 0.902,
+          "ndcg@10": 0.5717
+        },
+        "type:injection": {
+          "recall@5": 0.6,
+          "mrr": 0.9167,
+          "ndcg@10": 0.6098
+        },
+        "type:vague": {
+          "recall@5": 0.3395,
+          "mrr": 0.8509,
+          "ndcg@10": 0.3676
+        },
+        "fullstack": {
+          "recall@5": 0.5108,
+          "mrr": 0.9028,
+          "ndcg@10": 0.5485
+        },
+        "data_analyst": {
+          "recall@5": 0.6167,
+          "mrr": 0.9361,
+          "ndcg@10": 0.6517
+        }
+      },
+      "config": "contextual + decompose + hybrid + rerank + outcome (rejected)"
+    },
+    "v_best": {
+      "n": 180,
+      "p50_latency_s": 0.009,
+      "p95_latency_s": 0.012,
+      "breakdown": {
+        "ai_ml": {
+          "recall@5": 0.8667,
+          "mrr": 0.9417,
+          "ndcg@10": 0.8395
+        },
+        "type:standard": {
+          "recall@5": 0.7714,
+          "mrr": 0.9583,
+          "ndcg@10": 0.8113
+        },
+        "all": {
+          "recall@5": 0.8203,
+          "mrr": 0.9241,
+          "ndcg@10": 0.8364
+        },
+        "type:multi_req": {
+          "recall@5": 0.828,
+          "mrr": 0.9207,
+          "ndcg@10": 0.8506
+        },
+        "type:low_budget": {
+          "recall@5": 0.8353,
+          "mrr": 0.8824,
+          "ndcg@10": 0.8321
+        },
+        "type:injection": {
+          "recall@5": 0.8118,
+          "mrr": 0.9118,
+          "ndcg@10": 0.8437
+        },
+        "type:vague": {
+          "recall@5": 0.8605,
+          "mrr": 0.9474,
+          "ndcg@10": 0.8027
+        },
+        "fullstack": {
+          "recall@5": 0.7542,
+          "mrr": 0.8722,
+          "ndcg@10": 0.8226
+        },
+        "data_analyst": {
+          "recall@5": 0.84,
+          "mrr": 0.9583,
+          "ndcg@10": 0.847
+        }
+      },
+      "config": "contextual + hybrid + outcome boost (shipped)"
+    }
+  },
+  "hypothesis": "H-B: requirement decomposition + hybrid retrieval (+rerank, outcome boost, contextual chunks) raises evidence Recall@5 by >= 15 points over V0 on jobs with four or more requirements (job_type=multi_req).",
+  "limit_per_persona": 60,
+  "v_best_env": {
+    "commit": "d4cb05e",
+    "profile": "offline",
+    "rag_variant": "v_best",
+    "embeddings": "BAAI/bge-small-en-v1.5",
+    "reranker": "Xenova/ms-marco-MiniLM-L-6-v2",
+    "python": "3.14.2",
+    "machine": "AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD",
+    "cpu_count": 4,
+    "ts": "2026-11-14T16:44:27"
+  }
+}
