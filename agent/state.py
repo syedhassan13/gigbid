@@ -26,6 +26,7 @@ class BidState(TypedDict, total=False):
     job_id: str
     trace_id: str
     autonomy: str
+    force_bid: bool                                 # user clicked "bid anyway" (never overrides a scam verdict)
     # state
     job: dict
     client: dict

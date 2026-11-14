@@ -16,7 +16,7 @@ INJECTION = [r"ignore (all |any )?(previous|prior|above) instructions", r"\[syst
              r"disregard (your|all) (rules|instructions)", r"reveal (your )?(system prompt|instructions)", r"<!--\s*assistant", r"admin mode",
              r"recommend bid with a price", r"respond with (bid|yes)"]
 OFF_PLATFORM = [r"telegram", r"whatsapp", r"wa\.me", r"t\.me/", r"skype", r"outside the platform", r"off[- ]platform", r"paypal", r"western union",
-                r"crypto|usdt|bitcoin", r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}", r"text me", r"do not use the platform"]
+                r"(pay|paid|payment|transfer)\w*\s+(via|in|with|through|using)\s+(crypto|usdt|bitcoin)|(crypto|usdt|bitcoin)\s*\(?(payment|transfer)", r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}", r"text me", r"do not use the platform"]
 FREE_WORK = [r"unpaid (test|trial)", r"free sample", r"complete the full .* (first|as an unpaid)", r"best submission gets", r"before hiring, complete"]
 PAYMENT_SCAM = [r"send you a check", r"deposit it", r"transfer the difference", r"pay(ment)? (via|through) crypto"]
 
