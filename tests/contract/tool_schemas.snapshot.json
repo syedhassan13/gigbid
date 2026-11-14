@@ -1,0 +1,1557 @@
+{
+ "gigbid-marketplace.create_proposal_draft": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false,
+   "readOnlyHint": false
+  },
+  "input": {
+   "$defs": {
+    "ProposalDraftIn": {
+     "properties": {
+      "bid_amount": {
+       "description": "USD; hourly rate for hourly jobs, total for fixed",
+       "exclusiveMinimum": 0,
+       "maximum": 100000,
+       "title": "Bid Amount",
+       "type": "number"
+      },
+      "cover_letter": {
+       "maxLength": 5000,
+       "minLength": 50,
+       "title": "Cover Letter",
+       "type": "string"
+      },
+      "job_id": {
+       "maxLength": 64,
+       "minLength": 3,
+       "title": "Job Id",
+       "type": "string"
+      },
+      "screening_answers": {
+       "items": {
+        "maxLength": 2000,
+        "type": "string"
+       },
+       "maxItems": 10,
+       "title": "Screening Answers",
+       "type": "array"
+      },
+      "variant": {
+       "anyOf": [
+        {
+         "maxLength": 20,
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "description": "X2 experiment arm",
+       "title": "Variant"
+      }
+     },
+     "required": [
+      "job_id",
+      "cover_letter",
+      "bid_amount"
+     ],
+     "title": "ProposalDraftIn",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "draft": {
+     "$ref": "#/$defs/ProposalDraftIn"
+    },
+    "idempotency_key": {
+     "maxLength": 128,
+     "minLength": 8,
+     "title": "Idempotency Key",
+     "type": "string"
+    }
+   },
+   "required": [
+    "draft",
+    "idempotency_key"
+   ],
+   "title": "create_proposal_draftArguments",
+   "type": "object"
+  },
+  "output": {
+   "properties": {
+    "draft_id": {
+     "title": "Draft Id",
+     "type": "string"
+    },
+    "preview": {
+     "additionalProperties": true,
+     "description": "Exactly what would be sent, the Connects cost and policy violations",
+     "title": "Preview",
+     "type": "object"
+    }
+   },
+   "required": [
+    "draft_id",
+    "preview"
+   ],
+   "title": "DraftOut",
+   "type": "object"
+  }
+ },
+ "gigbid-marketplace.get_client_history": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {
+    "client_id": {
+     "maxLength": 64,
+     "minLength": 3,
+     "title": "Client Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "client_id"
+   ],
+   "title": "get_client_historyArguments",
+   "type": "object"
+  },
+  "output": {
+   "properties": {
+    "avg_rating": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Avg Rating"
+    },
+    "country": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Country"
+    },
+    "hires": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Hires"
+    },
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "industry": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Industry"
+    },
+    "jobs_posted": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Jobs Posted"
+    },
+    "member_since": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Member Since"
+    },
+    "name": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Name"
+    },
+    "payment_verified": {
+     "anyOf": [
+      {
+       "type": "boolean"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Payment Verified"
+    },
+    "reviews": {
+     "default": [],
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Reviews",
+     "type": "array"
+    },
+    "total_spent": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Total Spent"
+    }
+   },
+   "required": [
+    "id"
+   ],
+   "title": "ClientHistory",
+   "type": "object"
+  }
+ },
+ "gigbid-marketplace.get_connects_balance": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {},
+   "title": "get_connects_balanceArguments",
+   "type": "object"
+  },
+  "output": {
+   "properties": {
+    "balance": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Balance"
+    },
+    "freelancer_id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Freelancer Id"
+    }
+   },
+   "required": [
+    "balance"
+   ],
+   "title": "Connects",
+   "type": "object"
+  }
+ },
+ "gigbid-marketplace.get_events": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {
+    "after": {
+     "default": 0,
+     "minimum": 0,
+     "title": "After",
+     "type": "integer"
+    }
+   },
+   "title": "get_eventsArguments",
+   "type": "object"
+  },
+  "output": null
+ },
+ "gigbid-marketplace.get_job": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {
+    "job_id": {
+     "maxLength": 64,
+     "minLength": 3,
+     "title": "Job Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "job_id"
+   ],
+   "title": "get_jobArguments",
+   "type": "object"
+  },
+  "output": {
+   "properties": {
+    "budget_max": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Budget Max"
+    },
+    "budget_min": {
+     "anyOf": [
+      {
+       "type": "number"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Budget Min"
+    },
+    "budget_type": {
+     "enum": [
+      "fixed",
+      "hourly"
+     ],
+     "title": "Budget Type",
+     "type": "string"
+    },
+    "category": {
+     "title": "Category",
+     "type": "string"
+    },
+    "client_id": {
+     "title": "Client Id",
+     "type": "string"
+    },
+    "connects_cost": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Connects Cost"
+    },
+    "description": {
+     "title": "Description",
+     "type": "string"
+    },
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "posted_at": {
+     "title": "Posted At",
+     "type": "string"
+    },
+    "screening_questions": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Screening Questions",
+     "type": "array"
+    },
+    "skills": {
+     "default": [],
+     "items": {
+      "type": "string"
+     },
+     "title": "Skills",
+     "type": "array"
+    },
+    "source": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Source"
+    },
+    "title": {
+     "title": "Title",
+     "type": "string"
+    }
+   },
+   "required": [
+    "id",
+    "title",
+    "description",
+    "category",
+    "budget_type",
+    "client_id",
+    "posted_at"
+   ],
+   "title": "JobSummary",
+   "type": "object"
+  }
+ },
+ "gigbid-marketplace.get_market_stats": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {
+    "category": {
+     "maxLength": 40,
+     "title": "Category",
+     "type": "string"
+    }
+   },
+   "required": [
+    "category"
+   ],
+   "title": "get_market_statsArguments",
+   "type": "object"
+  },
+  "output": null
+ },
+ "gigbid-marketplace.get_policy": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {},
+   "title": "get_policyArguments",
+   "type": "object"
+  },
+  "output": null
+ },
+ "gigbid-marketplace.list_messages": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {
+    "thread_id": {
+     "maxLength": 64,
+     "minLength": 3,
+     "title": "Thread Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "thread_id"
+   ],
+   "title": "list_messagesArguments",
+   "type": "object"
+  },
+  "output": null
+ },
+ "gigbid-marketplace.list_proposals": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {},
+   "title": "list_proposalsArguments",
+   "type": "object"
+  },
+  "output": null
+ },
+ "gigbid-marketplace.list_threads": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {},
+   "title": "list_threadsArguments",
+   "type": "object"
+  },
+  "output": null
+ },
+ "gigbid-marketplace.search_jobs": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {
+    "category": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "ai_ml | web_dev | data_analytics | ...",
+     "title": "Category"
+    },
+    "include_dev": {
+     "default": false,
+     "title": "Include Dev",
+     "type": "boolean"
+    },
+    "limit": {
+     "default": 20,
+     "maximum": 100,
+     "minimum": 1,
+     "title": "Limit",
+     "type": "integer"
+    },
+    "posted_after": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "ISO timestamp; only newer jobs",
+     "title": "Posted After"
+    },
+    "query": {
+     "default": "",
+     "description": "Keywords from a saved search",
+     "maxLength": 200,
+     "title": "Query",
+     "type": "string"
+    }
+   },
+   "title": "search_jobsArguments",
+   "type": "object"
+  },
+  "output": {
+   "$defs": {
+    "JobSummary": {
+     "properties": {
+      "budget_max": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Budget Max"
+      },
+      "budget_min": {
+       "anyOf": [
+        {
+         "type": "number"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Budget Min"
+      },
+      "budget_type": {
+       "enum": [
+        "fixed",
+        "hourly"
+       ],
+       "title": "Budget Type",
+       "type": "string"
+      },
+      "category": {
+       "title": "Category",
+       "type": "string"
+      },
+      "client_id": {
+       "title": "Client Id",
+       "type": "string"
+      },
+      "connects_cost": {
+       "anyOf": [
+        {
+         "type": "integer"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Connects Cost"
+      },
+      "description": {
+       "title": "Description",
+       "type": "string"
+      },
+      "id": {
+       "title": "Id",
+       "type": "string"
+      },
+      "posted_at": {
+       "title": "Posted At",
+       "type": "string"
+      },
+      "screening_questions": {
+       "default": [],
+       "items": {
+        "type": "string"
+       },
+       "title": "Screening Questions",
+       "type": "array"
+      },
+      "skills": {
+       "default": [],
+       "items": {
+        "type": "string"
+       },
+       "title": "Skills",
+       "type": "array"
+      },
+      "source": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Source"
+      },
+      "title": {
+       "title": "Title",
+       "type": "string"
+      }
+     },
+     "required": [
+      "id",
+      "title",
+      "description",
+      "category",
+      "budget_type",
+      "client_id",
+      "posted_at"
+     ],
+     "title": "JobSummary",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "jobs": {
+     "items": {
+      "$ref": "#/$defs/JobSummary"
+     },
+     "title": "Jobs",
+     "type": "array"
+    },
+    "now": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Now"
+    },
+    "total": {
+     "title": "Total",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "total",
+    "jobs"
+   ],
+   "title": "JobSearchResult",
+   "type": "object"
+  }
+ },
+ "gigbid-marketplace.send_message": {
+  "annotations": {
+   "destructiveHint": true,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": false
+  },
+  "input": {
+   "properties": {
+    "dry_run": {
+     "default": false,
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "idempotency_key": {
+     "maxLength": 128,
+     "minLength": 8,
+     "title": "Idempotency Key",
+     "type": "string"
+    },
+    "text": {
+     "maxLength": 5000,
+     "minLength": 1,
+     "title": "Text",
+     "type": "string"
+    },
+    "thread_id": {
+     "maxLength": 64,
+     "minLength": 3,
+     "title": "Thread Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "thread_id",
+    "text",
+    "idempotency_key"
+   ],
+   "title": "send_messageArguments",
+   "type": "object"
+  },
+  "output": {
+   "properties": {
+    "dry_run": {
+     "default": false,
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Id"
+    },
+    "idempotent_replay": {
+     "default": false,
+     "title": "Idempotent Replay",
+     "type": "boolean"
+    },
+    "status": {
+     "title": "Status",
+     "type": "string"
+    },
+    "text": {
+     "title": "Text",
+     "type": "string"
+    },
+    "thread_id": {
+     "title": "Thread Id",
+     "type": "string"
+    }
+   },
+   "required": [
+    "thread_id",
+    "status",
+    "text"
+   ],
+   "title": "MessageOut",
+   "type": "object"
+  }
+ },
+ "gigbid-marketplace.submit_proposal": {
+  "annotations": {
+   "destructiveHint": true,
+   "idempotentHint": true,
+   "openWorldHint": true,
+   "readOnlyHint": false
+  },
+  "input": {
+   "properties": {
+    "draft_id": {
+     "maxLength": 64,
+     "minLength": 3,
+     "title": "Draft Id",
+     "type": "string"
+    },
+    "dry_run": {
+     "default": false,
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "idempotency_key": {
+     "maxLength": 128,
+     "minLength": 8,
+     "title": "Idempotency Key",
+     "type": "string"
+    }
+   },
+   "required": [
+    "draft_id",
+    "idempotency_key"
+   ],
+   "title": "submit_proposalArguments",
+   "type": "object"
+  },
+  "output": {
+   "properties": {
+    "connects_balance_after": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Connects Balance After"
+    },
+    "connects_cost": {
+     "anyOf": [
+      {
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Connects Cost"
+    },
+    "detail": {
+     "additionalProperties": true,
+     "default": {},
+     "title": "Detail",
+     "type": "object"
+    },
+    "dry_run": {
+     "default": false,
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "id": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Id"
+    },
+    "idempotent_replay": {
+     "default": false,
+     "title": "Idempotent Replay",
+     "type": "boolean"
+    },
+    "status": {
+     "title": "Status",
+     "type": "string"
+    }
+   },
+   "required": [
+    "status"
+   ],
+   "title": "SubmitOut",
+   "type": "object"
+  }
+ },
+ "gigbid-portfolio.get_case_study": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "persona": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Persona"
+    }
+   },
+   "required": [
+    "id"
+   ],
+   "title": "get_case_studyArguments",
+   "type": "object"
+  },
+  "output": {
+   "properties": {
+    "client_industry": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Client Industry"
+    },
+    "date": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "title": "Date"
+    },
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "related": {
+     "description": "Other evidence ids describing the same project",
+     "items": {
+      "type": "string"
+     },
+     "title": "Related",
+     "type": "array"
+    },
+    "skills": {
+     "items": {
+      "type": "string"
+     },
+     "title": "Skills",
+     "type": "array"
+    },
+    "text": {
+     "title": "Text",
+     "type": "string"
+    },
+    "title": {
+     "title": "Title",
+     "type": "string"
+    },
+    "type": {
+     "title": "Type",
+     "type": "string"
+    }
+   },
+   "required": [
+    "id",
+    "title",
+    "type",
+    "text",
+    "skills",
+    "client_industry",
+    "date",
+    "related"
+   ],
+   "title": "CaseStudy",
+   "type": "object"
+  }
+ },
+ "gigbid-portfolio.list_skills": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {
+    "persona": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Persona"
+    }
+   },
+   "title": "list_skillsArguments",
+   "type": "object"
+  },
+  "output": {
+   "$defs": {
+    "SkillCount": {
+     "properties": {
+      "evidence_count": {
+       "title": "Evidence Count",
+       "type": "integer"
+      },
+      "skill": {
+       "title": "Skill",
+       "type": "string"
+      }
+     },
+     "required": [
+      "skill",
+      "evidence_count"
+     ],
+     "title": "SkillCount",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "result": {
+     "items": {
+      "$ref": "#/$defs/SkillCount"
+     },
+     "title": "Result",
+     "type": "array"
+    }
+   },
+   "required": [
+    "result"
+   ],
+   "title": "list_skillsOutput",
+   "type": "object"
+  }
+ },
+ "gigbid-portfolio.search_evidence": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false,
+   "readOnlyHint": true
+  },
+  "input": {
+   "$defs": {
+    "EvidenceFilters": {
+     "properties": {
+      "industry": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "description": "Prefer evidence from this client industry",
+       "title": "Industry"
+      },
+      "outcome": {
+       "anyOf": [
+        {
+         "items": {
+          "enum": [
+           "won",
+           "replied",
+           "ignored"
+          ],
+          "type": "string"
+         },
+         "type": "array"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "description": "Only past proposals with these outcomes",
+       "title": "Outcome"
+      },
+      "persona": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "description": "Persona / portfolio id; defaults to the server's persona",
+       "title": "Persona"
+      },
+      "since": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "description": "ISO date; only items dated on/after",
+       "title": "Since"
+      },
+      "types": {
+       "anyOf": [
+        {
+         "items": {
+          "enum": [
+           "cv",
+           "case_study",
+           "repo_readme",
+           "proposal",
+           "review",
+           "user_upload"
+          ],
+          "type": "string"
+         },
+         "type": "array"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "default": null,
+       "title": "Types"
+      }
+     },
+     "title": "EvidenceFilters",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "filters": {
+     "anyOf": [
+      {
+       "$ref": "#/$defs/EvidenceFilters"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null
+    },
+    "k": {
+     "default": 5,
+     "title": "K",
+     "type": "integer"
+    },
+    "requirement": {
+     "title": "Requirement",
+     "type": "string"
+    }
+   },
+   "required": [
+    "requirement"
+   ],
+   "title": "search_evidenceArguments",
+   "type": "object"
+  },
+  "output": {
+   "$defs": {
+    "EvidenceItem": {
+     "properties": {
+      "date": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Date"
+      },
+      "id": {
+       "description": "Stable evidence id, e.g. case:ai_ml-rag-chatbot-00 - cite this",
+       "title": "Id",
+       "type": "string"
+      },
+      "outcome": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Outcome"
+      },
+      "project": {
+       "anyOf": [
+        {
+         "type": "string"
+        },
+        {
+         "type": "null"
+        }
+       ],
+       "title": "Project"
+      },
+      "score": {
+       "description": "Support score 0..1 (higher = stronger proof)",
+       "title": "Score",
+       "type": "number"
+      },
+      "snippet": {
+       "title": "Snippet",
+       "type": "string"
+      },
+      "source": {
+       "description": "Resource URI to load the full item",
+       "title": "Source",
+       "type": "string"
+      },
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "type": {
+       "title": "Type",
+       "type": "string"
+      }
+     },
+     "required": [
+      "id",
+      "type",
+      "title",
+      "source",
+      "date",
+      "outcome",
+      "project",
+      "score",
+      "snippet"
+     ],
+     "title": "EvidenceItem",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "items": {
+     "items": {
+      "$ref": "#/$defs/EvidenceItem"
+     },
+     "title": "Items",
+     "type": "array"
+    },
+    "requirement": {
+     "title": "Requirement",
+     "type": "string"
+    },
+    "weak": {
+     "description": "True when no item is strong enough to claim this requirement",
+     "title": "Weak",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "requirement",
+    "items",
+    "weak"
+   ],
+   "title": "EvidenceResult",
+   "type": "object"
+  }
+ },
+ "gigbid-workspace.create_email_draft": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false,
+   "readOnlyHint": false
+  },
+  "input": {
+   "properties": {
+    "body": {
+     "maxLength": 5000,
+     "title": "Body",
+     "type": "string"
+    },
+    "idempotency_key": {
+     "minLength": 8,
+     "title": "Idempotency Key",
+     "type": "string"
+    },
+    "subject": {
+     "maxLength": 200,
+     "title": "Subject",
+     "type": "string"
+    },
+    "to_label": {
+     "description": "Who it is for (no address needed)",
+     "maxLength": 120,
+     "title": "To Label",
+     "type": "string"
+    }
+   },
+   "required": [
+    "to_label",
+    "subject",
+    "body",
+    "idempotency_key"
+   ],
+   "title": "create_email_draftArguments",
+   "type": "object"
+  },
+  "output": {
+   "properties": {
+    "body": {
+     "title": "Body",
+     "type": "string"
+    },
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "subject": {
+     "title": "Subject",
+     "type": "string"
+    },
+    "to_label": {
+     "title": "To Label",
+     "type": "string"
+    }
+   },
+   "required": [
+    "id",
+    "to_label",
+    "subject",
+    "body"
+   ],
+   "title": "EmailDraft",
+   "type": "object"
+  }
+ },
+ "gigbid-workspace.create_tentative_hold": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false,
+   "readOnlyHint": false
+  },
+  "input": {
+   "properties": {
+    "duration_minutes": {
+     "maximum": 180,
+     "minimum": 15,
+     "title": "Duration Minutes",
+     "type": "integer"
+    },
+    "idempotency_key": {
+     "minLength": 8,
+     "title": "Idempotency Key",
+     "type": "string"
+    },
+    "start": {
+     "title": "Start",
+     "type": "string"
+    },
+    "title": {
+     "maxLength": 120,
+     "title": "Title",
+     "type": "string"
+    }
+   },
+   "required": [
+    "start",
+    "duration_minutes",
+    "title",
+    "idempotency_key"
+   ],
+   "title": "create_tentative_holdArguments",
+   "type": "object"
+  },
+  "output": {
+   "properties": {
+    "end": {
+     "title": "End",
+     "type": "string"
+    },
+    "id": {
+     "title": "Id",
+     "type": "string"
+    },
+    "start": {
+     "title": "Start",
+     "type": "string"
+    },
+    "status": {
+     "title": "Status",
+     "type": "string"
+    },
+    "title": {
+     "title": "Title",
+     "type": "string"
+    }
+   },
+   "required": [
+    "id",
+    "start",
+    "end",
+    "title",
+    "status"
+   ],
+   "title": "Hold",
+   "type": "object"
+  }
+ },
+ "gigbid-workspace.free_slots": {
+  "annotations": {
+   "destructiveHint": false,
+   "idempotentHint": true,
+   "openWorldHint": false,
+   "readOnlyHint": true
+  },
+  "input": {
+   "properties": {
+    "days": {
+     "default": 5,
+     "maximum": 14,
+     "minimum": 1,
+     "title": "Days",
+     "type": "integer"
+    },
+    "duration_minutes": {
+     "default": 30,
+     "maximum": 180,
+     "minimum": 15,
+     "title": "Duration Minutes",
+     "type": "integer"
+    },
+    "from_date": {
+     "description": "ISO date, e.g. 2026-11-16",
+     "title": "From Date",
+     "type": "string"
+    },
+    "max_slots": {
+     "default": 3,
+     "maximum": 10,
+     "minimum": 1,
+     "title": "Max Slots",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "from_date"
+   ],
+   "title": "free_slotsArguments",
+   "type": "object"
+  },
+  "output": {
+   "$defs": {
+    "Slot": {
+     "properties": {
+      "end": {
+       "title": "End",
+       "type": "string"
+      },
+      "start": {
+       "title": "Start",
+       "type": "string"
+      }
+     },
+     "required": [
+      "start",
+      "end"
+     ],
+     "title": "Slot",
+     "type": "object"
+    }
+   },
+   "properties": {
+    "result": {
+     "items": {
+      "$ref": "#/$defs/Slot"
+     },
+     "title": "Result",
+     "type": "array"
+    }
+   },
+   "required": [
+    "result"
+   ],
+   "title": "free_slotsOutput",
+   "type": "object"
+  }
+ }
+}

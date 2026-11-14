@@ -31,9 +31,9 @@ def edit_patterns(before: str, after: str) -> list[dict]:
         pats.append({"pattern": "shorter", "rule": "Keep proposals ~20% shorter than the default length.", "example": f"{len(before.split())}->{len(after.split())} words"})
     if after.count("?") > before.count("?"):
         pats.append({"pattern": "added_question", "rule": "End with one specific question about the client's project.", "example": ""})
-    removed = set(re.findall(r"\b[a-z][a-z' -]{3,30}\b", before.lower())) - set(re.findall(r"\b[a-z][a-z' -]{3,30}\b", after.lower()))
+    bl, al = before.lower(), after.lower()
     for w in ("passionate", "hard-working", "hardworking", "perfectly", "high quality", "dear", "kindly", "expert", "excited"):
-        if w in removed:
+        if re.search(rf"\b{re.escape(w)}\b", bl) and not re.search(rf"\b{re.escape(w)}\b", al):
             pats.append({"pattern": f"never_say:{w}", "rule": f"Never say \"{w}\".", "example": w})
     sm = difflib.SequenceMatcher(None, before, after)
     pats_diff = round(1 - sm.ratio(), 3)

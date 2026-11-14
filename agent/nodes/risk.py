@@ -45,11 +45,12 @@ def assess(job: dict, client: dict) -> RiskReport:
     flags: list[RiskFlag] = []
     if (m := find(INJECTION, text)):
         flags.append(RiskFlag(code="injection", severity=0.5, evidence=m))
-    if (m := find(OFF_PLATFORM, text)):
+    clean = strip_injection(text)  # scam rules judge the CLIENT's ask, not text planted for AI agents
+    if (m := find(OFF_PLATFORM, clean)):
         flags.append(RiskFlag(code="off_platform", severity=0.85, evidence=m))
-    if (m := find(FREE_WORK, text)):
+    if (m := find(FREE_WORK, clean)):
         flags.append(RiskFlag(code="free_work", severity=0.85, evidence=m))
-    if (m := find(PAYMENT_SCAM, text)):
+    if (m := find(PAYMENT_SCAM, clean)):
         flags.append(RiskFlag(code="payment_scam", severity=0.95, evidence=m))
     # client quality
     cs = 0.5
