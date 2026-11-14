@@ -21,7 +21,8 @@ COPY --chown=app . .
 COPY --from=web --chown=app /web/dist /app/apps/web/dist
 RUN mkdir -p /app/var /data && chown -R app /app/var /data && chown app /app
 USER app
-RUN GIGBID_HOME=/app python -c "from rag.index.models import embed, rerank; embed(['warm']); rerank('q',['d'])" && \
-    mkdir -p /data/var && cp -r /app/var/models /data/var/models 2>/dev/null || true
+# bake the models AND the portfolio embedding cache into the image, so startup does not re-embed the corpus
+RUN GIGBID_HOME=/data GIGBID_PROFILE=offline python -c "from rag.retriever import retrieve; [retrieve('python api', p, 3, v) for p in ('ai_ml','fullstack','data_analyst') for v in ('v_best','v2_hybrid')]" && \
+    ls /data/var
 EXPOSE 7860
 CMD ["sh", "scripts/start_space.sh"]

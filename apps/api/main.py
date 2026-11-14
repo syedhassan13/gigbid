@@ -83,9 +83,14 @@ async def lifespan(_app):
     await tasks.runtime()
     # warm the portfolio indexes (embeddings are cached on disk) so the first analysis is not slow
     from rag.retriever import retrieve
-    warm = asyncio.gather(*[asyncio.to_thread(retrieve, "python api", p, 3, v) for p in ("ai_ml", "fullstack", "data_analyst")
-                            for v in ("v_best", "v2_hybrid")], return_exceptions=True)
-    await warm
+    async def _warm():  # in the background: the port must open immediately for the platform health check
+        for p in ("ai_ml", "fullstack", "data_analyst"):
+            for v in ("v_best", "v2_hybrid"):
+                try:
+                    await asyncio.to_thread(retrieve, "python api", p, 3, v)
+                except Exception as e:
+                    log.warning("index warm-up failed for %s/%s: %s", p, v, e)
+    warm_task = asyncio.create_task(_warm())
     bg = asyncio.create_task(embedded_worker()) if worker_mode() == "embedded" else None
     yield
     if bg:
