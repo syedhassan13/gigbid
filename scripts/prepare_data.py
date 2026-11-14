@@ -167,6 +167,7 @@ def main() -> None:
     ap.add_argument("--dev-per-persona", type=int, default=200)
     ap.add_argument("--historical", type=int, default=1500)
     ap.add_argument("--stream", type=int, default=300)
+    ap.add_argument("--regen-dev", action="store_true", help="regenerate the COMMITTED dev set (changes job ids; invalidates results)")
     args = ap.parse_args()
     rng = random.Random(args.seed)
     PROC.mkdir(parents=True, exist_ok=True)
@@ -227,9 +228,17 @@ def main() -> None:
         clients[cl["id"]] = cl
     (PROC / "historical_jobs.jsonl").write_text("\n".join(json.dumps(j) for j in hist) + "\n")
 
-    # 2) dev set per persona with gold labels
+    # 2) dev set per persona with gold labels. The committed dev set is the fixed evaluation set: reuse it unless
+    #    --regen-dev (a machine without the Kaggle raw files would otherwise produce different jobs and ids).
+    committed_dev = all((DEV / f"dev_{p}.jsonl").exists() for p in personas) and (DEV / "dev_clients.jsonl").exists()
+    if committed_dev and not args.regen_dev:
+        for line in (DEV / "dev_clients.jsonl").read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                c = json.loads(line)
+                clients[c["id"]] = c
+        print("dev set: using committed evals/datasets/dev_*.jsonl")
     mix = [("relevant", .42), ("vague", .08), ("low_budget", .06), ("offdomain", .22), ("scam", .11), ("injection", .11)]
-    for p, (prof, projs, props) in personas.items():
+    for p, (prof, projs, props) in (personas.items() if (args.regen_dev or not committed_dev) else []):
         others = [x for q, (_, ps, _) in personas.items() if q != p for x in ps]
         dev = []
         for i in range(args.dev_per_persona):
@@ -254,6 +263,8 @@ def main() -> None:
                   ("standard", "multi_req", "vague", "low_budget", "off_domain", "scam", "injection")})
 
     # 3) live stream: released by GigSim over time, includes duplicates, scams, injections (no gold exposed)
+    if committed_dev and not args.regen_dev:
+        rng = random.Random(args.seed + 1000)  # independent stream so its client ids cannot collide with the committed dev clients
     stream = []
     for i in range(args.stream):
         p = rng.choice(list(personas))
@@ -276,8 +287,9 @@ def main() -> None:
     (PROC / "stream_jobs.jsonl").write_text("\n".join(json.dumps(j) for j in stream) + "\n")
     (PROC / "clients.jsonl").write_text("\n".join(json.dumps(c) for c in clients.values()) + "\n")
     # committed copy of clients referenced by the dev set so evals are reproducible from the repo alone
-    dev_clients = {json.loads(l)["client_id"] for p in personas for l in (DEV / f"dev_{p}.jsonl").read_text().splitlines()}
-    (DEV / "dev_clients.jsonl").write_text("\n".join(json.dumps(clients[c]) for c in dev_clients) + "\n")
+    if args.regen_dev or not committed_dev:
+        dev_clients = {json.loads(l)["client_id"] for p in personas for l in (DEV / f"dev_{p}.jsonl").read_text().splitlines()}
+        (DEV / "dev_clients.jsonl").write_text("\n".join(json.dumps(clients[c]) for c in dev_clients) + "\n")
     print(f"pricing stats: {stats_source}; kaggle rows: {len(rows)}; historical={len(hist)} stream={len(stream)} clients={len(clients)}")
 
 

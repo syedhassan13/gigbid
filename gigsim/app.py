@@ -96,7 +96,7 @@ def seed(reset: bool = False) -> dict:
         jobs += [(j, "hidden", "open") for j in _jsonl(hidden_path)]
         for j, kind, st in jobs:
             c.execute("INSERT OR IGNORE INTO jobs VALUES (?,?,?,?,?,?)", (j["id"], json.dumps(j), kind, j["posted_at"], j["category"], st))
-        for cl in _jsonl(proc / "clients.jsonl") + _jsonl(dev / "dev_clients.jsonl"):
+        for cl in _jsonl(dev / "dev_clients.jsonl") + _jsonl(proc / "clients.jsonl"):  # dev clients win on id collisions
             c.execute("INSERT OR IGNORE INTO clients VALUES (?,?)", (cl["id"], json.dumps(cl)))
         for fid, f in FREELANCERS.items():
             c.execute("INSERT OR REPLACE INTO freelancers VALUES (?,?,?,?)", (fid, f["persona"], f["token"], policy()["weekly_free_connects"] * 10))
