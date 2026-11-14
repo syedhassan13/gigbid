@@ -1,0 +1,136 @@
+# GigBid runtime configuration. Models, budgets, thresholds and policy live HERE, never in code.
+# Select profile with GIGBID_PROFILE (open | local | paid | offline). Default: open.
+profile: open
+
+profiles:
+  open:            # REQUIRED: open-weight models only, via a hosted open-model provider (deploy target)
+    provider: groq
+    base_url: https://api.groq.com/openai/v1
+    api_key_env: GROQ_API_KEY
+    nodes:
+      default: openai/gpt-oss-20b
+      analyst: openai/gpt-oss-20b
+      risk: openai/gpt-oss-20b          # cheap, frequent
+      router: openai/gpt-oss-20b
+      compliance: openai/gpt-oss-20b
+      writer: openai/gpt-oss-120b       # strongest we can afford
+      critic: openai/gpt-oss-120b
+      verifier: openai/gpt-oss-20b
+      liaison: openai/gpt-oss-120b
+      hyde: openai/gpt-oss-20b
+      judge: openai/gpt-oss-120b
+    fallback_model: llama-3.1-8b-instant  # cheap-node fallback when the primary errors / rate-limits
+    # USD per 1M tokens (input, output). Check provider pricing page; used for cost reporting only.
+    prices:
+      openai/gpt-oss-20b: [0.075, 0.30]
+      openai/gpt-oss-120b: [0.15, 0.60]
+      llama-3.1-8b-instant: [0.05, 0.08]
+  open_alt:        # second open configuration compared on the dev set ("choose by measurement")
+    provider: groq
+    base_url: https://api.groq.com/openai/v1
+    api_key_env: GROQ_API_KEY
+    nodes:
+      default: qwen/qwen3-32b
+      writer: qwen/qwen3-32b
+      critic: qwen/qwen3-32b
+      liaison: qwen/qwen3-32b
+      judge: openai/gpt-oss-120b
+    fallback_model: llama-3.1-8b-instant
+    prices:
+      qwen/qwen3-32b: [0.29, 0.59]
+      openai/gpt-oss-120b: [0.15, 0.60]
+      llama-3.1-8b-instant: [0.05, 0.08]
+  local:           # laptop: Ollama on CPU
+    provider: openai_compatible
+    base_url: http://localhost:11434/v1
+    api_key_env: OLLAMA_API_KEY
+    nodes:
+      default: qwen3:4b
+      writer: qwen3:8b
+      critic: qwen3:8b
+      liaison: qwen3:8b
+    fallback_model: qwen3:4b
+    prices: {}
+  paid:            # optional; only where it beats open enough to justify cost
+    provider: openai_compatible
+    base_url: https://openrouter.ai/api/v1
+    api_key_env: OPENROUTER_API_KEY
+    nodes:
+      default: openai/gpt-oss-20b
+      writer: anthropic/claude-sonnet-5.5
+      critic: anthropic/claude-sonnet-5.5
+    fallback_model: openai/gpt-oss-20b
+    prices: {}
+  offline:         # deterministic heuristics, no network: CI, tests, and degraded mode
+    provider: heuristic
+    nodes: {default: heuristic}
+    prices: {}
+
+embeddings:
+  model: BAAI/bge-small-en-v1.5
+  cache_dir: var/models
+reranker:
+  model: Xenova/ms-marco-MiniLM-L-6-v2   # alternative measured: BAAI/bge-reranker-v2-m3
+
+rag:
+  variant: v_best          # chosen by evals/results/rag_variants.json (see docs/DATA_CARD.md)
+  k: 8
+  min_support: 0.30        # evidence below this score is "weak" (corrective loop / refuse to claim)
+
+decision:
+  bid_fit: 0.50            # fit score >= bid_fit -> candidate to bid
+  watch_fit: 0.35
+  risk_skip: 0.60          # risk score >= this -> skip
+  min_hourly_multiple_of_floor: 1.0
+  min_fixed_hours_at_floor: 6
+  expected_value_min_usd: 0  # EV = p(win)*value - connects_usd
+
+pricing:
+  connect_usd: 0.15
+  hourly_percentile: p50
+  fixed_markup_over_budget: 0.0
+
+critic:
+  max_revisions: 2
+  min_words: 80
+  max_words: 300
+
+budgets:                    # per thread; exceeding -> "needs_attention"
+  max_steps: 40
+  max_tokens: 60000
+  declared_p95_latency_s:
+    job_analysed: 25
+    proposal: 60
+  declared_cost_usd:
+    job_analysed: 0.002
+    proposal: 0.01
+
+autonomy:
+  default: suggest          # suggest | auto_skip_low_fit   (never auto-send)
+
+policy:
+  rules_path: data/policy_pack/rules.yaml
+  overrides: {}
+
+marketplace:
+  adapter: gigsim           # gigsim | upwork_live
+  gigsim_url_env: GIGSIM_URL
+  live_poll_minutes: 240    # justified in docs/RUNBOOK.md
+
+scout:
+  interval_minutes: 180
+  saved_searches:
+    ai_ml: ["machine learning", "LLM", "RAG", "forecast", "computer vision", "NLP"]
+    fullstack: ["React", "Next.js", "Django", "Node", "Stripe", "dashboard"]
+    data_analyst: ["Power BI", "Tableau", "SQL", "dbt", "analytics", "Looker"]
+
+memory:
+  style_promotion_min_occurrences: 2   # an edit pattern must recur this many times before it is promoted
+  outcome_promotion_min_samples: 3
+
+experiment:                 # X2 Proposal A/B test
+  enabled: true
+  arms:
+    A: evidence_first       # open with the most relevant proof + metric
+    B: question_first       # open with a diagnostic question about the client's problem
+  assignment: hash          # deterministic by job id
