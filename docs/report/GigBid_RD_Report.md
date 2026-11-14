@@ -1,6 +1,6 @@
 # GigBid: R&D design review
 
-*AI-4016 · Individual · Repository commit `70f006e` · every number cites a file in `evals/results/`.*
+*AI-4016 · Individual · Repository commit `66f2fd0` · every number cites a file in `evals/results/`.*
 
 **Profiles.** Retrieval and decision numbers are model-independent (embeddings + rules). Proposal-text numbers were produced with the `offline` profile; where that is `offline`, the writer is the deterministic template fallback, not an LLM. Results produced with the Groq `open` profile are reported separately where available.
 
@@ -107,6 +107,7 @@ Decisions on 600 dev jobs: bid F1 0.987, accuracy 0.990, scam precision 1.000, r
 | Retrieval: decomposition | R@5 0.82 → 0.61 | Per-requirement lists dilute the whole-job project match | Whole-job query for ranking; per-requirement only for the evidence matrix | Yes |
 | Tool/infra: SSE replay | e2e approve | Viewer closed on a replayed 'done' event | Close only when run not running/resuming | Yes: Playwright passes |
 | Tool/infra: dropped state key | e2e reject | `force_bid` not in typed state ⇒ silently dropped | Declare field in `BidState` | Yes |
+| Compliance over-redaction | demo run | Phone regex matched interview slots '2026-11-03 09:00' ⇒ '[contact removed]' | Pattern may not start at/inside an ISO date or time | Yes: regression test |
 | Unsupported claim | 0.08 / proposal | Template writer cites a neighbouring project | Verifier removes it before Critic | Yes: 0.00 after |
 
 Remaining off-domain wrong bids (`decisions.json → failures`): ai_ml: Abc/xyz inventory views (Tableau, SQL); fullstack: Personalised recommendations served from an api (recomm; fullstack: Multi-touch attribution (marketing analytics, SQL); fullstack: A governed semantic layer and kpi tiles (Looker, SQL); data_analyst: A versioned public api (REST API, Node.js); data_analyst: A versioned public api (REST API, Node.js).

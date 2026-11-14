@@ -77,7 +77,7 @@ async def draft_reply(state: dict, cfg: dict, store) -> dict:
             text = ("Thanks for the message. I keep all communication and payments on the platform, and I don't do unpaid test work, "
                     "so I'd be glad to continue here once a contract is in place.")
         elif intent == "interview_request":
-            opts = "; ".join(f"{s['start'].replace('T', ' ')}" for s in slots) or "any weekday afternoon"
+            opts = "; ".join(datetime.fromisoformat(s["start"]).strftime("%a %d %b, %H:%M") for s in slots) or "any weekday afternoon"
             text = f"Thanks - happy to talk about {job['title']}. I'm free at: {opts} (your time zone works for me). Which suits you best?"
         elif intent == "negotiation":
             m = re.search(r"\$(\d+)", last)

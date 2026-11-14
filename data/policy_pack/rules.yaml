@@ -12,7 +12,8 @@ rules:
   - id: P1_phone
     policy: P1
     kind: regex_redact
-    pattern: '(?<!\w)(?:\+?\d[\d\s().-]{8,}\d)(?!\w)'
+    # not inside / starting at an ISO date or time ("2026-11-03 09:00" is an interview slot, not a phone number)
+    pattern: '(?<![\w:-])(?!\d{4}-\d{2}-\d{2})(?:\+?\d[\d\s().-]{8,}\d)(?![\w:-])'
     replacement: '[contact removed]'
     severity: block_if_unfixable
   - id: P1_url_offplatform

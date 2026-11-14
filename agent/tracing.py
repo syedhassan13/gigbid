@@ -13,7 +13,7 @@ import uuid
 from dataclasses import dataclass, field
 
 _EMAIL = re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
-_PHONE = re.compile(r"(?<!\w)\+?\d[\d\s().-]{8,}\d(?!\w)")
+_PHONE = re.compile(r"(?<![\w:-])(?!\d{4}-\d{2}-\d{2})\+?\d[\d\s().-]{8,}\d(?![\w:-])")
 _CARD = re.compile(r"\b(?:\d[ -]?){13,19}\b")
 _IBAN = re.compile(r"\b[A-Z]{2}\d{2}[A-Z0-9]{11,30}\b")
 _HANDLE = re.compile(r"(?i)(?:t\.me|wa\.me|telegram\.me)/\S+|@[A-Za-z0-9_]{4,}")

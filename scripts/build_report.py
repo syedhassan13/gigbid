@@ -173,6 +173,7 @@ def main() -> None:
         ["Retrieval: decomposition", "R@5 0.82 → 0.61", "Per-requirement lists dilute the whole-job project match", "Whole-job query for ranking; per-requirement only for the evidence matrix", "Yes"],
         ["Tool/infra: SSE replay", "e2e approve", "Viewer closed on a replayed 'done' event", "Close only when run not running/resuming", "Yes: Playwright passes"],
         ["Tool/infra: dropped state key", "e2e reject", "`force_bid` not in typed state ⇒ silently dropped", "Declare field in `BidState`", "Yes"],
+        ["Compliance over-redaction", "demo run", "Phone regex matched interview slots '2026-11-03 09:00' ⇒ '[contact removed]'", "Pattern may not start at/inside an ISO date or time", "Yes: regression test"],
         ["Unsupported claim", f"{f(ob.get('unsupported_claims_per_proposal_before'), 2)} / proposal", "Template writer cites a neighbouring project", "Verifier removes it before Critic", f"Yes: {f(ob.get('unsupported_claims_per_proposal_after'), 2)} after"],
     ]
     A(table(["Category", "Count", "Root cause", "Fix tried", "Worked?"], tax))

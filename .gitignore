@@ -17,3 +17,4 @@ apps/web/test-results/
 evals/datasets/hidden*
 .pytest_cache/
 .fastembed_cache/
+apps/web/demo-results/
