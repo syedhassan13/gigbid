@@ -60,6 +60,9 @@ jobs:
       - name: Playwright
         env: { E2E_EMAIL: ci@gigbid.test, E2E_PASSWORD: ci-password-123 }
         run: cd apps/web && npx playwright test
+      - name: Server logs (on failure)
+        if: failure()
+        run: tail -n 80 api.log gigsim.log || true
       - uses: actions/upload-artifact@v4
         if: always()
         with: { name: playwright-report, path: apps/web/playwright-report }

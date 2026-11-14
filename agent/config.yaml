@@ -40,6 +40,15 @@ profiles:
       qwen/qwen3.8-27b: [0.29, 0.59]
       openai/gpt-oss-120b: [0.15, 0.60]
       openai/gpt-oss-20b: [0.075, 0.30]
+  open_small:      # every node on gpt-oss-20b: used for comparisons that must share one model (R&D C, judge) when 120b's daily quota is spent
+    provider: groq
+    base_url: https://api.groq.com/openai/v1
+    api_key_env: GROQ_API_KEY
+    nodes:
+      default: openai/gpt-oss-20b
+    fallback_model: openai/gpt-oss-20b
+    prices:
+      openai/gpt-oss-20b: [0.075, 0.30]
   local:           # laptop: Ollama on CPU
     provider: openai_compatible
     base_url: http://localhost:11434/v1

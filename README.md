@@ -17,12 +17,13 @@ approve it.**
 LangGraph multi-agent system · advanced RAG with measured variant choice · three MCP servers (+ official
 Upwork and GitHub MCP) · FastAPI + React · durable Postgres checkpoints · open-weight models first.
 
-> Demo GIF: `docs/images/demo.gif` (30 s: inbox → studio with evidence hover → approve → client reply).
+![GigBid demo: inbox → evidence hover → approve → client reply](docs/images/demo.gif)
 
 | | |
 |---|---|
 | Live app | _add your Hugging Face Space URL_ (reviewer login in the private Classroom comment) |
-| Demo video (3 min) | _add link_ |
+| Demo video (3 min) | _add link_ · automated walkthrough: [docs/images/demo_walkthrough.mp4](docs/images/demo_walkthrough.mp4) |
+| Source | https://github.com/syedhassan13/gigbid |
 | Portfolio MCP server | [`mcp_servers/portfolio`](mcp_servers/portfolio/README.md): `uvx --from git+https://github.com/syedhassan13/gigbid gigbid-portfolio-mcp` |
 | Technical write-up | _add link_ |
 | Public traces | _add three LangSmith links: skipped scam, approved proposal, critic loop_ |
