@@ -89,11 +89,15 @@ def load_kaggle(max_rows_per_file: int = 300_000) -> tuple[list[dict], dict]:
             cols = reader.fieldnames or []
             c_title = _find(cols, "title", "job_title", "job title", "name")
             c_desc = _find(cols, "description", "desc", "summary")
-            c_budget = _find(cols, "budget", "fixed_price", "price", "amount")
-            c_lo = _find(cols, "hourly_low", "min_hourly", "hourly rate low", "rate_low")
-            c_hi = _find(cols, "hourly_high", "max_hourly", "hourly rate high", "rate_high")
+            c_budget = _find(cols, "budget", "job_cost", "fixed_price", "price", "amount")
+            c_lo = _find(cols, "hourly_low", "start_rate", "min_hourly", "hourly rate low", "rate_low")
+            c_hi = _find(cols, "hourly_high", "end_rate", "max_hourly", "hourly rate high", "rate_high")
             c_rate = _find(cols, "hourly_rate", "hourly rate", "rate")
-            c_hourly = _find(cols, "is_hourly", "job type", "job_type", "payment type")
+            c_hourly = _find(cols, "is_hourly", "payment_type", "job type", "job_type", "payment type")
+            c_spent = _find(cols, "spent")
+            c_conn = _find(cols, "connects_num")
+            c_rating = _find(cols, "rating")
+            c_payver = _find(cols, "payment_situation")
             c_skills = _find(cols, "skills", "tags", "keywords")
             c_country = _find(cols, "country", "location")
             n = 0
@@ -111,7 +115,11 @@ def load_kaggle(max_rows_per_file: int = 300_000) -> tuple[list[dict], dict]:
                              "hourly_low": lo or rate, "hourly_high": hi or rate,
                              "is_hourly": ("true" in hourly_flag or "hour" in hourly_flag) or bool(lo or hi or rate),
                              "skills": (r.get(c_skills) or "")[:300] if c_skills else "",
-                             "country": (r.get(c_country) or "") if c_country else ""})
+                             "country": (r.get(c_country) or "") if c_country else "",
+                             "client_spent": _num(r.get(c_spent)) if c_spent else None,
+                             "connects": _num(r.get(c_conn)) if c_conn else None,
+                             "client_rating": _num(r.get(c_rating)) if c_rating else None,
+                             "payment_verified": ("verified" in str(r.get(c_payver, "")).lower() and "un" not in str(r.get(c_payver, "")).lower()) if c_payver else None})
             profile["files"].append({"file": str(path.relative_to(ROOT)), "rows_read": n, "columns": cols[:40],
                                      "detected": {"title": c_title, "description": c_desc, "budget": c_budget,
                                                   "hourly_low": c_lo, "hourly_high": c_hi, "rate": c_rate, "skills": c_skills}})
@@ -170,6 +178,12 @@ def main() -> None:
     if not stats:
         stats = SYNTH_STATS
     kprofile["total_rows"] = len(rows)
+    kprofile["client_stats"] = {
+        "client_spent_usd": pct([r["client_spent"] for r in rows if r.get("client_spent")]),
+        "connects_per_job": pct([r["connects"] for r in rows if r.get("connects")]),
+        "client_rating": pct([r["client_rating"] for r in rows if r.get("client_rating")]),
+        "payment_verified_share": round(sum(bool(r.get("payment_verified")) for r in rows if r.get("payment_verified") is not None)
+                                        / max(1, sum(r.get("payment_verified") is not None for r in rows)), 3)}
     kprofile["pricing_stats_source"] = stats_source
     (PROC / "pricing_stats.json").write_text(json.dumps({"source": stats_source, "stats": stats}, indent=2))
     (PROC / "kaggle_profile.json").write_text(json.dumps(kprofile, indent=2))
