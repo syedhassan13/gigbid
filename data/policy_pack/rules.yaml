@@ -46,5 +46,5 @@ rules:
     min_words: 60
     max_words: 320
     severity: rewrite
-# Required content (empty in v1). The 2 Nov policy update adds an entry here.
-required_statements: []
+# Required content. Platform policy update v2 (2026-11-02): mandatory AI-assistance disclosure.
+required_statements: ["Drafted with AI assistance and reviewed by me."]
