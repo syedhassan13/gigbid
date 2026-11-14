@@ -182,6 +182,9 @@ def main() -> None:
         ["Tool/infra: SSE replay", "e2e approve", "Viewer closed on a replayed 'done' event", "Close only when run not running/resuming", "Yes: Playwright passes"],
         ["Tool/infra: dropped state key", "e2e reject", "`force_bid` not in typed state ⇒ silently dropped", "Declare field in `BidState`", "Yes"],
         ["Compliance over-redaction", "demo run", "Phone regex matched interview slots '2026-11-03 09:00' ⇒ '[contact removed]'", "Pattern may not start at/inside an ISO date or time", "Yes: regression test"],
+        ["Tool/infra: budget never reset", "integration test", "Cumulative step reducer: re-running a thread hit the 40-step budget", "Negative update resets the counter on each fresh run", "Yes"],
+        ["Tool/infra: cold start", "CI e2e", "First search embedded the whole corpus on the event loop; parallel searches timed out", "Retrieval in a worker thread + index warm-up at startup", "Yes: CI green"],
+        ["Tool/infra: retired model", "LLM runs", "Fallback model removed by provider (404) ⇒ silent rule fallback", "Fallback to gpt-oss-20b", "Yes"],
         ["Unsupported claim", f"{f(ob.get('unsupported_claims_per_proposal_before'), 2)} / proposal", "Template writer cites a neighbouring project", "Verifier removes it before Critic", f"Yes: {f(ob.get('unsupported_claims_per_proposal_after'), 2)} after"],
     ]
     A(table(["Category", "Count", "Root cause", "Fix tried", "Worked?"], tax))

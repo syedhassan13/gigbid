@@ -22,3 +22,14 @@
    Caught by Playwright.
 6. **The proposed "best" RAG pipeline was not the best.** Decomposition + reranker lost to contextual + hybrid
    + outcome boost on measurement, so the shipped config was changed (`evals/results/rag_combinations.json`).
+7. **Retired fallback model.** `llama-3.1-8b-instant` no longer exists on Groq, so every fallback call returned 404, and
+   when gpt-oss-120b hit its daily quota, the judge, critic and verifier silently fell back to rules. Found by tracing raw
+   HTTP responses; the fallback is now `openai/gpt-oss-20b`.
+8. **Reasoning tokens vs `max_tokens`.** gpt-oss spends hidden reasoning tokens from the same budget, so small caps (200–500)
+   could return empty answers. gpt-oss calls now get at least 1,500 tokens.
+9. **Budgets never reset.** The step/token counters accumulate across runs of the same thread, so re-analysing a job tripped
+   the 40-step budget (`needs_attention`). A fresh run now resets them. Found by the integration test.
+10. **Cold start blocked the event loop.** The first evidence search embedded every chunk on the event loop while the matcher
+    ran parallel searches, which then timed out. Retrieval now runs in a thread, and indexes are warmed at API startup.
+11. **Fresh machines regenerated the dev set with different job ids** (no Kaggle title pool), which broke CI e2e and would
+    have broken the deployment. Data prep now reuses the committed dev set.
