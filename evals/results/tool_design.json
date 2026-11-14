@@ -1,0 +1,134 @@
+{
+  "env": {
+    "commit": "564f388",
+    "profile": "open",
+    "rag_variant": "v_best",
+    "embeddings": "BAAI/bge-small-en-v1.5",
+    "reranker": "Xenova/ms-marco-MiniLM-L-6-v2",
+    "python": "3.14.2",
+    "machine": "AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD",
+    "cpu_count": 4,
+    "ts": "2026-11-14T20:17:35"
+  },
+  "tasks": 40,
+  "model": "openai/gpt-oss-20b",
+  "results": {
+    "fine": {
+      "tool_selection_accuracy": 0.9,
+      "argument_accuracy": 0.825,
+      "tokens_per_task": 447.875,
+      "n_tools": 13,
+      "errors": [
+        {
+          "task": "Open repo:fullstack-booking-02 in full.",
+          "expected": "get_case_study",
+          "got": null,
+          "args": {},
+          "ok": false
+        },
+        {
+          "task": "Show the complete text of proposal:data_analyst-010.",
+          "expected": "get_case_study",
+          "got": "list_proposals",
+          "args": {
+            "": ""
+          },
+          "ok": false
+        },
+        {
+          "task": "What skills can my portfolio prove?",
+          "expected": "list_skills",
+          "got": null,
+          "args": {},
+          "ok": false
+        },
+        {
+          "task": "List the technologies I have evidence for.",
+          "expected": "list_skills",
+          "got": "search_evidence",
+          "args": {
+            "requirement": ""
+          },
+          "ok": false
+        }
+      ]
+    },
+    "coarse": {
+      "tool_selection_accuracy": 0.825,
+      "argument_accuracy": 0.6,
+      "tokens_per_task": 413.575,
+      "n_tools": 2,
+      "errors": [
+        {
+          "task": "Pricing context for data_analytics fixed-price jobs.",
+          "expected": "get_market_stats",
+          "got": "search_jobs",
+          "args": {
+            "query": "data analytics fixed-price"
+          },
+          "ok": false
+        },
+        {
+          "task": "Which clients replied to me?",
+          "expected": "list_threads",
+          "got": "list_messages",
+          "args": {},
+          "ok": false
+        },
+        {
+          "task": "Read the messages in thread t-4c2e9a.",
+          "expected": "list_messages",
+          "got": null,
+          "args": {},
+          "ok": false
+        },
+        {
+          "task": "Have I done Stripe subscription billing before?",
+          "expected": "search_evidence",
+          "got": "get_client_history",
+          "args": {},
+          "ok": false
+        },
+        {
+          "task": "Open repo:fullstack-booking-02 in full.",
+          "expected": "get_case_study",
+          "got": "search_jobs",
+          "args": {
+            "query": "fullstack-booking-02"
+          },
+          "ok": false
+        },
+        {
+          "task": "Show the complete text of proposal:data_analyst-010.",
+          "expected": "get_case_study",
+          "got": "list_proposals",
+          "args": {},
+          "ok": false
+        },
+        {
+          "task": "Which libraries appear most in my portfolio?",
+          "expected": "list_skills",
+          "got": "search_evidence",
+          "args": {},
+          "ok": false
+        }
+      ]
+    },
+    "best": {
+      "tool_selection_accuracy": 0.975,
+      "argument_accuracy": 0.95,
+      "tokens_per_task": 624.9,
+      "n_tools": 13,
+      "errors": [
+        {
+          "task": "Which clients replied to me?",
+          "expected": "list_threads",
+          "got": null,
+          "args": {},
+          "ok": false
+        }
+      ]
+    }
+  },
+  "hypothesis": "Fine-grained tools with disambiguating descriptions beat coarse action-dispatch tools on argument accuracy at a modest token cost."
+}

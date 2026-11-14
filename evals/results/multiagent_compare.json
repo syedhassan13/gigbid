@@ -1,0 +1,497 @@
+{
+  "env": {
+    "commit": "564f388",
+    "profile": "open",
+    "rag_variant": "v_best",
+    "embeddings": "BAAI/bge-small-en-v1.5",
+    "reranker": "Xenova/ms-marco-MiniLM-L-6-v2",
+    "python": "3.14.2",
+    "machine": "AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD",
+    "cpu_count": 4,
+    "ts": "2026-11-14T20:45:47"
+  },
+  "summary": {
+    "a_react": {
+      "n": 12,
+      "bid_skip_accuracy": 0.6667,
+      "accuracy_by_job_type": {
+        "standard": 0.5,
+        "multi_req": 1.0,
+        "scam": 1.0,
+        "low_budget": 1.0,
+        "injection": 0.0,
+        "vague": 0.0
+      },
+      "unsupported_claims_per_proposal": 0.5,
+      "compliance_violations_caught_per_proposal": 1.0,
+      "reply_prob_mean": 0.3457,
+      "tokens_per_job": 1407.5833,
+      "p95_latency_s": 47.688,
+      "errors": 9
+    },
+    "b_supervisor": {
+      "n": 12,
+      "bid_skip_accuracy": 0.5,
+      "accuracy_by_job_type": {
+        "standard": 0.0,
+        "multi_req": 0.6667,
+        "scam": 1.0,
+        "low_budget": 1.0,
+        "injection": 0.0,
+        "vague": 0.0
+      },
+      "unsupported_claims_per_proposal": null,
+      "compliance_violations_caught_per_proposal": null,
+      "reply_prob_mean": null,
+      "tokens_per_job": 157.0833,
+      "p95_latency_s": 9.828,
+      "errors": 11
+    },
+    "c_graph": {
+      "n": 12,
+      "bid_skip_accuracy": 1.0,
+      "accuracy_by_job_type": {
+        "standard": 1.0,
+        "multi_req": 1.0,
+        "scam": 1.0,
+        "low_budget": 1.0,
+        "injection": 1.0,
+        "vague": 1.0
+      },
+      "unsupported_claims_per_proposal": 0.0,
+      "compliance_violations_caught_per_proposal": 0.0,
+      "reply_prob_mean": 0.4198,
+      "tokens_per_job": 1841.75,
+      "p95_latency_s": 76.693,
+      "errors": 0
+    }
+  },
+  "rows": {
+    "a_react": [
+      {
+        "job_id": "j-2641e3f2c4",
+        "persona": "ai_ml",
+        "job_type": "standard",
+        "gold": "bid",
+        "pred": "bid",
+        "correct": true,
+        "tokens": 9576,
+        "latency_s": 58.27,
+        "error": null,
+        "unsupported": 0,
+        "violations_caught": 1,
+        "p_reply": 0.3226
+      },
+      {
+        "job_id": "j-752c9eec85",
+        "persona": "ai_ml",
+        "job_type": "multi_req",
+        "gold": "bid",
+        "pred": "bid",
+        "correct": true,
+        "tokens": 5607,
+        "latency_s": 39.03,
+        "error": null,
+        "unsupported": 1,
+        "violations_caught": 1,
+        "p_reply": 0.3688
+      },
+      {
+        "job_id": "j-bcf602d227",
+        "persona": "ai_ml",
+        "job_type": "scam",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'JSON' which was not in request.tools"
+      },
+      {
+        "job_id": "j-072238cb3c",
+        "persona": "ai_ml",
+        "job_type": "scam",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'JSON' which was not in request.tools"
+      },
+      {
+        "job_id": "j-4a364e7166",
+        "persona": "fullstack",
+        "job_type": "low_budget",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 1708,
+        "latency_s": 17.25,
+        "error": null
+      },
+      {
+        "job_id": "j-bdb11cb21a",
+        "persona": "fullstack",
+        "job_type": "multi_req",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'json' which was not in request.tools"
+      },
+      {
+        "job_id": "j-ae122b8b3d",
+        "persona": "fullstack",
+        "job_type": "injection",
+        "gold": "bid",
+        "pred": "skip",
+        "correct": false,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'JSON' which was not in request.tools"
+      },
+      {
+        "job_id": "j-08ac20c457",
+        "persona": "fullstack",
+        "job_type": "vague",
+        "gold": "bid",
+        "pred": "skip",
+        "correct": false,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198891, Reque"
+      },
+      {
+        "job_id": "j-9ee3547ba2",
+        "persona": "data_analyst",
+        "job_type": "standard",
+        "gold": "bid",
+        "pred": "skip",
+        "correct": false,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199094, Reque"
+      },
+      {
+        "job_id": "j-0032a86c32",
+        "persona": "data_analyst",
+        "job_type": "vague",
+        "gold": "bid",
+        "pred": "skip",
+        "correct": false,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198894, Reque"
+      },
+      {
+        "job_id": "j-4c88b9114f",
+        "persona": "data_analyst",
+        "job_type": "multi_req",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199175, Reque"
+      },
+      {
+        "job_id": "j-5fa0d992f2",
+        "persona": "data_analyst",
+        "job_type": "scam",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199174, Reque"
+      }
+    ],
+    "b_supervisor": [
+      {
+        "job_id": "j-2641e3f2c4",
+        "persona": "ai_ml",
+        "job_type": "standard",
+        "gold": "bid",
+        "pred": "skip",
+        "correct": false,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'json' which was not in request.tools"
+      },
+      {
+        "job_id": "j-752c9eec85",
+        "persona": "ai_ml",
+        "job_type": "multi_req",
+        "gold": "bid",
+        "pred": "skip",
+        "correct": false,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'search_evidence' which was not in request.tools"
+      },
+      {
+        "job_id": "j-bcf602d227",
+        "persona": "ai_ml",
+        "job_type": "scam",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'JSON' which was not in request.tools"
+      },
+      {
+        "job_id": "j-072238cb3c",
+        "persona": "ai_ml",
+        "job_type": "scam",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'json' which was not in request.tools"
+      },
+      {
+        "job_id": "j-4a364e7166",
+        "persona": "fullstack",
+        "job_type": "low_budget",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'json' which was not in request.tools"
+      },
+      {
+        "job_id": "j-bdb11cb21a",
+        "persona": "fullstack",
+        "job_type": "multi_req",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 1885,
+        "latency_s": 21.84,
+        "error": null
+      },
+      {
+        "job_id": "j-ae122b8b3d",
+        "persona": "fullstack",
+        "job_type": "injection",
+        "gold": "bid",
+        "pred": "skip",
+        "correct": false,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198708, Reque"
+      },
+      {
+        "job_id": "j-08ac20c457",
+        "persona": "fullstack",
+        "job_type": "vague",
+        "gold": "bid",
+        "pred": "skip",
+        "correct": false,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199234, Reque"
+      },
+      {
+        "job_id": "j-9ee3547ba2",
+        "persona": "data_analyst",
+        "job_type": "standard",
+        "gold": "bid",
+        "pred": "skip",
+        "correct": false,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199036, Reque"
+      },
+      {
+        "job_id": "j-0032a86c32",
+        "persona": "data_analyst",
+        "job_type": "vague",
+        "gold": "bid",
+        "pred": "skip",
+        "correct": false,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199315, Reque"
+      },
+      {
+        "job_id": "j-4c88b9114f",
+        "persona": "data_analyst",
+        "job_type": "multi_req",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199175, Reque"
+      },
+      {
+        "job_id": "j-5fa0d992f2",
+        "persona": "data_analyst",
+        "job_type": "scam",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199034, Reque"
+      }
+    ],
+    "c_graph": [
+      {
+        "job_id": "j-2641e3f2c4",
+        "persona": "ai_ml",
+        "job_type": "standard",
+        "gold": "bid",
+        "pred": "bid",
+        "correct": true,
+        "tokens": 4420,
+        "latency_s": 19.59,
+        "error": null,
+        "unsupported": 0,
+        "violations_caught": 0,
+        "p_reply": 0.4594
+      },
+      {
+        "job_id": "j-752c9eec85",
+        "persona": "ai_ml",
+        "job_type": "multi_req",
+        "gold": "bid",
+        "pred": "bid",
+        "correct": true,
+        "tokens": 11030,
+        "latency_s": 48.95,
+        "error": null,
+        "unsupported": 0,
+        "violations_caught": 0,
+        "p_reply": 0.4702
+      },
+      {
+        "job_id": "j-bcf602d227",
+        "persona": "ai_ml",
+        "job_type": "scam",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.12,
+        "error": null
+      },
+      {
+        "job_id": "j-072238cb3c",
+        "persona": "ai_ml",
+        "job_type": "scam",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.11,
+        "error": null
+      },
+      {
+        "job_id": "j-4a364e7166",
+        "persona": "fullstack",
+        "job_type": "low_budget",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.28,
+        "error": null
+      },
+      {
+        "job_id": "j-bdb11cb21a",
+        "persona": "fullstack",
+        "job_type": "multi_req",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 408,
+        "latency_s": 0.95,
+        "error": null
+      },
+      {
+        "job_id": "j-ae122b8b3d",
+        "persona": "fullstack",
+        "job_type": "injection",
+        "gold": "bid",
+        "pred": "bid",
+        "correct": true,
+        "tokens": 3606,
+        "latency_s": 96.13,
+        "error": null,
+        "unsupported": 0,
+        "violations_caught": 0,
+        "p_reply": 0.238
+      },
+      {
+        "job_id": "j-08ac20c457",
+        "persona": "fullstack",
+        "job_type": "vague",
+        "gold": "bid",
+        "pred": "bid",
+        "correct": true,
+        "tokens": 854,
+        "latency_s": 60.46,
+        "error": null,
+        "unsupported": 0,
+        "violations_caught": 0,
+        "p_reply": 0.4362
+      },
+      {
+        "job_id": "j-9ee3547ba2",
+        "persona": "data_analyst",
+        "job_type": "standard",
+        "gold": "bid",
+        "pred": "bid",
+        "correct": true,
+        "tokens": 917,
+        "latency_s": 60.79,
+        "error": null,
+        "unsupported": 0,
+        "violations_caught": 0,
+        "p_reply": 0.4203
+      },
+      {
+        "job_id": "j-0032a86c32",
+        "persona": "data_analyst",
+        "job_type": "vague",
+        "gold": "bid",
+        "pred": "bid",
+        "correct": true,
+        "tokens": 866,
+        "latency_s": 60.58,
+        "error": null,
+        "unsupported": 0,
+        "violations_caught": 0,
+        "p_reply": 0.4947
+      },
+      {
+        "job_id": "j-4c88b9114f",
+        "persona": "data_analyst",
+        "job_type": "multi_req",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.17,
+        "error": null
+      },
+      {
+        "job_id": "j-5fa0d992f2",
+        "persona": "data_analyst",
+        "job_type": "scam",
+        "gold": "skip",
+        "pred": "skip",
+        "correct": true,
+        "tokens": 0,
+        "latency_s": 0.07,
+        "error": null
+      }
+    ]
+  }
+}
