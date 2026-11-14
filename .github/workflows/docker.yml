@@ -1,0 +1,19 @@
+name: docker
+on: [workflow_dispatch, push]
+jobs:
+  build-and-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the deployment image
+        run: docker build -t gigbid .
+      - name: Run it with a 512 MB memory limit (like free hosts) and hit the health endpoint
+        run: |
+          docker run -d --name g -m 512m -p 7860:7860 -e GIGBID_PROFILE=offline -e JWT_SECRET=ci -e REVIEWER_EMAIL=r@gigbid.app -e REVIEWER_PASSWORD=ci-pass-123 gigbid
+          for i in $(seq 1 60); do curl -sf localhost:7860/api/health && break; sleep 5; done
+          curl -sf localhost:7860/api/health
+          curl -sf -o /dev/null -w "web %{http_code}\n" localhost:7860/
+          docker stats --no-stream g
+      - name: Container logs
+        if: always()
+        run: docker logs g 2>&1 | tail -80
