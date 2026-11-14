@@ -100,6 +100,24 @@
         "graph": false,
         "candidates": 30
       }
+    },
+    "h_decompose_hybrid (hypothesis config)": {
+      "recall@5": 0.4958,
+      "mrr": 0.8806,
+      "ndcg@10": 0.5335,
+      "recall@5_multi_req": 0.5159,
+      "n": 180,
+      "config": {
+        "name": "h_decompose_hybrid",
+        "chunking": "structure",
+        "query": "decompose",
+        "retrieval": "hybrid",
+        "rerank": false,
+        "outcome_boost": false,
+        "corrective": false,
+        "graph": false,
+        "candidates": 30
+      }
     }
   },
   "note": "combinations of the best single variants, same 60 jobs/persona as rag_variants.json"

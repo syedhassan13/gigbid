@@ -1,0 +1,17 @@
+{
+  "env": {
+    "commit": "70f006e",
+    "profile": "offline",
+    "rag_variant": "v_best",
+    "embeddings": "BAAI/bge-small-en-v1.5",
+    "reranker": "Xenova/ms-marco-MiniLM-L-6-v2",
+    "python": "3.14.2",
+    "machine": "AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD",
+    "cpu_count": 4,
+    "ts": "2026-11-14T17:07:15"
+  },
+  "variant": "v_best",
+  "n_jobs": 180,
+  "n_zero_recall": 0,
+  "misses": []
+}
