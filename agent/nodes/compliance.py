@@ -15,7 +15,8 @@ def _sentences(t: str) -> list[str]:
     return [s for s in re.split(r"(?<=[.!?])\s+", t.strip()) if s.strip()]
 
 
-def enforce(text: str, verification: dict | None = None) -> ComplianceVerdict:
+def enforce(text: str, verification: dict | None = None, add_required: bool = True) -> ComplianceVerdict:
+    """add_required: append policy-mandated statements (proposal cover letters only, not answers or messages)."""
     rules = policy_rules()
     fixes: list[str] = []
     out = text
@@ -54,7 +55,7 @@ def enforce(text: str, verification: dict | None = None) -> ComplianceVerdict:
                     acc.append(s)
                 out = " ".join(acc)
                 fixes.append(f"{r['id']}: trimmed to {r['max_words']} words")
-    for stmt in rules.get("required_statements", []) or []:
+    for stmt in (rules.get("required_statements", []) or []) if add_required else []:
         if stmt.lower() not in out.lower():
             out = out.rstrip() + "\n\n" + stmt
             fixes.append(f"required statement added: \"{stmt}\"")
@@ -76,7 +77,7 @@ async def compliance(state: dict, cfg: dict, store) -> dict:
     d = dict(state["draft"])
     src = (state.get("approval") or {}).get("edited_text") if (state.get("approval") or {}).get("decision") == "edit" else d["cover_letter"]
     v = enforce(src, state.get("verification") if src == d["cover_letter"] else None)
-    answers = [enforce(a).text for a in d.get("screening_answers", [])]
+    answers = [enforce(a, add_required=False).text for a in d.get("screening_answers", [])]
     d["cover_letter"], d["screening_answers"] = v.text, answers
     status = "awaiting_approval" if v.allowed else "needs_attention"
     return {"draft": d, "compliance": v.model_dump(), "status": status, "approval": {},

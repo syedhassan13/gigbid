@@ -98,7 +98,7 @@ async def draft_reply(state: dict, cfg: dict, store) -> dict:
 @node("liaison_compliance")
 async def liaison_compliance(state: dict, cfg: dict, store) -> dict:
     src = state["approval"]["edited_text"] if (state.get("approval") or {}).get("decision") == "edit" else state["draft"]["text"]
-    v = enforce(src)
+    v = enforce(src, add_required=False)
     v_len_ok = v.allowed or (v.blocked_reason or "").startswith("draft too short")  # short replies are fine
     return {"draft": {**state["draft"], "text": v.text}, "compliance": {**v.model_dump(), "allowed": v_len_ok}, "approval": {},
             "status": "awaiting_approval" if v_len_ok else "needs_attention", "error": "" if v_len_ok else (v.blocked_reason or ""),
