@@ -51,24 +51,27 @@ async def test_scam_skipped_and_exactly_once_after_crash(gigsim, tmp_path):
     from agent.runtime import Runtime
     port = MarketplacePort(token="mcp-dev-ai_ml", user="it")
 
+    import uuid
+    run = uuid.uuid4().hex[:8]  # unique thread ids: the checkpointer persists between test runs
     rt = await Runtime().start()
     scam = dev(lambda g: g["is_scam"])
-    r = await rt.run("bid", "it-scam", {"job_id": scam["id"], "persona": "ai_ml", "user_id": "it"}, port, "ai_ml")
+    r = await rt.run("bid", f"it-scam-{run}", {"job_id": scam["id"], "persona": "ai_ml", "user_id": "it"}, port, "ai_ml")
     assert r["status"] == "skipped"
 
     good = dev(lambda g: g["action"] == "bid" and g["job_type"] == "multi_req")
-    r = await rt.run("bid", "it-bid", {"job_id": good["id"], "persona": "ai_ml", "user_id": "it", "force_bid": True}, port, "ai_ml")
-    assert r["status"] == "awaiting_approval" and r["next"] == ["approval"]
+    r = await rt.run("bid", f"it-bid-{run}", {"job_id": good["id"], "persona": "ai_ml", "user_id": "it", "force_bid": True}, port, "ai_ml")
+    st0 = (await rt.state("bid", f"it-bid-{run}"))["values"]
+    assert r["status"] == "awaiting_approval" and r["next"] == ["approval"], (st0.get("error"), st0.get("compliance"), st0.get("steps"))
     await rt.stop()  # "kill the API" while the proposal waits for approval
 
     rt2 = await Runtime().start()  # restart: pending approval survives in the checkpointer
-    st = await rt2.state("bid", "it-bid")
+    st = await rt2.state("bid", f"it-bid-{run}")
     assert st["interrupts"] and st["interrupts"][0]["type"] == "proposal_approval"
-    r = await rt2.resume("bid", "it-bid", {"decision": "approve"}, port, "ai_ml")
+    r = await rt2.resume("bid", f"it-bid-{run}", {"decision": "approve"}, port, "ai_ml")
     assert r["status"] == "submitted"
     # crash AFTER submit but before the run is recorded: re-drive the submit node with the same key
-    await rt2.bid.aupdate_state({"configurable": {"thread_id": "it-bid"}}, {"status": "approved"}, as_node="approval")
-    await rt2.run("bid", "it-bid", None, port, "ai_ml")
+    await rt2.bid.aupdate_state({"configurable": {"thread_id": f"it-bid-{run}"}}, {"status": "approved"}, as_node="approval")
+    await rt2.run("bid", f"it-bid-{run}", None, port, "ai_ml")
     props = httpx.get(f"http://127.0.0.1:{PORT}/v1/proposals", headers={"Authorization": "Bearer gs-ai-ml-dev-token"}).json()["proposals"]
     assert sum(p["job_id"] == good["id"] for p in props) == 1  # submitted exactly once
     await rt2.stop()

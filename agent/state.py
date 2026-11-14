@@ -16,6 +16,9 @@ def merge_dict(a: dict | None, b: dict | None) -> dict:
 
 
 def add_int(a: int | None, b: int | None) -> int:
+    """Budget counter. A negative update RESETS it: every fresh run on a thread starts a new step/token budget."""
+    if b is not None and b < 0:
+        return 0
     return (a or 0) + (b or 0)
 
 

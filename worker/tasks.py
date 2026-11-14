@@ -86,7 +86,8 @@ async def analyse_job(user_id: str, job_id: str, force_bid: bool = False) -> dic
     _running.add(tid)
     try:
         inp = None if existing["next"] else {"job_id": job_id, "persona": user["persona"], "user_id": user_id,
-                                             "autonomy": (user.get("settings") or {}).get("autonomy", "suggest"), "force_bid": force_bid}
+                                             "autonomy": (user.get("settings") or {}).get("autonomy", "suggest"), "force_bid": force_bid,
+                                             "steps": -1, "tokens": -1}  # fresh run => fresh budget
         db.upsert_inbox(user_id, job_id, thread_id=tid, status="analysing")
         return await _drive("bid", tid, inp, user, job_id)
     finally:
@@ -161,7 +162,7 @@ async def start_conversation(user_id: str, mp_thread: str) -> dict:
     rt = await runtime()
     if (await rt.state("conv", tid))["values"]:
         return {"status": "exists", "thread_id": tid}
-    return await _drive("conv", tid, {"thread_id": mp_thread, "persona": user["persona"], "user_id": user_id}, user)
+    return await _drive("conv", tid, {"thread_id": mp_thread, "persona": user["persona"], "user_id": user_id, "steps": -1, "tokens": -1}, user)
 
 
 async def resume_conversation(user_id: str, thread_id: str, decision: dict) -> dict:
