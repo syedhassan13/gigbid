@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset='utf-8'><title>GigBid R&D report</title><style>body{font-family:Georgia,'Times New Roman',serif;font-size:10.5pt;line-height:1.42;color:#111;max-width:180mm;margin:auto}h1{font-size:19pt;margin:0 0 4px}h2{font-size:13pt;border-bottom:1px solid #999;margin:14px 0 6px}table{border-collapse:collapse;width:100%;font-size:8.6pt;margin:6px 0}th,td{border:1px solid #bbb;padding:3px 5px;text-align:left}th{background:#eef}code{font-size:8.6pt;background:#f4f4f4;padding:0 2px}blockquote{font-size:9pt;color:#333;border-left:3px solid #aaa;margin:6px 0;padding-left:8px}</style></head><body><h1>GigBid: R&amp;D design review</h1>
-<p><em>AI-4016 · Individual · Repository commit <code>e3335c5</code> · every number cites a file in <code>evals/results/</code>.</em></p>
+<p><em>AI-4016 · Individual · Repository commit <code>37705c4</code> · every number cites a file in <code>evals/results/</code>.</em></p>
 <p><strong>Profiles.</strong> Retrieval and decision numbers are model-independent (embeddings + rules). Proposal-text numbers were produced with the <code>offline</code> profile; where that is <code>offline</code>, the writer is the deterministic template fallback, not an LLM. Results produced with the Groq <code>open</code> profile are reported separately where available.</p>
 <h2>1. Problem and constraints</h2>
 <p>Freelancers spend hours scanning feeds, spend paid Connects on unwinnable jobs, send generic proposals, and meet scams. GigBid automates <em>discovery, assessment and drafting</em>. <strong>The human makes every outward decision.</strong> Never automated: submitting a proposal, sending a message, spending Connects (all behind LangGraph <code>interrupt()</code>), claiming experience the portfolio does not show (R5), or any live-platform write except a draft the user confirms on Upwork. Declared budgets (<code>agent/config.yaml → budgets</code>): p95 ≤ 25 s and ≤ $0.002 per job analysed; p95 ≤ 60 s and ≤ $0.01 per proposal; ≤ 40 steps and ≤ 60k tokens per thread.</p>
@@ -279,7 +279,41 @@
 <p><strong>By persona and job type (v_best R@5).</strong> ai_ml: 0.867, fullstack: 0.754, data_analyst: 0.840; standard: 0.771, multi_req: 0.828, vague: 0.861, injection: 0.812, low_budget: 0.835.</p>
 <p><strong>Claim verification (B3).</strong> Every draft is split into claims and grounded against retrieved evidence (key-term coverage + cosine, and numbers must appear verbatim); unsupported claims are removed before the Critic. Unsupported claims per proposal before → after verification: V0 0.07 → 0.00; v_best 0.08 → 0.00 (<code>gigsim_outcomes.json</code>, n = 60).</p>
 <p><strong>Where better retrieval did not raise replies.</strong> Mean GigSim reply probability moved 0.325 → 0.346 while sampled replies were 0.333 → 0.217 on the same 60 jobs: a near-doubling of evidence recall barely moved the outcome. GigSim's clients reward must-have-skill coverage, use of the client's own terms and a non-generic opening; the writer uses only the top 1–2 evidence items, so recall beyond rank 2 cannot change the letter, and sampling noise at n = 60 exceeds the effect.</p>
-<p><strong>Judge calibration.</strong> Pending: 30 proposals in <code>evals/datasets/judge_labels.csv</code> await the author's human scores; κ is computed only from human labels.</p>
+<p><strong>Judge calibration (30 proposals labelled by the author).</strong></p>
+<table>
+<thead>
+<tr>
+<th>Round</th>
+<th>Rubric</th>
+<th>n</th>
+<th>Judge score distribution</th>
+<th>Exact</th>
+<th>Within 1</th>
+<th>Quadratic κ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>lenient (<code>RUBRIC</code>)</td>
+<td>30</td>
+<td>all 5</td>
+<td>0.800</td>
+<td>0.967</td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>strict anchored (<code>RUBRIC_STRICT</code>)</td>
+<td>21</td>
+<td>{'1': 1, '3': 2, '4': 4, '5': 14}</td>
+<td>0.571</td>
+<td>0.857</td>
+<td>-0.094</td>
+</tr>
+</tbody>
+</table>
+<p>Human scores: {'4': 4, '5': 17}. Round 1 agrees often only because almost everything is a 5 (κ = 0: the judge cannot discriminate). The stricter rubric makes the judge discriminate, but not where the author does, so κ stays at or below chance. <strong>Conclusion: the LLM judge is not calibrated; judge scores are not used as evidence in this report.</strong> Round 2 scored only the items Groq answered before its daily token limit (TPD) was exhausted; unscored items are excluded, not imputed. (<code>judge_calibration.json</code>, <code>judge_calibration_round1.json</code>, <code>judge_labels.csv</code>).</p>
 <p><strong>Groq <code>open</code> profile (LLM writer and critic), same harness.</strong>
 | Variant | n | Unsupported before→after | Reply p | Sampled reply | p95 s / proposal | Cost / proposal | Injection success |
 |---|---|---|---|---|---|---|---|

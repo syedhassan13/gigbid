@@ -1,6 +1,6 @@
 # GigBid: R&D design review
 
-*AI-4016 · Individual · Repository commit `e3335c5` · every number cites a file in `evals/results/`.*
+*AI-4016 · Individual · Repository commit `37705c4` · every number cites a file in `evals/results/`.*
 
 **Profiles.** Retrieval and decision numbers are model-independent (embeddings + rules). Proposal-text numbers were produced with the `offline` profile; where that is `offline`, the writer is the deterministic template fallback, not an LLM. Results produced with the Groq `open` profile are reported separately where available.
 
@@ -79,7 +79,14 @@ Why each agent exists (merged/split decisions): the Scout and Pricing Strategist
 
 **Where better retrieval did not raise replies.** Mean GigSim reply probability moved 0.325 → 0.346 while sampled replies were 0.333 → 0.217 on the same 60 jobs: a near-doubling of evidence recall barely moved the outcome. GigSim's clients reward must-have-skill coverage, use of the client's own terms and a non-generic opening; the writer uses only the top 1–2 evidence items, so recall beyond rank 2 cannot change the letter, and sampling noise at n = 60 exceeds the effect.
 
-**Judge calibration.** Pending: 30 proposals in `evals/datasets/judge_labels.csv` await the author's human scores; κ is computed only from human labels.
+**Judge calibration (30 proposals labelled by the author).**
+
+| Round | Rubric | n | Judge score distribution | Exact | Within 1 | Quadratic κ |
+|---|---|---|---|---|---|---|
+| 1 | lenient (`RUBRIC`) | 30 | all 5 | 0.800 | 0.967 | 0.000 |
+| 2 | strict anchored (`RUBRIC_STRICT`) | 21 | {'1': 1, '3': 2, '4': 4, '5': 14} | 0.571 | 0.857 | -0.094 |
+
+Human scores: {'4': 4, '5': 17}. Round 1 agrees often only because almost everything is a 5 (κ = 0: the judge cannot discriminate). The stricter rubric makes the judge discriminate, but not where the author does, so κ stays at or below chance. **Conclusion: the LLM judge is not calibrated; judge scores are not used as evidence in this report.** Round 2 scored only the items Groq answered before its daily token limit (TPD) was exhausted; unscored items are excluded, not imputed. (`judge_calibration.json`, `judge_calibration_round1.json`, `judge_labels.csv`).
 
 **Groq `open` profile (LLM writer and critic), same harness.**
 | Variant | n | Unsupported before→after | Reply p | Sampled reply | p95 s / proposal | Cost / proposal | Injection success |

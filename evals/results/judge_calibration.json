@@ -1,26 +1,56 @@
 {
   "env": {
-    "commit": "5bbac50",
-    "profile": "open_small",
+    "commit": "37705c4",
+    "profile": "open",
     "rag_variant": "v_best",
     "embeddings": "BAAI/bge-small-en-v1.5",
     "reranker": "Xenova/ms-marco-MiniLM-L-6-v2",
     "python": "3.14.2",
     "machine": "AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD",
     "cpu_count": 4,
-    "ts": "2026-11-14T22:57:16"
+    "ts": "2026-11-15T00:47:34"
   },
-  "n": 30,
-  "quadratic_weighted_kappa": 0.0,
-  "exact_agreement": 0.8,
-  "within_one": 0.9667,
+  "rubric": "round 2: strict anchored rubric (gpt-oss-20b)",
+  "n": 21,
+  "n_total": 30,
+  "note": "Round 2 scored only the items Groq answered before its daily token limit (TPD) was exhausted; unscored items are excluded, not imputed.",
+  "quadratic_weighted_kappa": -0.0938,
+  "exact_agreement": 0.5714,
+  "within_one": 0.8571,
+  "judge_score_distribution": {
+    "1": 1,
+    "3": 2,
+    "4": 4,
+    "5": 14
+  },
+  "human_score_distribution": {
+    "4": 4,
+    "5": 17
+  },
+  "round1_lenient_rubric": {
+    "n": 30,
+    "quadratic_weighted_kappa": 0.0,
+    "exact_agreement": 0.8,
+    "within_one": 0.9667
+  },
   "disagreements_ge2": [
     {
-      "item": "P22",
-      "human": "3",
-      "judge": "5",
-      "judge_reason": "The proposal is highly specific to the client\u2019s problem, cites a concrete past project with measurable results, outlines a clear plan (deployment, handover, runbook), provides a price, and ends with a relevant question. All criteria for a score of 5 are met."
+      "item": "P01",
+      "human": "5",
+      "judge": "3",
+      "judge_reason": "The proposal opens with a generic question rather than addressing the client\u2019s specific problem, which subtracts one point. It provides concrete claims with traceable case IDs and includes a sharp question, meeting the criteria for a 5. However, it lacks a clear milestone\u2011based plan and does not explicitly outline weekly progress updates, so another point is deducted. The word count is within the 110\u2011220 range, and there are no boilerplate phrases or irrelevant experience. Overall, the proposal earns a score of 3."
+    },
+    {
+      "item": "P25",
+      "human": "5",
+      "judge": "1",
+      "judge_reason": "The proposal opens with a statement that addresses the client\u2019s problem, but it does not explicitly open with the client\u2019s specific problem wording. It provides concrete claims (repo link, prior project) and includes a sharp question. However, it lacks a clear milestone plan and is under 110 words, which incurs two deductions. Starting from 3, the final score is 1."
+    },
+    {
+      "item": "P28",
+      "human": "5",
+      "judge": "3",
+      "judge_reason": "The proposal opens with a generic question rather than addressing the client\u2019s specific problem, so it loses one point. It provides concrete, traceable claims and includes a sharp question, meeting the criteria for a 5. However, it lacks a clear milestone plan and does not explicitly outline the two\u2011week MVP schedule, which reduces the score by one more point. The word count is within limits and there are no boilerplate phrases or irrelevant experience. Thus, the proposal earns a score of 3."
     }
-  ],
-  "rubric": "Score 1-5. 5 = specific to this client's problem, every experience claim concrete and plausible, clear plan, price and one good question, 110-220 words. 3 = relevant but partly generic or vague claims. 1 = generic template, off-topic, fabricated-sounding or non-compliant (contact details, guarantees)."
+  ]
 }

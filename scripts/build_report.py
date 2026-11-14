@@ -125,8 +125,19 @@ def main() -> None:
         f"{f(o0.get('reply_rate_sampled'))} → {f(ob.get('reply_rate_sampled'))} on the same {ob.get('n')} jobs: a near-doubling of evidence recall barely moved the "
         "outcome. GigSim's clients reward must-have-skill coverage, use of the client's own terms and a non-generic opening; the writer uses only the top "
         "1–2 evidence items, so recall beyond rank 2 cannot change the letter, and sampling noise at n = 60 exceeds the effect.\n"))
-    A("**Judge calibration.** " + (f"Quadratic-weighted κ = {judge['quadratic_weighted_kappa']} on n = {judge['n']} human-labelled proposals (`judge_calibration.json`).\n"
-                                 if judge else "Pending: 30 proposals in `evals/datasets/judge_labels.csv` await the author's human scores; κ is computed only from human labels.\n"))
+    if judge and judge.get("round1_lenient_rubric"):
+        r1 = judge["round1_lenient_rubric"]
+        A("**Judge calibration (30 proposals labelled by the author).**\n")
+        A(table(["Round", "Rubric", "n", "Judge score distribution", "Exact", "Within 1", "Quadratic κ"], [
+            ["1", "lenient (`RUBRIC`)", r1["n"], "all 5", f(r1["exact_agreement"]), f(r1["within_one"]), f(r1["quadratic_weighted_kappa"])],
+            ["2", "strict anchored (`RUBRIC_STRICT`)", judge["n"], str(judge.get("judge_score_distribution")), f(judge["exact_agreement"]), f(judge["within_one"]), f(judge["quadratic_weighted_kappa"])]]))
+        A(f"\nHuman scores: {judge.get('human_score_distribution')}. Round 1 agrees often only because almost everything is a 5 "
+          "(κ = 0: the judge cannot discriminate). The stricter rubric makes the judge discriminate, but not where the author does, so κ stays at or "
+          "below chance. **Conclusion: the LLM judge is not calibrated; judge scores are not used as evidence in this report.** "
+          f"{judge.get('note', '')} (`judge_calibration.json`, `judge_calibration_round1.json`, `judge_labels.csv`).\n")
+    else:
+        A("**Judge calibration.** " + (f"Quadratic-weighted κ = {judge['quadratic_weighted_kappa']} on n = {judge['n']} human-labelled proposals (`judge_calibration.json`).\n"
+                                     if judge else "Pending: 30 proposals in `evals/datasets/judge_labels.csv` await the author's human scores; κ is computed only from human labels.\n"))
     oo = load("gigsim_outcomes_open")
     if oo:
         A("**Groq `open` profile (LLM writer and critic), same harness.**")

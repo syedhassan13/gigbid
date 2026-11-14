@@ -34,7 +34,7 @@ RUBRIC_STRICT = ("Be a demanding client who receives 50 proposals. Start from 3 
 
 
 class JudgeOut(BaseModel):
-    score: int = Field(ge=1, le=5)
+    score: int  # clamped to 1..5 after parsing (the strict rubric can subtract below 1)
     reason: str
 
 

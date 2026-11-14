@@ -3,8 +3,8 @@
 
 | Variant | Evidence Recall@5 | nDCG@10 | Unsupported claims / proposal (after verification) | Judge score | GigSim reply rate (mean p) | p95 latency (s) | Cost / proposal (USD) |
 |---|---|---|---|---|---|---|---|
-| V0 | 0.436 | 0.508 | 0.07 → 0.00 | not calibrated yet | 0.325 | 1.17 | 0.00000 |
-| Your best (v_best) | 0.820 | 0.836 | 0.08 → 0.00 | not calibrated yet | 0.346 | 1.30 | 0.00000 |
+| V0 | 0.436 | 0.508 | 0.07 → 0.00 | uncalibrated (κ=-0.0938) | 0.325 | 1.17 | 0.00000 |
+| Your best (v_best) | 0.820 | 0.836 | 0.08 → 0.00 | uncalibrated (κ=-0.0938) | 0.346 | 1.30 | 0.00000 |
 
 ### All retrieval variants (dev set, 60 jobs/persona, profile `offline`, commit `d4cb05e`)
 
