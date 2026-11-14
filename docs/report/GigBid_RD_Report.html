@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset='utf-8'><title>GigBid R&D report</title><style>body{font-family:Georgia,'Times New Roman',serif;font-size:10.5pt;line-height:1.42;color:#111;max-width:180mm;margin:auto}h1{font-size:19pt;margin:0 0 4px}h2{font-size:13pt;border-bottom:1px solid #999;margin:14px 0 6px}table{border-collapse:collapse;width:100%;font-size:8.6pt;margin:6px 0}th,td{border:1px solid #bbb;padding:3px 5px;text-align:left}th{background:#eef}code{font-size:8.6pt;background:#f4f4f4;padding:0 2px}blockquote{font-size:9pt;color:#333;border-left:3px solid #aaa;margin:6px 0;padding-left:8px}</style></head><body><h1>GigBid: R&amp;D design review</h1>
-<p><em>AI-4016 · Individual · Repository commit <code>cf53cd4</code> · every number cites a file in <code>evals/results/</code>.</em></p>
+<p><em>AI-4016 · Individual · Repository commit <code>e3335c5</code> · every number cites a file in <code>evals/results/</code>.</em></p>
 <p><strong>Profiles.</strong> Retrieval and decision numbers are model-independent (embeddings + rules). Proposal-text numbers were produced with the <code>offline</code> profile; where that is <code>offline</code>, the writer is the deterministic template fallback, not an LLM. Results produced with the Groq <code>open</code> profile are reported separately where available.</p>
 <h2>1. Problem and constraints</h2>
 <p>Freelancers spend hours scanning feeds, spend paid Connects on unwinnable jobs, send generic proposals, and meet scams. GigBid automates <em>discovery, assessment and drafting</em>. <strong>The human makes every outward decision.</strong> Never automated: submitting a proposal, sending a message, spending Connects (all behind LangGraph <code>interrupt()</code>), claiming experience the portfolio does not show (R5), or any live-platform write except a draft the user confirms on Upwork. Declared budgets (<code>agent/config.yaml → budgets</code>): p95 ≤ 25 s and ≤ $0.002 per job analysed; p95 ≤ 60 s and ≤ $0.01 per proposal; ≤ 40 steps and ≤ 60k tokens per thread.</p>
@@ -303,13 +303,13 @@
 <tbody>
 <tr>
 <td>a_react</td>
-<td>0.667</td>
-<td>0.50</td>
+<td>0.583</td>
 <td>1.00</td>
-<td>0.346</td>
-<td>1408</td>
-<td>47.7</td>
-<td>9</td>
+<td>1.00</td>
+<td>0.378</td>
+<td>885</td>
+<td>19.7</td>
+<td>7</td>
 </tr>
 <tr>
 <td>b_supervisor</td>
@@ -317,24 +317,24 @@
 <td>–</td>
 <td>–</td>
 <td>–</td>
-<td>157</td>
-<td>9.8</td>
-<td>11</td>
+<td>824</td>
+<td>47.3</td>
+<td>8</td>
 </tr>
 <tr>
 <td>c_graph</td>
 <td>1.000</td>
 <td>0.00</td>
 <td>0.00</td>
-<td>0.420</td>
-<td>1842</td>
-<td>76.7</td>
+<td>0.433</td>
+<td>1887</td>
+<td>141.5</td>
 <td>0</td>
 </tr>
 </tbody>
 </table>
 <p><em>(a) one ReAct agent with all read tools, (b) <code>langgraph-supervisor</code>, (c) GigBid's graph; <code>multiagent_compare.json</code>.</em></p>
-<p>Per job type, single-agent accuracy: {"standard": 0.5, "multi_req": 1.0, "scam": 1.0, "low_budget": 1.0, "injection": 0.0, "vague": 0.0}</p>
+<p>Per job type, single-agent accuracy: {"standard": 0.0, "multi_req": 1.0, "scam": 1.0, "low_budget": 1.0, "injection": 0.0, "vague": 0.0}</p>
 <h2>6. The change request (2 Nov platform policy update)</h2>
 <p>GigSim policy v2 (commit <em>GigSim: platform policy update v2</em>) raised Connects for fixed jobs ≥ $1,000 (16 → 24) and hourly jobs (12 → 16) and made an AI-assistance disclosure mandatory (missing ⇒ HTTP 422). <strong>What we edited:</strong> one line of configuration, the <code>required_statements</code> entry in <code>data/policy_pack/rules.yaml</code>, which the Compliance Guard appends and the writer is told about. Connects prices needed <strong>no</strong> change: they are read from the marketplace per job and flow into the expected-value check and the dry-run preview. Commit: <code>4037a4a Fix compliance over-redaction of interview slots; human-readable slot times; regression tests</code>; diff: <code>.gitignore                        |   1 +
  agent/nodes/liaison.py            |   2 +-
@@ -447,6 +447,27 @@
 <td>Phone regex matched interview slots '2026-11-03 09:00' ⇒ '[contact removed]'</td>
 <td>Pattern may not start at/inside an ISO date or time</td>
 <td>Yes: regression test</td>
+</tr>
+<tr>
+<td>Tool/infra: budget never reset</td>
+<td>integration test</td>
+<td>Cumulative step reducer: re-running a thread hit the 40-step budget</td>
+<td>Negative update resets the counter on each fresh run</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Tool/infra: cold start</td>
+<td>CI e2e</td>
+<td>First search embedded the whole corpus on the event loop; parallel searches timed out</td>
+<td>Retrieval in a worker thread + index warm-up at startup</td>
+<td>Yes: CI green</td>
+</tr>
+<tr>
+<td>Tool/infra: retired model</td>
+<td>LLM runs</td>
+<td>Fallback model removed by provider (404) ⇒ silent rule fallback</td>
+<td>Fallback to gpt-oss-20b</td>
+<td>Yes</td>
 </tr>
 <tr>
 <td>Unsupported claim</td>

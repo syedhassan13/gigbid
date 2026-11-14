@@ -1,33 +1,35 @@
 {
   "env": {
-    "commit": "564f388",
-    "profile": "open",
+    "commit": "e3335c5",
+    "profile": "open_small",
     "rag_variant": "v_best",
     "embeddings": "BAAI/bge-small-en-v1.5",
     "reranker": "Xenova/ms-marco-MiniLM-L-6-v2",
     "python": "3.14.2",
     "machine": "AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD",
     "cpu_count": 4,
-    "ts": "2026-11-14T20:45:47"
+    "ts": "2026-11-14T22:30:27"
   },
   "summary": {
     "a_react": {
       "n": 12,
-      "bid_skip_accuracy": 0.6667,
+      "bid_skip_accuracy": 0.5833,
       "accuracy_by_job_type": {
-        "standard": 0.5,
+        "standard": 0.0,
         "multi_req": 1.0,
         "scam": 1.0,
         "low_budget": 1.0,
         "injection": 0.0,
         "vague": 0.0
       },
-      "unsupported_claims_per_proposal": 0.5,
+      "unsupported_claims_per_proposal": 1.0,
       "compliance_violations_caught_per_proposal": 1.0,
-      "reply_prob_mean": 0.3457,
-      "tokens_per_job": 1407.5833,
-      "p95_latency_s": 47.688,
-      "errors": 9
+      "reply_prob_mean": 0.378,
+      "tokens_per_job": 885.0833,
+      "p95_latency_s": 19.7315,
+      "errors": 7,
+      "errors_rate_limit": 7,
+      "errors_invalid_tool_call": 0
     },
     "b_supervisor": {
       "n": 12,
@@ -43,9 +45,11 @@
       "unsupported_claims_per_proposal": null,
       "compliance_violations_caught_per_proposal": null,
       "reply_prob_mean": null,
-      "tokens_per_job": 157.0833,
-      "p95_latency_s": 9.828,
-      "errors": 11
+      "tokens_per_job": 823.9167,
+      "p95_latency_s": 47.2985,
+      "errors": 8,
+      "errors_rate_limit": 6,
+      "errors_invalid_tool_call": 2
     },
     "c_graph": {
       "n": 12,
@@ -60,10 +64,12 @@
       },
       "unsupported_claims_per_proposal": 0.0,
       "compliance_violations_caught_per_proposal": 0.0,
-      "reply_prob_mean": 0.4198,
-      "tokens_per_job": 1841.75,
-      "p95_latency_s": 76.693,
-      "errors": 0
+      "reply_prob_mean": 0.4332,
+      "tokens_per_job": 1887.4167,
+      "p95_latency_s": 141.5475,
+      "errors": 0,
+      "errors_rate_limit": 0,
+      "errors_invalid_tool_call": 0
     }
   },
   "rows": {
@@ -73,14 +79,11 @@
         "persona": "ai_ml",
         "job_type": "standard",
         "gold": "bid",
-        "pred": "bid",
-        "correct": true,
-        "tokens": 9576,
-        "latency_s": 58.27,
-        "error": null,
-        "unsupported": 0,
-        "violations_caught": 1,
-        "p_reply": 0.3226
+        "pred": "skip",
+        "correct": false,
+        "tokens": 1788,
+        "latency_s": 4.8,
+        "error": null
       },
       {
         "job_id": "j-752c9eec85",
@@ -89,12 +92,12 @@
         "gold": "bid",
         "pred": "bid",
         "correct": true,
-        "tokens": 5607,
-        "latency_s": 39.03,
+        "tokens": 3813,
+        "latency_s": 29.34,
         "error": null,
         "unsupported": 1,
         "violations_caught": 1,
-        "p_reply": 0.3688
+        "p_reply": 0.378
       },
       {
         "job_id": "j-bcf602d227",
@@ -103,9 +106,9 @@
         "gold": "skip",
         "pred": "skip",
         "correct": true,
-        "tokens": 0,
-        "latency_s": 0.0,
-        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'JSON' which was not in request.tools"
+        "tokens": 1671,
+        "latency_s": 11.87,
+        "error": null
       },
       {
         "job_id": "j-072238cb3c",
@@ -114,9 +117,9 @@
         "gold": "skip",
         "pred": "skip",
         "correct": true,
-        "tokens": 0,
-        "latency_s": 0.0,
-        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'JSON' which was not in request.tools"
+        "tokens": 1672,
+        "latency_s": 10.69,
+        "error": null
       },
       {
         "job_id": "j-4a364e7166",
@@ -125,8 +128,8 @@
         "gold": "skip",
         "pred": "skip",
         "correct": true,
-        "tokens": 1708,
-        "latency_s": 17.25,
+        "tokens": 1677,
+        "latency_s": 11.61,
         "error": null
       },
       {
@@ -138,7 +141,7 @@
         "correct": true,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'json' which was not in request.tools"
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199344, Reques"
       },
       {
         "job_id": "j-ae122b8b3d",
@@ -149,7 +152,7 @@
         "correct": false,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'JSON' which was not in request.tools"
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199103, Reques"
       },
       {
         "job_id": "j-08ac20c457",
@@ -160,7 +163,7 @@
         "correct": false,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198891, Reque"
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198895, Reques"
       },
       {
         "job_id": "j-9ee3547ba2",
@@ -171,7 +174,7 @@
         "correct": false,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199094, Reque"
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199613, Reques"
       },
       {
         "job_id": "j-0032a86c32",
@@ -182,7 +185,7 @@
         "correct": false,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198894, Reque"
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199125, Reques"
       },
       {
         "job_id": "j-4c88b9114f",
@@ -193,7 +196,7 @@
         "correct": true,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199175, Reque"
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199416, Reques"
       },
       {
         "job_id": "j-5fa0d992f2",
@@ -204,7 +207,7 @@
         "correct": true,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199174, Reque"
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198787, Reques"
       }
     ],
     "b_supervisor": [
@@ -215,9 +218,9 @@
         "gold": "bid",
         "pred": "skip",
         "correct": false,
-        "tokens": 0,
-        "latency_s": 0.0,
-        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'json' which was not in request.tools"
+        "tokens": 3431,
+        "latency_s": 48.14,
+        "error": null
       },
       {
         "job_id": "j-752c9eec85",
@@ -237,9 +240,9 @@
         "gold": "skip",
         "pred": "skip",
         "correct": true,
-        "tokens": 0,
-        "latency_s": 0.0,
-        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'JSON' which was not in request.tools"
+        "tokens": 4054,
+        "latency_s": 46.61,
+        "error": null
       },
       {
         "job_id": "j-072238cb3c",
@@ -248,9 +251,9 @@
         "gold": "skip",
         "pred": "skip",
         "correct": true,
-        "tokens": 0,
-        "latency_s": 0.0,
-        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'json' which was not in request.tools"
+        "tokens": 1965,
+        "latency_s": 21.58,
+        "error": null
       },
       {
         "job_id": "j-4a364e7166",
@@ -261,7 +264,7 @@
         "correct": true,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'json' which was not in request.tools"
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199396, Reques"
       },
       {
         "job_id": "j-bdb11cb21a",
@@ -270,9 +273,9 @@
         "gold": "skip",
         "pred": "skip",
         "correct": true,
-        "tokens": 1885,
-        "latency_s": 21.84,
-        "error": null
+        "tokens": 0,
+        "latency_s": 0.0,
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199718, Reques"
       },
       {
         "job_id": "j-ae122b8b3d",
@@ -283,7 +286,7 @@
         "correct": false,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198708, Reque"
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199224, Reques"
       },
       {
         "job_id": "j-08ac20c457",
@@ -294,7 +297,7 @@
         "correct": false,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199234, Reque"
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199945, Reques"
       },
       {
         "job_id": "j-9ee3547ba2",
@@ -305,7 +308,7 @@
         "correct": false,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199036, Reque"
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 200000, Reques"
       },
       {
         "job_id": "j-0032a86c32",
@@ -316,7 +319,7 @@
         "correct": false,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199315, Reque"
+        "error": "Error code: 400 - Tool call validation failed: tool call validation failed: attempted to call tool 'search_evidence' which was not in request.tools"
       },
       {
         "job_id": "j-4c88b9114f",
@@ -327,7 +330,7 @@
         "correct": true,
         "tokens": 0,
         "latency_s": 0.0,
-        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199175, Reque"
+        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-20b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199484, Reques"
       },
       {
         "job_id": "j-5fa0d992f2",
@@ -336,9 +339,9 @@
         "gold": "skip",
         "pred": "skip",
         "correct": true,
-        "tokens": 0,
-        "latency_s": 0.0,
-        "error": "Error code: 429 - Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01kf8faqjeejpamw5bcta4h36c` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199034, Reque"
+        "tokens": 437,
+        "latency_s": 0.76,
+        "error": null
       }
     ],
     "c_graph": [
@@ -349,8 +352,8 @@
         "gold": "bid",
         "pred": "bid",
         "correct": true,
-        "tokens": 4420,
-        "latency_s": 19.59,
+        "tokens": 11494,
+        "latency_s": 74.81,
         "error": null,
         "unsupported": 0,
         "violations_caught": 0,
@@ -363,12 +366,12 @@
         "gold": "bid",
         "pred": "bid",
         "correct": true,
-        "tokens": 11030,
-        "latency_s": 48.95,
+        "tokens": 10293,
+        "latency_s": 81.63,
         "error": null,
         "unsupported": 0,
         "violations_caught": 0,
-        "p_reply": 0.4702
+        "p_reply": 0.4333
       },
       {
         "job_id": "j-bcf602d227",
@@ -389,7 +392,7 @@
         "pred": "skip",
         "correct": true,
         "tokens": 0,
-        "latency_s": 0.11,
+        "latency_s": 0.08,
         "error": null
       },
       {
@@ -400,7 +403,7 @@
         "pred": "skip",
         "correct": true,
         "tokens": 0,
-        "latency_s": 0.28,
+        "latency_s": 0.54,
         "error": null
       },
       {
@@ -410,8 +413,8 @@
         "gold": "skip",
         "pred": "skip",
         "correct": true,
-        "tokens": 408,
-        "latency_s": 0.95,
+        "tokens": 0,
+        "latency_s": 26.22,
         "error": null
       },
       {
@@ -421,12 +424,12 @@
         "gold": "bid",
         "pred": "bid",
         "correct": true,
-        "tokens": 3606,
-        "latency_s": 96.13,
+        "tokens": 862,
+        "latency_s": 214.78,
         "error": null,
         "unsupported": 0,
         "violations_caught": 0,
-        "p_reply": 0.238
+        "p_reply": 0.3306
       },
       {
         "job_id": "j-08ac20c457",
@@ -435,12 +438,12 @@
         "gold": "bid",
         "pred": "bid",
         "correct": true,
-        "tokens": 854,
-        "latency_s": 60.46,
+        "tokens": 0,
+        "latency_s": 76.71,
         "error": null,
         "unsupported": 0,
         "violations_caught": 0,
-        "p_reply": 0.4362
+        "p_reply": 0.4677
       },
       {
         "job_id": "j-9ee3547ba2",
@@ -449,12 +452,12 @@
         "gold": "bid",
         "pred": "bid",
         "correct": true,
-        "tokens": 917,
-        "latency_s": 60.79,
+        "tokens": 0,
+        "latency_s": 77.34,
         "error": null,
         "unsupported": 0,
         "violations_caught": 0,
-        "p_reply": 0.4203
+        "p_reply": 0.4137
       },
       {
         "job_id": "j-0032a86c32",
@@ -463,8 +466,8 @@
         "gold": "bid",
         "pred": "bid",
         "correct": true,
-        "tokens": 866,
-        "latency_s": 60.58,
+        "tokens": 0,
+        "latency_s": 76.72,
         "error": null,
         "unsupported": 0,
         "violations_caught": 0,
@@ -478,7 +481,7 @@
         "pred": "skip",
         "correct": true,
         "tokens": 0,
-        "latency_s": 0.17,
+        "latency_s": 0.15,
         "error": null
       },
       {

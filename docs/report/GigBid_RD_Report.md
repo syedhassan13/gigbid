@@ -1,6 +1,6 @@
 # GigBid: R&D design review
 
-*AI-4016 · Individual · Repository commit `cf53cd4` · every number cites a file in `evals/results/`.*
+*AI-4016 · Individual · Repository commit `e3335c5` · every number cites a file in `evals/results/`.*
 
 **Profiles.** Retrieval and decision numbers are model-independent (embeddings + rules). Proposal-text numbers were produced with the `offline` profile; where that is `offline`, the writer is the deterministic template fallback, not an LLM. Results produced with the Groq `open` profile are reported separately where available.
 
@@ -93,13 +93,13 @@ Why each agent exists (merged/split decisions): the Scout and Pricing Strategist
 
 | System | Bid/skip acc. | Unsupported / proposal | Violations caught | Reply p | Tokens / job | p95 s | Errors |
 |---|---|---|---|---|---|---|---|
-| a_react | 0.667 | 0.50 | 1.00 | 0.346 | 1408 | 47.7 | 9 |
-| b_supervisor | 0.500 | – | – | – | 157 | 9.8 | 11 |
-| c_graph | 1.000 | 0.00 | 0.00 | 0.420 | 1842 | 76.7 | 0 |
+| a_react | 0.583 | 1.00 | 1.00 | 0.378 | 885 | 19.7 | 7 |
+| b_supervisor | 0.500 | – | – | – | 824 | 47.3 | 8 |
+| c_graph | 1.000 | 0.00 | 0.00 | 0.433 | 1887 | 141.5 | 0 |
 
 *(a) one ReAct agent with all read tools, (b) `langgraph-supervisor`, (c) GigBid's graph; `multiagent_compare.json`.*
 
-Per job type, single-agent accuracy: {"standard": 0.5, "multi_req": 1.0, "scam": 1.0, "low_budget": 1.0, "injection": 0.0, "vague": 0.0}
+Per job type, single-agent accuracy: {"standard": 0.0, "multi_req": 1.0, "scam": 1.0, "low_budget": 1.0, "injection": 0.0, "vague": 0.0}
 
 ## 6. The change request (2 Nov platform policy update)
 
@@ -138,6 +138,9 @@ Decisions on 600 dev jobs: bid F1 0.987, accuracy 0.990, scam precision 1.000, r
 | Tool/infra: SSE replay | e2e approve | Viewer closed on a replayed 'done' event | Close only when run not running/resuming | Yes: Playwright passes |
 | Tool/infra: dropped state key | e2e reject | `force_bid` not in typed state ⇒ silently dropped | Declare field in `BidState` | Yes |
 | Compliance over-redaction | demo run | Phone regex matched interview slots '2026-11-03 09:00' ⇒ '[contact removed]' | Pattern may not start at/inside an ISO date or time | Yes: regression test |
+| Tool/infra: budget never reset | integration test | Cumulative step reducer: re-running a thread hit the 40-step budget | Negative update resets the counter on each fresh run | Yes |
+| Tool/infra: cold start | CI e2e | First search embedded the whole corpus on the event loop; parallel searches timed out | Retrieval in a worker thread + index warm-up at startup | Yes: CI green |
+| Tool/infra: retired model | LLM runs | Fallback model removed by provider (404) ⇒ silent rule fallback | Fallback to gpt-oss-20b | Yes |
 | Unsupported claim | 0.08 / proposal | Template writer cites a neighbouring project | Verifier removes it before Critic | Yes: 0.00 after |
 
 Remaining off-domain wrong bids (`decisions.json → failures`): ai_ml: Abc/xyz inventory views (Tableau, SQL); fullstack: Personalised recommendations served from an api (recomm; fullstack: Multi-touch attribution (marketing analytics, SQL); fullstack: A governed semantic layer and kpi tiles (Looker, SQL); data_analyst: A versioned public api (REST API, Node.js); data_analyst: A versioned public api (REST API, Node.js).

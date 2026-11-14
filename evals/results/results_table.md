@@ -53,9 +53,9 @@ Paired t-test p = 0.0019, Wilcoxon p = 0.0050, McNemar p = 0.0987 (n = 60 jobs).
 
 | System | Bid/skip acc. | Unsupported claims | Violations caught | Reply p | Tokens / job | p95 s |
 |---|---|---|---|---|---|---|
-| a_react | 0.667 | 0.50 | 1.00 | 0.346 | 1408 | 47.7 |
-| b_supervisor | 0.500 | – | – | – | 157 | 9.8 |
-| c_graph | 1.000 | 0.00 | 0.00 | 0.420 | 1842 | 76.7 |
+| a_react | 0.583 | 1.00 | 1.00 | 0.378 | 885 | 19.7 |
+| b_supervisor | 0.500 | – | – | – | 824 | 47.3 |
+| c_graph | 1.000 | 0.00 | 0.00 | 0.433 | 1887 | 141.5 |
 
 ### R&D A: tool granularity
 
