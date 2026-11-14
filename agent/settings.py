@@ -8,6 +8,8 @@ from pathlib import Path
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
+# GIGBID_HOME: writable dir for var/ (caches, dbs) when installed as a package (e.g. via uvx)
+HOME = Path(os.getenv("GIGBID_HOME", ROOT))
 
 
 def _load_env_file() -> None:

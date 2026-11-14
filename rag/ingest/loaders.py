@@ -6,12 +6,13 @@ client_industry and, for proposals, outcome.
 from __future__ import annotations
 
 import json
+import os
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-PERSONAS = ROOT / "data" / "personas"
+PERSONAS = Path(os.getenv("GIGBID_PORTFOLIO_DIR", ROOT / "data" / "personas"))
 
 
 @dataclass
@@ -81,7 +82,7 @@ def load_persona(persona: str, extra_dir: Path | None = None) -> list[Document]:
     for name in ("reviews.jsonl", "proposals.jsonl"):
         if (d / name).exists():
             docs += load_jsonl(d / name, persona)
-    up = extra_dir or (ROOT / "var" / "uploads" / persona)
+    up = extra_dir or (Path(os.getenv("GIGBID_HOME", ROOT)) / "var" / "uploads" / persona)
     if up.exists():  # user-added work (incremental re-index picks these up)
         for p in sorted(up.glob("*.md")):
             docs.append(load_markdown(p, persona))

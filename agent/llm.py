@@ -11,7 +11,6 @@ import json
 import os
 import re
 import time
-from pathlib import Path
 from typing import TypeVar
 
 import httpx
@@ -125,6 +124,3 @@ def complete_json(node: str, system: str, user: str, schema: type[T], **kw) -> T
 def complete_text(node: str, system: str, user: str, **kw) -> str | None:
     return chat(node, [{"role": "system", "content": system}, {"role": "user", "content": user}], **kw)
 
-
-def _unused(_: Path) -> None:  # keep Path import for type checkers
-    return None

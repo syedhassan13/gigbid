@@ -75,7 +75,7 @@ reranker:
 rag:
   variant: v_best          # chosen by evals/results/rag_variants.json (see docs/DATA_CARD.md)
   k: 8
-  min_support: 0.30        # evidence below this score is "weak" (corrective loop / refuse to claim)
+  min_support: 0.35        # evidence below this score is "weak" (corrective loop / refuse to claim)
 
 decision:
   bid_fit: 0.50            # fit score >= bid_fit -> candidate to bid

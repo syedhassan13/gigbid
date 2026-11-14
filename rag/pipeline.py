@@ -120,7 +120,7 @@ def extract_requirements(job: dict) -> list[str]:
         if s.lower() not in {r.lower() for r in reqs}:
             reqs.append(s)
     if not reqs:  # vague post: use its sentences
-        reqs = [s.strip() for s in re.split(r"(?<=[.!?])\s+", desc) if len(s.split()) > 4][:4]
+        reqs = [s.strip() for s in re.split(r"(?<=[.!?])\s+", desc) if len(s.split()) > 4][:4] or ([desc.strip()[:500]] if desc.strip() else [])
     return reqs[:8]
 
 
@@ -185,21 +185,29 @@ def retrieve_one(ix: PersonaIndex, cfg: PipelineConfig, query: str, k: int, indu
     if cfg.graph:
         cand = rrf([cand, _graph_candidates(ix, query, industry)])[: cfg.candidates]
     idx = [i for i, _ in cand]
-    if cfg.rerank and idx:
+    from rag.index.models import embed
+    qv = embed([query])[0]
+    qt = set(tokenize(query))
+    # support score (used for "weak evidence" decisions, comparable across variants):
+    #   max(cross-encoder sigmoid, 0.55 * lexical coverage of query terms + 0.45 * cosine)
+    support = {}
+    for i in idx:
+        ct = set(tokenize(ix.chunks[i].text))
+        lex = len(qt & ct) / len(qt) if qt else 0.0
+        support[i] = 0.55 * lex + 0.45 * max(0.0, float(ix.dense.m[i] @ qv))
+    if cfg.rerank and idx:  # ORDER by the cross-encoder
         rs = rerank(query, [ix.chunks[i].display for i in idx])
-        scored = [(i, _sigmoid(s)) for i, s in zip(idx, rs)]
-    else:  # calibrated-ish support score = dense cosine for every candidate
-        import numpy as np
-        from rag.index.models import embed
-        q = embed([query])[0]
-        scored = [(i, float(ix.dense.m[i] @ q)) for i in idx]
+        order_key = {i: _sigmoid(s) for i, s in zip(idx, rs)}
+        support = {i: max(support[i], order_key[i]) for i in idx}
+    elif cfg.retrieval == "hybrid":  # ORDER by fused rank
+        order_key = {i: 1.0 - r / max(1, len(cand)) for r, (i, _) in enumerate(cand)}
+    else:  # ORDER by cosine
+        order_key = {i: float(ix.dense.m[i] @ qv) for i in idx}
     if cfg.outcome_boost:
-        scored = [(i, s * _outcome_factor(ix, ix.chunks[i])) for i, s in scored]
-    if not cfg.rerank and cfg.retrieval == "hybrid":  # keep fused order but carry support score
-        order = {i: r for r, (i, _) in enumerate(cand)}
-        scored.sort(key=lambda x: (order[x[0]] - 8 * x[1]))
-    else:
-        scored.sort(key=lambda x: -x[1])
+        f = {i: _outcome_factor(ix, ix.chunks[i]) for i in idx}
+        order_key = {i: order_key[i] * f[i] for i in idx}
+        support = {i: min(1.0, support[i] * f[i]) for i in idx}
+    scored = sorted(((i, support[i]) for i in idx), key=lambda x: -order_key[x[0]])
     out = []
     for i, s in scored[: k * 3]:
         c = ix.chunks[i]

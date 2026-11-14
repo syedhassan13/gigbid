@@ -15,22 +15,22 @@ from pathlib import Path
 import numpy as np
 from rank_bm25 import BM25Okapi
 
-from agent.settings import ROOT, config
+from agent.settings import HOME, config
 
-CACHE = ROOT / "var" / "emb_cache"
+CACHE = HOME / "var" / "emb_cache"
 
 
 @lru_cache
 def _embedder():
     from fastembed import TextEmbedding
     c = config()["embeddings"]
-    return TextEmbedding(c["model"], cache_dir=str(ROOT / c["cache_dir"]))
+    return TextEmbedding(c["model"], cache_dir=str(HOME / c["cache_dir"]))
 
 
 @lru_cache
 def _reranker(name: str | None = None):
     from fastembed.rerank.cross_encoder import TextCrossEncoder
-    return TextCrossEncoder(name or config()["reranker"]["model"], cache_dir=str(ROOT / config()["embeddings"]["cache_dir"]))
+    return TextCrossEncoder(name or config()["reranker"]["model"], cache_dir=str(HOME / config()["embeddings"]["cache_dir"]))
 
 
 def embed(texts: list[str]) -> np.ndarray:
