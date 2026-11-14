@@ -1,0 +1,304 @@
+{
+  "env": {
+    "commit": "4fafb29",
+    "profile": "offline",
+    "rag_variant": "v_best",
+    "embeddings": "BAAI/bge-small-en-v1.5",
+    "reranker": "Xenova/ms-marco-MiniLM-L-6-v2",
+    "python": "3.14.2",
+    "machine": "AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD",
+    "cpu_count": 4,
+    "ts": "2026-11-14T16:48:20"
+  },
+  "ablations": {
+    "full (v_best)": {
+      "all": {
+        "recall@5": 0.8096,
+        "mrr": 0.9153,
+        "ndcg@10": 0.8287
+      },
+      "ai_ml": {
+        "recall@5": 0.84,
+        "mrr": 0.925,
+        "ndcg@10": 0.8237
+      },
+      "type:standard": {
+        "recall@5": 0.7714,
+        "mrr": 0.9444,
+        "ndcg@10": 0.802
+      },
+      "type:multi_req": {
+        "recall@5": 0.817,
+        "mrr": 0.9255,
+        "ndcg@10": 0.8532
+      },
+      "type:low_budget": {
+        "recall@5": 0.8143,
+        "mrr": 0.8571,
+        "ndcg@10": 0.8169
+      },
+      "type:injection": {
+        "recall@5": 0.8,
+        "mrr": 0.8846,
+        "ndcg@10": 0.8201
+      },
+      "type:vague": {
+        "recall@5": 0.8625,
+        "mrr": 0.9583,
+        "ndcg@10": 0.8117
+      },
+      "fullstack": {
+        "recall@5": 0.7588,
+        "mrr": 0.8708,
+        "ndcg@10": 0.8185
+      },
+      "data_analyst": {
+        "recall@5": 0.83,
+        "mrr": 0.95,
+        "ndcg@10": 0.8438
+      },
+      "seconds": 1.7
+    },
+    "- decomposition": {
+      "all": {
+        "recall@5": 0.8096,
+        "mrr": 0.9153,
+        "ndcg@10": 0.8287
+      },
+      "ai_ml": {
+        "recall@5": 0.84,
+        "mrr": 0.925,
+        "ndcg@10": 0.8237
+      },
+      "type:standard": {
+        "recall@5": 0.7714,
+        "mrr": 0.9444,
+        "ndcg@10": 0.802
+      },
+      "type:multi_req": {
+        "recall@5": 0.817,
+        "mrr": 0.9255,
+        "ndcg@10": 0.8532
+      },
+      "type:low_budget": {
+        "recall@5": 0.8143,
+        "mrr": 0.8571,
+        "ndcg@10": 0.8169
+      },
+      "type:injection": {
+        "recall@5": 0.8,
+        "mrr": 0.8846,
+        "ndcg@10": 0.8201
+      },
+      "type:vague": {
+        "recall@5": 0.8625,
+        "mrr": 0.9583,
+        "ndcg@10": 0.8117
+      },
+      "fullstack": {
+        "recall@5": 0.7588,
+        "mrr": 0.8708,
+        "ndcg@10": 0.8185
+      },
+      "data_analyst": {
+        "recall@5": 0.83,
+        "mrr": 0.95,
+        "ndcg@10": 0.8438
+      },
+      "seconds": 1.1
+    },
+    "- hybrid (dense only)": {
+      "all": {
+        "recall@5": 0.7004,
+        "mrr": 0.7834,
+        "ndcg@10": 0.8113
+      },
+      "ai_ml": {
+        "recall@5": 0.765,
+        "mrr": 0.9042,
+        "ndcg@10": 0.8831
+      },
+      "type:standard": {
+        "recall@5": 0.631,
+        "mrr": 0.7409,
+        "ndcg@10": 0.7458
+      },
+      "type:multi_req": {
+        "recall@5": 0.6915,
+        "mrr": 0.7897,
+        "ndcg@10": 0.8105
+      },
+      "type:low_budget": {
+        "recall@5": 0.7429,
+        "mrr": 0.7798,
+        "ndcg@10": 0.8525
+      },
+      "type:injection": {
+        "recall@5": 0.7077,
+        "mrr": 0.7468,
+        "ndcg@10": 0.8277
+      },
+      "type:vague": {
+        "recall@5": 0.7917,
+        "mrr": 0.9167,
+        "ndcg@10": 0.8456
+      },
+      "fullstack": {
+        "recall@5": 0.5913,
+        "mrr": 0.6327,
+        "ndcg@10": 0.7167
+      },
+      "data_analyst": {
+        "recall@5": 0.745,
+        "mrr": 0.8133,
+        "ndcg@10": 0.834
+      },
+      "seconds": 0.5
+    },
+    "- reranker": {
+      "all": {
+        "recall@5": 0.8096,
+        "mrr": 0.9153,
+        "ndcg@10": 0.8287
+      },
+      "ai_ml": {
+        "recall@5": 0.84,
+        "mrr": 0.925,
+        "ndcg@10": 0.8237
+      },
+      "type:standard": {
+        "recall@5": 0.7714,
+        "mrr": 0.9444,
+        "ndcg@10": 0.802
+      },
+      "type:multi_req": {
+        "recall@5": 0.817,
+        "mrr": 0.9255,
+        "ndcg@10": 0.8532
+      },
+      "type:low_budget": {
+        "recall@5": 0.8143,
+        "mrr": 0.8571,
+        "ndcg@10": 0.8169
+      },
+      "type:injection": {
+        "recall@5": 0.8,
+        "mrr": 0.8846,
+        "ndcg@10": 0.8201
+      },
+      "type:vague": {
+        "recall@5": 0.8625,
+        "mrr": 0.9583,
+        "ndcg@10": 0.8117
+      },
+      "fullstack": {
+        "recall@5": 0.7588,
+        "mrr": 0.8708,
+        "ndcg@10": 0.8185
+      },
+      "data_analyst": {
+        "recall@5": 0.83,
+        "mrr": 0.95,
+        "ndcg@10": 0.8438
+      },
+      "seconds": 1.2
+    },
+    "- outcome boost": {
+      "all": {
+        "recall@5": 0.6512,
+        "mrr": 0.9424,
+        "ndcg@10": 0.7384
+      },
+      "ai_ml": {
+        "recall@5": 0.655,
+        "mrr": 0.9271,
+        "ndcg@10": 0.7051
+      },
+      "type:standard": {
+        "recall@5": 0.6286,
+        "mrr": 0.9524,
+        "ndcg@10": 0.697
+      },
+      "type:multi_req": {
+        "recall@5": 0.6596,
+        "mrr": 0.9309,
+        "ndcg@10": 0.7587
+      },
+      "type:low_budget": {
+        "recall@5": 0.5857,
+        "mrr": 0.9167,
+        "ndcg@10": 0.7202
+      },
+      "type:injection": {
+        "recall@5": 0.6769,
+        "mrr": 0.9615,
+        "ndcg@10": 0.7508
+      },
+      "type:vague": {
+        "recall@5": 0.6792,
+        "mrr": 0.9583,
+        "ndcg@10": 0.726
+      },
+      "fullstack": {
+        "recall@5": 0.6638,
+        "mrr": 0.95,
+        "ndcg@10": 0.7759
+      },
+      "data_analyst": {
+        "recall@5": 0.635,
+        "mrr": 0.95,
+        "ndcg@10": 0.7344
+      },
+      "seconds": 1.1
+    },
+    "- contextual chunks": {
+      "all": {
+        "recall@5": 0.755,
+        "mrr": 0.8694,
+        "ndcg@10": 0.7377
+      },
+      "ai_ml": {
+        "recall@5": 0.795,
+        "mrr": 0.9042,
+        "ndcg@10": 0.7517
+      },
+      "type:standard": {
+        "recall@5": 0.719,
+        "mrr": 0.8175,
+        "ndcg@10": 0.7018
+      },
+      "type:multi_req": {
+        "recall@5": 0.7787,
+        "mrr": 0.8723,
+        "ndcg@10": 0.7552
+      },
+      "type:low_budget": {
+        "recall@5": 0.8,
+        "mrr": 0.9167,
+        "ndcg@10": 0.7568
+      },
+      "type:injection": {
+        "recall@5": 0.7231,
+        "mrr": 0.8462,
+        "ndcg@10": 0.7322
+      },
+      "type:vague": {
+        "recall@5": 0.7417,
+        "mrr": 0.9444,
+        "ndcg@10": 0.722
+      },
+      "fullstack": {
+        "recall@5": 0.695,
+        "mrr": 0.7833,
+        "ndcg@10": 0.6893
+      },
+      "data_analyst": {
+        "recall@5": 0.775,
+        "mrr": 0.9208,
+        "ndcg@10": 0.7721
+      },
+      "seconds": 1.5
+    }
+  },
+  "limit_per_persona": 40
+}

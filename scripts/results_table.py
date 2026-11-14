@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -69,6 +70,7 @@ def main() -> None:
         if "<!-- results:start" in t:
             t = re.sub(r"<!-- results:start.*?<!-- results:end -->\n?", md, t, flags=re.S)
             readme.write_text(t, encoding="utf-8")
+    sys.stdout.reconfigure(encoding="utf-8")
     print(md)
 
 
