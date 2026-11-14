@@ -2,6 +2,7 @@
 token-bucket rate limiting, append-only audit log with PII masking, trace ids."""
 from __future__ import annotations
 
+import contextvars
 import json
 import os
 import threading
@@ -12,6 +13,8 @@ from agent.tracing import mask_obj
 
 AUDIT_DIR = HOME / "var" / "audit"
 _lock = threading.Lock()
+# in-process transport has no HTTP headers: the caller sets these before connecting
+INPROC_HEADERS: contextvars.ContextVar[dict] = contextvars.ContextVar("INPROC_HEADERS", default={})
 
 
 class TokenBucket:
@@ -67,9 +70,11 @@ def write_account(token: str, account: dict) -> None:
 def request_headers(ctx) -> dict:
     try:
         req = ctx.request_context.request
-        return {k.lower(): v for k, v in req.headers.items()} if req is not None else {}
+        if req is not None:
+            return {k.lower(): v for k, v in req.headers.items()}
     except Exception:
-        return {}
+        pass
+    return {k.lower(): v for k, v in INPROC_HEADERS.get().items()}
 
 
 def default_token() -> str:
