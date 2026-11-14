@@ -81,6 +81,11 @@ async def lifespan(_app):
     db.init()
     seed_reviewer()
     await tasks.runtime()
+    # warm the portfolio indexes (embeddings are cached on disk) so the first analysis is not slow
+    from rag.retriever import retrieve
+    warm = asyncio.gather(*[asyncio.to_thread(retrieve, "python api", p, 3, v) for p in ("ai_ml", "fullstack", "data_analyst")
+                            for v in ("v_best", "v2_hybrid")], return_exceptions=True)
+    await warm
     bg = asyncio.create_task(embedded_worker()) if worker_mode() == "embedded" else None
     yield
     if bg:

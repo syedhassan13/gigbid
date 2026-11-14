@@ -70,12 +70,18 @@ def _docs(persona: str):
 
 
 @mcp.tool(annotations=READ_ONLY, structured_output=True)
-def search_evidence(requirement: str, k: int = 5, filters: EvidenceFilters | None = None) -> EvidenceResult:
+async def search_evidence(requirement: str, k: int = 5, filters: EvidenceFilters | None = None) -> EvidenceResult:
     """Find portfolio evidence (case studies, repos, reviews, past proposals) that proves ONE job requirement.
 
     Call once per requirement (e.g. "Celery background jobs", "Power BI with row-level security").
     Returns items with type, source URI, date, outcome and a support score; `weak=true` means do not claim it.
     """
+    import anyio
+    # retrieval is CPU-bound (embeddings, BM25): run it off the event loop so concurrent calls and the host stay responsive
+    return await anyio.to_thread.run_sync(_search_evidence_sync, requirement, k, filters)
+
+
+def _search_evidence_sync(requirement: str, k: int, filters: EvidenceFilters | None) -> EvidenceResult:
     from agent.settings import config
     from rag.retriever import retrieve
     f = filters or EvidenceFilters()

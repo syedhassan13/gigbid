@@ -93,9 +93,10 @@ def _parse(result) -> dict | list:
 
 
 async def call_tool(agent: str, server: str, tool: str, args: dict, *, marketplace_token: str | None = None,
-                    user: str = "", timeout: float = 30, retries: int = 2) -> dict | list:
+                    user: str = "", timeout: float | None = None, retries: int = 2) -> dict | list:
     if tool not in ALLOWLIST.get(agent, {}).get(server, []):
         raise ToolNotAllowed("not_allowed", f"agent '{agent}' may not call {server}.{tool}")
+    timeout = timeout or (180 if server == "portfolio" else 30)  # a cold portfolio index can take a while to embed
     transport = os.getenv("MCP_TRANSPORT", "inproc")
     headers = {"X-Trace-Id": current_trace_id.get() or "", "X-Gigbid-User": user}
     if server == "marketplace":

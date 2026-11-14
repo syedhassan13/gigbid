@@ -27,6 +27,9 @@ def gigsim(tmp_path_factory):
                 break
         except httpx.HTTPError:
             time.sleep(0.5)
+    from rag.retriever import retrieve  # warm the portfolio indexes like the API does at startup
+    for v in ("v_best", "v2_hybrid"):
+        retrieve("python api", "ai_ml", 3, v)
     os.environ["GIGSIM_URL"] = f"http://127.0.0.1:{PORT}"
     os.environ["MARKETPLACE_RATE_PER_MIN"] = "100000"
     yield
