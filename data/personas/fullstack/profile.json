@@ -1,0 +1,32 @@
+{
+  "persona": "fullstack",
+  "name": "Bilal Siddiqui",
+  "headline": "Full-stack web developer - React, Next.js, Node, Django",
+  "rate_floor": 35,
+  "target_rate": 50,
+  "skills": [
+    "Django",
+    "Next.js",
+    "Node.js",
+    "OAuth",
+    "OpenAPI",
+    "PostgreSQL",
+    "Python",
+    "REST API",
+    "React",
+    "Redis",
+    "SEO",
+    "Shopify",
+    "Stripe",
+    "TypeScript",
+    "WebSockets",
+    "WordPress",
+    "authentication",
+    "content migration",
+    "e-commerce",
+    "role-based access",
+    "security",
+    "webhooks"
+  ],
+  "synthetic": true
+}

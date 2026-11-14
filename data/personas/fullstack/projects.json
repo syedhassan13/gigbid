@@ -1,0 +1,482 @@
+[
+  {
+    "id": "fullstack-saas-dash-00",
+    "persona": "fullstack",
+    "archetype": "saas_dash",
+    "title": "SaaS analytics dashboard for a healthcare solo founder",
+    "industry": "healthcare",
+    "client_kind": "solo founder",
+    "year": 2023,
+    "explicit": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL"
+    ],
+    "implied": [
+      "recharts",
+      "prisma",
+      "tanstack-query"
+    ],
+    "problem": "customers exported CSVs to understand their own usage",
+    "solution": "an in-app dashboard with filters, drill-downs and scheduled reports",
+    "metric": "reduced support tickets about reporting by 35%",
+    "duration_weeks": 3
+  },
+  {
+    "id": "fullstack-ecommerce-01",
+    "persona": "fullstack",
+    "archetype": "ecommerce",
+    "title": "Headless e-commerce storefront for a insurance solo founder",
+    "industry": "insurance",
+    "client_kind": "solo founder",
+    "year": 2023,
+    "explicit": [
+      "Next.js",
+      "React",
+      "Shopify",
+      "e-commerce"
+    ],
+    "implied": [
+      "graphql",
+      "tailwindcss",
+      "vercel"
+    ],
+    "problem": "the old theme was slow on mobile",
+    "solution": "a headless storefront with server rendering and image optimisation",
+    "metric": "improved mobile conversion by 60%",
+    "duration_weeks": 8
+  },
+  {
+    "id": "fullstack-booking-02",
+    "persona": "fullstack",
+    "archetype": "booking",
+    "title": "Appointment booking system for a real estate seed-stage startup",
+    "industry": "real estate",
+    "client_kind": "seed-stage startup",
+    "year": 2024,
+    "explicit": [
+      "Django",
+      "Python",
+      "React",
+      "PostgreSQL"
+    ],
+    "implied": [
+      "celery",
+      "django-rest-framework",
+      "twilio"
+    ],
+    "problem": "bookings were taken by phone and often double-booked",
+    "solution": "online booking with reminders sent from a background job queue",
+    "metric": "cut no-shows by 18%",
+    "duration_weeks": 8
+  },
+  {
+    "id": "fullstack-realtime-chat-03",
+    "persona": "fullstack",
+    "archetype": "realtime_chat",
+    "title": "Real-time chat module for a manufacturing mid-size agency",
+    "industry": "manufacturing",
+    "client_kind": "mid-size agency",
+    "year": 2023,
+    "explicit": [
+      "Node.js",
+      "WebSockets",
+      "React",
+      "Redis"
+    ],
+    "implied": [
+      "socket.io",
+      "express",
+      "jest"
+    ],
+    "problem": "users left the app to talk to each other",
+    "solution": "in-app real-time messaging with read receipts and moderation",
+    "metric": "increased daily active users by 52%",
+    "duration_weeks": 12
+  },
+  {
+    "id": "fullstack-rest-api-04",
+    "persona": "fullstack",
+    "archetype": "rest_api",
+    "title": "Public REST API and developer portal for a healthcare Series B scale-up",
+    "industry": "healthcare",
+    "client_kind": "Series B scale-up",
+    "year": 2026,
+    "explicit": [
+      "REST API",
+      "Node.js",
+      "OpenAPI",
+      "PostgreSQL"
+    ],
+    "implied": [
+      "fastify",
+      "zod",
+      "swagger-ui"
+    ],
+    "problem": "partners integrated through ad-hoc CSV drops",
+    "solution": "a versioned public API with keys, rate limits and docs",
+    "metric": "onboarded 22 partners in the first quarter",
+    "duration_weeks": 10
+  },
+  {
+    "id": "fullstack-marketplace-05",
+    "persona": "fullstack",
+    "archetype": "marketplace",
+    "title": "Two-sided marketplace MVP for a real estate family-owned business",
+    "industry": "real estate",
+    "client_kind": "family-owned business",
+    "year": 2024,
+    "explicit": [
+      "Next.js",
+      "Stripe",
+      "TypeScript",
+      "PostgreSQL"
+    ],
+    "implied": [
+      "stripe-connect",
+      "supabase",
+      "resend"
+    ],
+    "problem": "the founder validated demand with a spreadsheet",
+    "solution": "an MVP with listings, payouts and reviews",
+    "metric": "processed 18k USD GMV in month one",
+    "duration_weeks": 10
+  },
+  {
+    "id": "fullstack-payments-06",
+    "persona": "fullstack",
+    "archetype": "payments",
+    "title": "Subscription billing integration for a logistics university lab",
+    "industry": "logistics",
+    "client_kind": "university lab",
+    "year": 2021,
+    "explicit": [
+      "Stripe",
+      "Node.js",
+      "React",
+      "webhooks"
+    ],
+    "implied": [
+      "stripe",
+      "bullmq",
+      "postgres"
+    ],
+    "problem": "subscriptions were invoiced manually",
+    "solution": "self-serve plans, proration and dunning via webhooks",
+    "metric": "recovered 18% of failed payments",
+    "duration_weeks": 6
+  },
+  {
+    "id": "fullstack-admin-panel-07",
+    "persona": "fullstack",
+    "archetype": "admin_panel",
+    "title": "Internal admin panel for a hospitality mid-size agency",
+    "industry": "hospitality",
+    "client_kind": "mid-size agency",
+    "year": 2024,
+    "explicit": [
+      "React",
+      "Django",
+      "role-based access",
+      "Python"
+    ],
+    "implied": [
+      "react-admin",
+      "django-guardian",
+      "pytest"
+    ],
+    "problem": "ops staff edited records directly in the database",
+    "solution": "an audited admin panel with roles and approvals",
+    "metric": "eliminated 27 direct DB edits per week",
+    "duration_weeks": 8
+  },
+  {
+    "id": "fullstack-cms-migration-08",
+    "persona": "fullstack",
+    "archetype": "cms_migration",
+    "title": "CMS migration to headless for a media solo founder",
+    "industry": "media",
+    "client_kind": "solo founder",
+    "year": 2025,
+    "explicit": [
+      "WordPress",
+      "Next.js",
+      "SEO",
+      "content migration"
+    ],
+    "implied": [
+      "contentful",
+      "wp-graphql",
+      "redirects"
+    ],
+    "problem": "a legacy WordPress site was slow and hard to edit",
+    "solution": "a headless CMS with preserved URLs and SEO metadata",
+    "metric": "cut page load time by 35%",
+    "duration_weeks": 10
+  },
+  {
+    "id": "fullstack-auth-sso-09",
+    "persona": "fullstack",
+    "archetype": "auth_sso",
+    "title": "Single sign-on and auth hardening for a e-commerce university lab",
+    "industry": "e-commerce",
+    "client_kind": "university lab",
+    "year": 2022,
+    "explicit": [
+      "authentication",
+      "OAuth",
+      "Node.js",
+      "security"
+    ],
+    "implied": [
+      "passport",
+      "jose",
+      "argon2"
+    ],
+    "problem": "enterprise customers required SSO",
+    "solution": "OAuth/OIDC SSO with SCIM provisioning and MFA",
+    "metric": "unblocked 31 enterprise deals",
+    "duration_weeks": 8
+  },
+  {
+    "id": "fullstack-saas-dash-10",
+    "persona": "fullstack",
+    "archetype": "saas_dash",
+    "title": "SaaS analytics dashboard for a e-commerce mid-size agency",
+    "industry": "e-commerce",
+    "client_kind": "mid-size agency",
+    "year": 2026,
+    "explicit": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL"
+    ],
+    "implied": [
+      "recharts",
+      "prisma",
+      "tanstack-query"
+    ],
+    "problem": "customers exported CSVs to understand their own usage",
+    "solution": "an in-app dashboard with filters, drill-downs and scheduled reports",
+    "metric": "reduced support tickets about reporting by 22%",
+    "duration_weeks": 8
+  },
+  {
+    "id": "fullstack-ecommerce-11",
+    "persona": "fullstack",
+    "archetype": "ecommerce",
+    "title": "Headless e-commerce storefront for a insurance mid-size agency",
+    "industry": "insurance",
+    "client_kind": "mid-size agency",
+    "year": 2026,
+    "explicit": [
+      "Next.js",
+      "React",
+      "Shopify",
+      "e-commerce"
+    ],
+    "implied": [
+      "graphql",
+      "tailwindcss",
+      "vercel"
+    ],
+    "problem": "the old theme was slow on mobile",
+    "solution": "a headless storefront with server rendering and image optimisation",
+    "metric": "improved mobile conversion by 40%",
+    "duration_weeks": 6
+  },
+  {
+    "id": "fullstack-booking-12",
+    "persona": "fullstack",
+    "archetype": "booking",
+    "title": "Appointment booking system for a fintech regional chain",
+    "industry": "fintech",
+    "client_kind": "regional chain",
+    "year": 2024,
+    "explicit": [
+      "Django",
+      "Python",
+      "React",
+      "PostgreSQL"
+    ],
+    "implied": [
+      "celery",
+      "django-rest-framework",
+      "twilio"
+    ],
+    "problem": "bookings were taken by phone and often double-booked",
+    "solution": "online booking with reminders sent from a background job queue",
+    "metric": "cut no-shows by 22%",
+    "duration_weeks": 8
+  },
+  {
+    "id": "fullstack-realtime-chat-13",
+    "persona": "fullstack",
+    "archetype": "realtime_chat",
+    "title": "Real-time chat module for a nonprofit seed-stage startup",
+    "industry": "nonprofit",
+    "client_kind": "seed-stage startup",
+    "year": 2023,
+    "explicit": [
+      "Node.js",
+      "WebSockets",
+      "React",
+      "Redis"
+    ],
+    "implied": [
+      "socket.io",
+      "express",
+      "jest"
+    ],
+    "problem": "users left the app to talk to each other",
+    "solution": "in-app real-time messaging with read receipts and moderation",
+    "metric": "increased daily active users by 31%",
+    "duration_weeks": 6
+  },
+  {
+    "id": "fullstack-rest-api-14",
+    "persona": "fullstack",
+    "archetype": "rest_api",
+    "title": "Public REST API and developer portal for a real estate regional chain",
+    "industry": "real estate",
+    "client_kind": "regional chain",
+    "year": 2025,
+    "explicit": [
+      "REST API",
+      "Node.js",
+      "OpenAPI",
+      "PostgreSQL"
+    ],
+    "implied": [
+      "fastify",
+      "zod",
+      "swagger-ui"
+    ],
+    "problem": "partners integrated through ad-hoc CSV drops",
+    "solution": "a versioned public API with keys, rate limits and docs",
+    "metric": "onboarded 60 partners in the first quarter",
+    "duration_weeks": 4
+  },
+  {
+    "id": "fullstack-marketplace-15",
+    "persona": "fullstack",
+    "archetype": "marketplace",
+    "title": "Two-sided marketplace MVP for a legal Series B scale-up",
+    "industry": "legal",
+    "client_kind": "Series B scale-up",
+    "year": 2024,
+    "explicit": [
+      "Next.js",
+      "Stripe",
+      "TypeScript",
+      "PostgreSQL"
+    ],
+    "implied": [
+      "stripe-connect",
+      "supabase",
+      "resend"
+    ],
+    "problem": "the founder validated demand with a spreadsheet",
+    "solution": "an MVP with listings, payouts and reviews",
+    "metric": "processed 27k USD GMV in month one",
+    "duration_weeks": 10
+  },
+  {
+    "id": "fullstack-payments-16",
+    "persona": "fullstack",
+    "archetype": "payments",
+    "title": "Subscription billing integration for a media seed-stage startup",
+    "industry": "media",
+    "client_kind": "seed-stage startup",
+    "year": 2023,
+    "explicit": [
+      "Stripe",
+      "Node.js",
+      "React",
+      "webhooks"
+    ],
+    "implied": [
+      "stripe",
+      "bullmq",
+      "postgres"
+    ],
+    "problem": "subscriptions were invoiced manually",
+    "solution": "self-serve plans, proration and dunning via webhooks",
+    "metric": "recovered 40% of failed payments",
+    "duration_weeks": 10
+  },
+  {
+    "id": "fullstack-admin-panel-17",
+    "persona": "fullstack",
+    "archetype": "admin_panel",
+    "title": "Internal admin panel for a e-commerce consultancy",
+    "industry": "e-commerce",
+    "client_kind": "consultancy",
+    "year": 2026,
+    "explicit": [
+      "React",
+      "Django",
+      "role-based access",
+      "Python"
+    ],
+    "implied": [
+      "react-admin",
+      "django-guardian",
+      "pytest"
+    ],
+    "problem": "ops staff edited records directly in the database",
+    "solution": "an audited admin panel with roles and approvals",
+    "metric": "eliminated 60 direct DB edits per week",
+    "duration_weeks": 12
+  },
+  {
+    "id": "fullstack-cms-migration-18",
+    "persona": "fullstack",
+    "archetype": "cms_migration",
+    "title": "CMS migration to headless for a education family-owned business",
+    "industry": "education",
+    "client_kind": "family-owned business",
+    "year": 2024,
+    "explicit": [
+      "WordPress",
+      "Next.js",
+      "SEO",
+      "content migration"
+    ],
+    "implied": [
+      "contentful",
+      "wp-graphql",
+      "redirects"
+    ],
+    "problem": "a legacy WordPress site was slow and hard to edit",
+    "solution": "a headless CMS with preserved URLs and SEO metadata",
+    "metric": "cut page load time by 52%",
+    "duration_weeks": 12
+  },
+  {
+    "id": "fullstack-auth-sso-19",
+    "persona": "fullstack",
+    "archetype": "auth_sso",
+    "title": "Single sign-on and auth hardening for a real estate Series B scale-up",
+    "industry": "real estate",
+    "client_kind": "Series B scale-up",
+    "year": 2022,
+    "explicit": [
+      "authentication",
+      "OAuth",
+      "Node.js",
+      "security"
+    ],
+    "implied": [
+      "passport",
+      "jose",
+      "argon2"
+    ],
+    "problem": "enterprise customers required SSO",
+    "solution": "OAuth/OIDC SSO with SCIM provisioning and MFA",
+    "metric": "unblocked 40 enterprise deals",
+    "duration_weeks": 8
+  }
+]

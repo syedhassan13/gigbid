@@ -1,0 +1,484 @@
+[
+  {
+    "id": "ai_ml-rag-chatbot-00",
+    "persona": "ai_ml",
+    "archetype": "rag_chatbot",
+    "title": "Retrieval-augmented support assistant for a education family-owned business",
+    "industry": "education",
+    "client_kind": "family-owned business",
+    "year": 2024,
+    "explicit": [
+      "Python",
+      "LLM",
+      "RAG",
+      "FastAPI",
+      "embeddings"
+    ],
+    "implied": [
+      "faiss",
+      "langchain",
+      "sentence-transformers"
+    ],
+    "problem": "support agents spent hours searching policy PDFs",
+    "solution": "a question-answering assistant over their knowledge base with cited answers",
+    "metric": "cut average handling time by 18%",
+    "duration_weeks": 3
+  },
+  {
+    "id": "ai_ml-doc-classify-01",
+    "persona": "ai_ml",
+    "archetype": "doc_classify",
+    "title": "Document classification pipeline for a manufacturing mid-size agency",
+    "industry": "manufacturing",
+    "client_kind": "mid-size agency",
+    "year": 2023,
+    "explicit": [
+      "Python",
+      "NLP",
+      "scikit-learn",
+      "text classification"
+    ],
+    "implied": [
+      "spacy",
+      "pandas",
+      "joblib"
+    ],
+    "problem": "thousands of incoming documents were routed by hand",
+    "solution": "an automatic classifier with a human review queue for low-confidence items",
+    "metric": "automated 18% of routing at 96% precision",
+    "duration_weeks": 10
+  },
+  {
+    "id": "ai_ml-forecast-02",
+    "persona": "ai_ml",
+    "archetype": "forecast",
+    "title": "Demand forecasting model for a logistics seed-stage startup",
+    "industry": "logistics",
+    "client_kind": "seed-stage startup",
+    "year": 2021,
+    "explicit": [
+      "Python",
+      "time series",
+      "forecasting",
+      "machine learning"
+    ],
+    "implied": [
+      "prophet",
+      "lightgbm",
+      "statsmodels"
+    ],
+    "problem": "stock-outs and over-ordering every season",
+    "solution": "weekly SKU-level forecasts with prediction intervals",
+    "metric": "reduced forecast error (MAPE) by 45%",
+    "duration_weeks": 8
+  },
+  {
+    "id": "ai_ml-cv-defect-03",
+    "persona": "ai_ml",
+    "archetype": "cv_defect",
+    "title": "Visual defect detection for a fintech Series B scale-up",
+    "industry": "fintech",
+    "client_kind": "Series B scale-up",
+    "year": 2021,
+    "explicit": [
+      "computer vision",
+      "deep learning",
+      "PyTorch",
+      "Python"
+    ],
+    "implied": [
+      "opencv",
+      "albumentations",
+      "torchvision"
+    ],
+    "problem": "manual inspection missed hairline defects on the line",
+    "solution": "a camera-based defect detector running on an edge box",
+    "metric": "caught 60% more defects than manual inspection",
+    "duration_weeks": 8
+  },
+  {
+    "id": "ai_ml-llm-finetune-04",
+    "persona": "ai_ml",
+    "archetype": "llm_finetune",
+    "title": "Fine-tuned LLM for domain extraction for a healthcare mid-size agency",
+    "industry": "healthcare",
+    "client_kind": "mid-size agency",
+    "year": 2022,
+    "explicit": [
+      "LLM",
+      "fine-tuning",
+      "Hugging Face",
+      "Python"
+    ],
+    "implied": [
+      "peft",
+      "transformers",
+      "bitsandbytes"
+    ],
+    "problem": "a general model kept missing domain-specific fields",
+    "solution": "a LoRA fine-tuned open model for structured extraction",
+    "metric": "raised field-level F1 by 18 points",
+    "duration_weeks": 10
+  },
+  {
+    "id": "ai_ml-recsys-05",
+    "persona": "ai_ml",
+    "archetype": "recsys",
+    "title": "Product recommendation engine for a media regional chain",
+    "industry": "media",
+    "client_kind": "regional chain",
+    "year": 2021,
+    "explicit": [
+      "recommender systems",
+      "Python",
+      "machine learning",
+      "SQL"
+    ],
+    "implied": [
+      "implicit",
+      "pandas",
+      "redis"
+    ],
+    "problem": "customers rarely discovered relevant products",
+    "solution": "personalised recommendations served from an API with nightly retraining",
+    "metric": "lifted click-through by 31%",
+    "duration_weeks": 3
+  },
+  {
+    "id": "ai_ml-churn-deploy-06",
+    "persona": "ai_ml",
+    "archetype": "churn_deploy",
+    "title": "Churn prediction model in production for a manufacturing family-owned business",
+    "industry": "manufacturing",
+    "client_kind": "family-owned business",
+    "year": 2023,
+    "explicit": [
+      "machine learning",
+      "Python",
+      "MLOps",
+      "Docker"
+    ],
+    "implied": [
+      "mlflow",
+      "xgboost",
+      "celery"
+    ],
+    "problem": "the retention team only learned about churn after it happened",
+    "solution": "daily churn scores pushed to the CRM through a background job queue",
+    "metric": "helped retain 45% more at-risk accounts",
+    "duration_weeks": 4
+  },
+  {
+    "id": "ai_ml-speech-07",
+    "persona": "ai_ml",
+    "archetype": "speech",
+    "title": "Speech transcription and summarisation for a manufacturing mid-size agency",
+    "industry": "manufacturing",
+    "client_kind": "mid-size agency",
+    "year": 2025,
+    "explicit": [
+      "speech recognition",
+      "LLM",
+      "Python",
+      "AWS"
+    ],
+    "implied": [
+      "whisper",
+      "ffmpeg",
+      "boto3"
+    ],
+    "problem": "call recordings were never reviewed",
+    "solution": "automatic transcripts with summaries and action items",
+    "metric": "saved 35 analyst-hours per week",
+    "duration_weeks": 10
+  },
+  {
+    "id": "ai_ml-ner-08",
+    "persona": "ai_ml",
+    "archetype": "ner",
+    "title": "Named-entity extraction from contracts for a nonprofit family-owned business",
+    "industry": "nonprofit",
+    "client_kind": "family-owned business",
+    "year": 2021,
+    "explicit": [
+      "NLP",
+      "named entity recognition",
+      "Python",
+      "LLM"
+    ],
+    "implied": [
+      "spacy",
+      "pydantic",
+      "pdfplumber"
+    ],
+    "problem": "paralegals copied clauses into spreadsheets",
+    "solution": "an extractor that pulls parties, dates and obligations into a structured table",
+    "metric": "cut review time per contract by 31%",
+    "duration_weeks": 6
+  },
+  {
+    "id": "ai_ml-agents-09",
+    "persona": "ai_ml",
+    "archetype": "agents",
+    "title": "Multi-step LLM agent for operations for a fintech mid-size agency",
+    "industry": "fintech",
+    "client_kind": "mid-size agency",
+    "year": 2025,
+    "explicit": [
+      "LLM",
+      "AI agents",
+      "Python",
+      "API integration"
+    ],
+    "implied": [
+      "langgraph",
+      "openai",
+      "tenacity"
+    ],
+    "problem": "a repetitive back-office workflow took a full-time person",
+    "solution": "a tool-using agent with human approval for every external action",
+    "metric": "handled 18% of tickets end-to-end with approval",
+    "duration_weeks": 10
+  },
+  {
+    "id": "ai_ml-rag-chatbot-10",
+    "persona": "ai_ml",
+    "archetype": "rag_chatbot",
+    "title": "Retrieval-augmented support assistant for a logistics consultancy",
+    "industry": "logistics",
+    "client_kind": "consultancy",
+    "year": 2026,
+    "explicit": [
+      "Python",
+      "LLM",
+      "RAG",
+      "FastAPI",
+      "embeddings"
+    ],
+    "implied": [
+      "faiss",
+      "langchain",
+      "sentence-transformers"
+    ],
+    "problem": "support agents spent hours searching policy PDFs",
+    "solution": "a question-answering assistant over their knowledge base with cited answers",
+    "metric": "cut average handling time by 60%",
+    "duration_weeks": 8
+  },
+  {
+    "id": "ai_ml-doc-classify-11",
+    "persona": "ai_ml",
+    "archetype": "doc_classify",
+    "title": "Document classification pipeline for a education consultancy",
+    "industry": "education",
+    "client_kind": "consultancy",
+    "year": 2025,
+    "explicit": [
+      "Python",
+      "NLP",
+      "scikit-learn",
+      "text classification"
+    ],
+    "implied": [
+      "spacy",
+      "pandas",
+      "joblib"
+    ],
+    "problem": "thousands of incoming documents were routed by hand",
+    "solution": "an automatic classifier with a human review queue for low-confidence items",
+    "metric": "automated 52% of routing at 96% precision",
+    "duration_weeks": 6
+  },
+  {
+    "id": "ai_ml-forecast-12",
+    "persona": "ai_ml",
+    "archetype": "forecast",
+    "title": "Demand forecasting model for a real estate Series B scale-up",
+    "industry": "real estate",
+    "client_kind": "Series B scale-up",
+    "year": 2022,
+    "explicit": [
+      "Python",
+      "time series",
+      "forecasting",
+      "machine learning"
+    ],
+    "implied": [
+      "prophet",
+      "lightgbm",
+      "statsmodels"
+    ],
+    "problem": "stock-outs and over-ordering every season",
+    "solution": "weekly SKU-level forecasts with prediction intervals",
+    "metric": "reduced forecast error (MAPE) by 31%",
+    "duration_weeks": 3
+  },
+  {
+    "id": "ai_ml-cv-defect-13",
+    "persona": "ai_ml",
+    "archetype": "cv_defect",
+    "title": "Visual defect detection for a media university lab",
+    "industry": "media",
+    "client_kind": "university lab",
+    "year": 2025,
+    "explicit": [
+      "computer vision",
+      "deep learning",
+      "PyTorch",
+      "Python"
+    ],
+    "implied": [
+      "opencv",
+      "albumentations",
+      "torchvision"
+    ],
+    "problem": "manual inspection missed hairline defects on the line",
+    "solution": "a camera-based defect detector running on an edge box",
+    "metric": "caught 52% more defects than manual inspection",
+    "duration_weeks": 6
+  },
+  {
+    "id": "ai_ml-llm-finetune-14",
+    "persona": "ai_ml",
+    "archetype": "llm_finetune",
+    "title": "Fine-tuned LLM for domain extraction for a insurance consultancy",
+    "industry": "insurance",
+    "client_kind": "consultancy",
+    "year": 2023,
+    "explicit": [
+      "LLM",
+      "fine-tuning",
+      "Hugging Face",
+      "Python"
+    ],
+    "implied": [
+      "peft",
+      "transformers",
+      "bitsandbytes"
+    ],
+    "problem": "a general model kept missing domain-specific fields",
+    "solution": "a LoRA fine-tuned open model for structured extraction",
+    "metric": "raised field-level F1 by 22 points",
+    "duration_weeks": 3
+  },
+  {
+    "id": "ai_ml-recsys-15",
+    "persona": "ai_ml",
+    "archetype": "recsys",
+    "title": "Product recommendation engine for a manufacturing regional chain",
+    "industry": "manufacturing",
+    "client_kind": "regional chain",
+    "year": 2022,
+    "explicit": [
+      "recommender systems",
+      "Python",
+      "machine learning",
+      "SQL"
+    ],
+    "implied": [
+      "implicit",
+      "pandas",
+      "redis"
+    ],
+    "problem": "customers rarely discovered relevant products",
+    "solution": "personalised recommendations served from an API with nightly retraining",
+    "metric": "lifted click-through by 40%",
+    "duration_weeks": 4
+  },
+  {
+    "id": "ai_ml-churn-deploy-16",
+    "persona": "ai_ml",
+    "archetype": "churn_deploy",
+    "title": "Churn prediction model in production for a hospitality regional chain",
+    "industry": "hospitality",
+    "client_kind": "regional chain",
+    "year": 2021,
+    "explicit": [
+      "machine learning",
+      "Python",
+      "MLOps",
+      "Docker"
+    ],
+    "implied": [
+      "mlflow",
+      "xgboost",
+      "celery"
+    ],
+    "problem": "the retention team only learned about churn after it happened",
+    "solution": "daily churn scores pushed to the CRM through a background job queue",
+    "metric": "helped retain 22% more at-risk accounts",
+    "duration_weeks": 16
+  },
+  {
+    "id": "ai_ml-speech-17",
+    "persona": "ai_ml",
+    "archetype": "speech",
+    "title": "Speech transcription and summarisation for a manufacturing solo founder",
+    "industry": "manufacturing",
+    "client_kind": "solo founder",
+    "year": 2023,
+    "explicit": [
+      "speech recognition",
+      "LLM",
+      "Python",
+      "AWS"
+    ],
+    "implied": [
+      "whisper",
+      "ffmpeg",
+      "boto3"
+    ],
+    "problem": "call recordings were never reviewed",
+    "solution": "automatic transcripts with summaries and action items",
+    "metric": "saved 40 analyst-hours per week",
+    "duration_weeks": 10
+  },
+  {
+    "id": "ai_ml-ner-18",
+    "persona": "ai_ml",
+    "archetype": "ner",
+    "title": "Named-entity extraction from contracts for a hospitality consultancy",
+    "industry": "hospitality",
+    "client_kind": "consultancy",
+    "year": 2021,
+    "explicit": [
+      "NLP",
+      "named entity recognition",
+      "Python",
+      "LLM"
+    ],
+    "implied": [
+      "spacy",
+      "pydantic",
+      "pdfplumber"
+    ],
+    "problem": "paralegals copied clauses into spreadsheets",
+    "solution": "an extractor that pulls parties, dates and obligations into a structured table",
+    "metric": "cut review time per contract by 22%",
+    "duration_weeks": 6
+  },
+  {
+    "id": "ai_ml-agents-19",
+    "persona": "ai_ml",
+    "archetype": "agents",
+    "title": "Multi-step LLM agent for operations for a hospitality mid-size agency",
+    "industry": "hospitality",
+    "client_kind": "mid-size agency",
+    "year": 2021,
+    "explicit": [
+      "LLM",
+      "AI agents",
+      "Python",
+      "API integration"
+    ],
+    "implied": [
+      "langgraph",
+      "openai",
+      "tenacity"
+    ],
+    "problem": "a repetitive back-office workflow took a full-time person",
+    "solution": "a tool-using agent with human approval for every external action",
+    "metric": "handled 35% of tickets end-to-end with approval",
+    "duration_weeks": 12
+  }
+]

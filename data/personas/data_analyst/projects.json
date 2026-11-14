@@ -1,0 +1,482 @@
+[
+  {
+    "id": "data_analyst-sales-dash-00",
+    "persona": "data_analyst",
+    "archetype": "sales_dash",
+    "title": "Executive sales dashboard for a education consultancy",
+    "industry": "education",
+    "client_kind": "consultancy",
+    "year": 2022,
+    "explicit": [
+      "Power BI",
+      "SQL",
+      "DAX",
+      "data visualization"
+    ],
+    "implied": [
+      "power query",
+      "sql server",
+      "row-level security"
+    ],
+    "problem": "leadership waited a week for the monthly sales deck",
+    "solution": "a self-serve dashboard refreshed daily",
+    "metric": "saved 18 hours of manual reporting per month",
+    "duration_weeks": 3
+  },
+  {
+    "id": "data_analyst-etl-01",
+    "persona": "data_analyst",
+    "archetype": "etl",
+    "title": "ELT pipeline and warehouse model for a real estate university lab",
+    "industry": "real estate",
+    "client_kind": "university lab",
+    "year": 2022,
+    "explicit": [
+      "SQL",
+      "data engineering",
+      "ETL",
+      "BigQuery"
+    ],
+    "implied": [
+      "dbt",
+      "airflow",
+      "fivetran"
+    ],
+    "problem": "every team had its own version of revenue",
+    "solution": "a tested warehouse model with one definition of each metric",
+    "metric": "reduced metric disputes by 22%",
+    "duration_weeks": 12
+  },
+  {
+    "id": "data_analyst-segmentation-02",
+    "persona": "data_analyst",
+    "archetype": "segmentation",
+    "title": "Customer segmentation analysis for a real estate consultancy",
+    "industry": "real estate",
+    "client_kind": "consultancy",
+    "year": 2021,
+    "explicit": [
+      "Python",
+      "clustering",
+      "customer analytics",
+      "pandas"
+    ],
+    "implied": [
+      "scikit-learn",
+      "seaborn",
+      "jupyter"
+    ],
+    "problem": "marketing sent the same email to everyone",
+    "solution": "behavioural segments with personas and recommended actions",
+    "metric": "raised email revenue by 27%",
+    "duration_weeks": 6
+  },
+  {
+    "id": "data_analyst-ab-test-03",
+    "persona": "data_analyst",
+    "archetype": "ab_test",
+    "title": "A/B test analysis program for a hospitality consultancy",
+    "industry": "hospitality",
+    "client_kind": "consultancy",
+    "year": 2025,
+    "explicit": [
+      "A/B testing",
+      "statistics",
+      "Python",
+      "SQL"
+    ],
+    "implied": [
+      "scipy",
+      "statsmodels",
+      "bayesian"
+    ],
+    "problem": "experiments were called early on noisy results",
+    "solution": "a pre-registered testing process with power analysis and readouts",
+    "metric": "cut false-positive launches by 40%",
+    "duration_weeks": 6
+  },
+  {
+    "id": "data_analyst-finance-report-04",
+    "persona": "data_analyst",
+    "archetype": "finance_report",
+    "title": "Automated financial reporting for a e-commerce mid-size agency",
+    "industry": "e-commerce",
+    "client_kind": "mid-size agency",
+    "year": 2021,
+    "explicit": [
+      "Excel",
+      "financial reporting",
+      "SQL",
+      "automation"
+    ],
+    "implied": [
+      "openpyxl",
+      "vba",
+      "power automate"
+    ],
+    "problem": "month-end close took nine days",
+    "solution": "automated reconciliations and a reporting pack",
+    "metric": "shortened month-end close by 18 days",
+    "duration_weeks": 8
+  },
+  {
+    "id": "data_analyst-survey-05",
+    "persona": "data_analyst",
+    "archetype": "survey",
+    "title": "Survey and NPS analysis for a hospitality mid-size agency",
+    "industry": "hospitality",
+    "client_kind": "mid-size agency",
+    "year": 2026,
+    "explicit": [
+      "survey analysis",
+      "Python",
+      "data visualization",
+      "Tableau"
+    ],
+    "implied": [
+      "pandas",
+      "textblob",
+      "likert"
+    ],
+    "problem": "open-text survey answers were never read",
+    "solution": "themed NPS drivers with a Tableau story",
+    "metric": "identified 40 top churn drivers acted on by product",
+    "duration_weeks": 12
+  },
+  {
+    "id": "data_analyst-attribution-06",
+    "persona": "data_analyst",
+    "archetype": "attribution",
+    "title": "Marketing attribution model for a media university lab",
+    "industry": "media",
+    "client_kind": "university lab",
+    "year": 2021,
+    "explicit": [
+      "marketing analytics",
+      "SQL",
+      "Google Analytics",
+      "Looker"
+    ],
+    "implied": [
+      "ga4",
+      "bigquery",
+      "lookml"
+    ],
+    "problem": "budget was split by gut feeling",
+    "solution": "multi-touch attribution with a channel ROI dashboard",
+    "metric": "reallocated budget for a 52% lower CAC",
+    "duration_weeks": 8
+  },
+  {
+    "id": "data_analyst-inventory-07",
+    "persona": "data_analyst",
+    "archetype": "inventory",
+    "title": "Inventory analytics for a hospitality Series B scale-up",
+    "industry": "hospitality",
+    "client_kind": "Series B scale-up",
+    "year": 2025,
+    "explicit": [
+      "Tableau",
+      "SQL",
+      "supply chain analytics",
+      "Excel"
+    ],
+    "implied": [
+      "snowflake",
+      "tableau prep",
+      "abc analysis"
+    ],
+    "problem": "slow-moving stock tied up cash",
+    "solution": "ABC/XYZ inventory views with reorder alerts",
+    "metric": "freed 40k USD of working capital",
+    "duration_weeks": 3
+  },
+  {
+    "id": "data_analyst-data-cleaning-08",
+    "persona": "data_analyst",
+    "archetype": "data_cleaning",
+    "title": "CRM data cleaning and deduplication for a education mid-size agency",
+    "industry": "education",
+    "client_kind": "mid-size agency",
+    "year": 2026,
+    "explicit": [
+      "data cleaning",
+      "Python",
+      "Excel",
+      "CRM"
+    ],
+    "implied": [
+      "recordlinkage",
+      "rapidfuzz",
+      "hubspot api"
+    ],
+    "problem": "duplicate contacts broke every campaign report",
+    "solution": "fuzzy-matched deduplication with a merge review sheet",
+    "metric": "removed 35% duplicate records",
+    "duration_weeks": 12
+  },
+  {
+    "id": "data_analyst-kpi-looker-09",
+    "persona": "data_analyst",
+    "archetype": "kpi_looker",
+    "title": "KPI reporting layer in Looker for a media university lab",
+    "industry": "media",
+    "client_kind": "university lab",
+    "year": 2026,
+    "explicit": [
+      "Looker",
+      "SQL",
+      "KPI reporting",
+      "data modeling"
+    ],
+    "implied": [
+      "lookml",
+      "dbt",
+      "postgres"
+    ],
+    "problem": "KPIs were computed differently in every spreadsheet",
+    "solution": "a governed semantic layer and KPI tiles",
+    "metric": "adopted by 31 teams within a month",
+    "duration_weeks": 3
+  },
+  {
+    "id": "data_analyst-sales-dash-10",
+    "persona": "data_analyst",
+    "archetype": "sales_dash",
+    "title": "Executive sales dashboard for a e-commerce seed-stage startup",
+    "industry": "e-commerce",
+    "client_kind": "seed-stage startup",
+    "year": 2021,
+    "explicit": [
+      "Power BI",
+      "SQL",
+      "DAX",
+      "data visualization"
+    ],
+    "implied": [
+      "power query",
+      "sql server",
+      "row-level security"
+    ],
+    "problem": "leadership waited a week for the monthly sales deck",
+    "solution": "a self-serve dashboard refreshed daily",
+    "metric": "saved 45 hours of manual reporting per month",
+    "duration_weeks": 16
+  },
+  {
+    "id": "data_analyst-etl-11",
+    "persona": "data_analyst",
+    "archetype": "etl",
+    "title": "ELT pipeline and warehouse model for a e-commerce university lab",
+    "industry": "e-commerce",
+    "client_kind": "university lab",
+    "year": 2023,
+    "explicit": [
+      "SQL",
+      "data engineering",
+      "ETL",
+      "BigQuery"
+    ],
+    "implied": [
+      "dbt",
+      "airflow",
+      "fivetran"
+    ],
+    "problem": "every team had its own version of revenue",
+    "solution": "a tested warehouse model with one definition of each metric",
+    "metric": "reduced metric disputes by 27%",
+    "duration_weeks": 12
+  },
+  {
+    "id": "data_analyst-segmentation-12",
+    "persona": "data_analyst",
+    "archetype": "segmentation",
+    "title": "Customer segmentation analysis for a manufacturing family-owned business",
+    "industry": "manufacturing",
+    "client_kind": "family-owned business",
+    "year": 2021,
+    "explicit": [
+      "Python",
+      "clustering",
+      "customer analytics",
+      "pandas"
+    ],
+    "implied": [
+      "scikit-learn",
+      "seaborn",
+      "jupyter"
+    ],
+    "problem": "marketing sent the same email to everyone",
+    "solution": "behavioural segments with personas and recommended actions",
+    "metric": "raised email revenue by 35%",
+    "duration_weeks": 12
+  },
+  {
+    "id": "data_analyst-ab-test-13",
+    "persona": "data_analyst",
+    "archetype": "ab_test",
+    "title": "A/B test analysis program for a media solo founder",
+    "industry": "media",
+    "client_kind": "solo founder",
+    "year": 2024,
+    "explicit": [
+      "A/B testing",
+      "statistics",
+      "Python",
+      "SQL"
+    ],
+    "implied": [
+      "scipy",
+      "statsmodels",
+      "bayesian"
+    ],
+    "problem": "experiments were called early on noisy results",
+    "solution": "a pre-registered testing process with power analysis and readouts",
+    "metric": "cut false-positive launches by 27%",
+    "duration_weeks": 12
+  },
+  {
+    "id": "data_analyst-finance-report-14",
+    "persona": "data_analyst",
+    "archetype": "finance_report",
+    "title": "Automated financial reporting for a education solo founder",
+    "industry": "education",
+    "client_kind": "solo founder",
+    "year": 2022,
+    "explicit": [
+      "Excel",
+      "financial reporting",
+      "SQL",
+      "automation"
+    ],
+    "implied": [
+      "openpyxl",
+      "vba",
+      "power automate"
+    ],
+    "problem": "month-end close took nine days",
+    "solution": "automated reconciliations and a reporting pack",
+    "metric": "shortened month-end close by 40 days",
+    "duration_weeks": 4
+  },
+  {
+    "id": "data_analyst-survey-15",
+    "persona": "data_analyst",
+    "archetype": "survey",
+    "title": "Survey and NPS analysis for a manufacturing solo founder",
+    "industry": "manufacturing",
+    "client_kind": "solo founder",
+    "year": 2023,
+    "explicit": [
+      "survey analysis",
+      "Python",
+      "data visualization",
+      "Tableau"
+    ],
+    "implied": [
+      "pandas",
+      "textblob",
+      "likert"
+    ],
+    "problem": "open-text survey answers were never read",
+    "solution": "themed NPS drivers with a Tableau story",
+    "metric": "identified 31 top churn drivers acted on by product",
+    "duration_weeks": 3
+  },
+  {
+    "id": "data_analyst-attribution-16",
+    "persona": "data_analyst",
+    "archetype": "attribution",
+    "title": "Marketing attribution model for a healthcare mid-size agency",
+    "industry": "healthcare",
+    "client_kind": "mid-size agency",
+    "year": 2025,
+    "explicit": [
+      "marketing analytics",
+      "SQL",
+      "Google Analytics",
+      "Looker"
+    ],
+    "implied": [
+      "ga4",
+      "bigquery",
+      "lookml"
+    ],
+    "problem": "budget was split by gut feeling",
+    "solution": "multi-touch attribution with a channel ROI dashboard",
+    "metric": "reallocated budget for a 45% lower CAC",
+    "duration_weeks": 3
+  },
+  {
+    "id": "data_analyst-inventory-17",
+    "persona": "data_analyst",
+    "archetype": "inventory",
+    "title": "Inventory analytics for a logistics consultancy",
+    "industry": "logistics",
+    "client_kind": "consultancy",
+    "year": 2024,
+    "explicit": [
+      "Tableau",
+      "SQL",
+      "supply chain analytics",
+      "Excel"
+    ],
+    "implied": [
+      "snowflake",
+      "tableau prep",
+      "abc analysis"
+    ],
+    "problem": "slow-moving stock tied up cash",
+    "solution": "ABC/XYZ inventory views with reorder alerts",
+    "metric": "freed 52k USD of working capital",
+    "duration_weeks": 12
+  },
+  {
+    "id": "data_analyst-data-cleaning-18",
+    "persona": "data_analyst",
+    "archetype": "data_cleaning",
+    "title": "CRM data cleaning and deduplication for a e-commerce university lab",
+    "industry": "e-commerce",
+    "client_kind": "university lab",
+    "year": 2025,
+    "explicit": [
+      "data cleaning",
+      "Python",
+      "Excel",
+      "CRM"
+    ],
+    "implied": [
+      "recordlinkage",
+      "rapidfuzz",
+      "hubspot api"
+    ],
+    "problem": "duplicate contacts broke every campaign report",
+    "solution": "fuzzy-matched deduplication with a merge review sheet",
+    "metric": "removed 22% duplicate records",
+    "duration_weeks": 4
+  },
+  {
+    "id": "data_analyst-kpi-looker-19",
+    "persona": "data_analyst",
+    "archetype": "kpi_looker",
+    "title": "KPI reporting layer in Looker for a insurance Series B scale-up",
+    "industry": "insurance",
+    "client_kind": "Series B scale-up",
+    "year": 2022,
+    "explicit": [
+      "Looker",
+      "SQL",
+      "KPI reporting",
+      "data modeling"
+    ],
+    "implied": [
+      "lookml",
+      "dbt",
+      "postgres"
+    ],
+    "problem": "KPIs were computed differently in every spreadsheet",
+    "solution": "a governed semantic layer and KPI tiles",
+    "metric": "adopted by 27 teams within a month",
+    "duration_weeks": 8
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "synthetic": true,
+  "generator": "scripts/generate_personas.py",
+  "seed": 7,
+  "personas": {
+    "ai_ml": {
+      "projects": 20,
+      "proposals": 150,
+      "reviews": 13,
+      "outcomes": {
+        "won": 20,
+        "replied": 27,
+        "ignored": 103
+      }
+    },
+    "fullstack": {
+      "projects": 20,
+      "proposals": 150,
+      "reviews": 14,
+      "outcomes": {
+        "won": 21,
+        "replied": 30,
+        "ignored": 99
+      }
+    },
+    "data_analyst": {
+      "projects": 20,
+      "proposals": 150,
+      "reviews": 14,
+      "outcomes": {
+        "won": 17,
+        "replied": 22,
+        "ignored": 111
+      }
+    }
+  }
+}

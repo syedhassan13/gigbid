@@ -1,0 +1,61 @@
+{
+  "source": "synthetic_fallback",
+  "stats": {
+    "_all": {
+      "fixed": {
+        "p25": 100,
+        "p50": 300,
+        "p75": 800,
+        "p90": 2000
+      },
+      "hourly_low": {
+        "p50": 15
+      },
+      "hourly_high": {
+        "p50": 35
+      }
+    },
+    "ai_ml": {
+      "fixed": {
+        "p25": 250,
+        "p50": 800,
+        "p75": 2000,
+        "p90": 5000
+      },
+      "hourly_low": {
+        "p50": 25
+      },
+      "hourly_high": {
+        "p50": 60
+      }
+    },
+    "web_dev": {
+      "fixed": {
+        "p25": 200,
+        "p50": 600,
+        "p75": 1500,
+        "p90": 4000
+      },
+      "hourly_low": {
+        "p50": 20
+      },
+      "hourly_high": {
+        "p50": 45
+      }
+    },
+    "data_analytics": {
+      "fixed": {
+        "p25": 100,
+        "p50": 350,
+        "p75": 900,
+        "p90": 2000
+      },
+      "hourly_low": {
+        "p50": 15
+      },
+      "hourly_high": {
+        "p50": 35
+      }
+    }
+  }
+}

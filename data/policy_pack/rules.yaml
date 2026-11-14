@@ -1,0 +1,50 @@
+# Machine-readable policy rules. The Compliance Guard and the Risk Assessor
+# read ONLY this file (plus overrides in agent/config.yaml -> policy.overrides).
+# Absorbing a platform policy update = editing this file / config, not code.
+version: 1
+rules:
+  - id: P1_email
+    policy: P1
+    kind: regex_redact
+    pattern: '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}'
+    replacement: '[contact removed]'
+    severity: block_if_unfixable
+  - id: P1_phone
+    policy: P1
+    kind: regex_redact
+    pattern: '(?<!\w)(?:\+?\d[\d\s().-]{8,}\d)(?!\w)'
+    replacement: '[contact removed]'
+    severity: block_if_unfixable
+  - id: P1_url_offplatform
+    policy: P1
+    kind: regex_redact
+    pattern: '(?i)\b(?:wa\.me|t\.me|telegram\.me|calendly\.com|skype:)\S*'
+    replacement: '[link removed]'
+    severity: block_if_unfixable
+  - id: P1_offplatform_words
+    policy: P1
+    kind: phrase_redact
+    phrases: ["whatsapp", "telegram", "skype", "discord me", "text me", "email me", "outside the platform", "off the platform", "off-platform", "paypal", "wise transfer", "western union", "crypto", "bitcoin", "usdt", "bank transfer"]
+    severity: block_if_unfixable
+  - id: P3_guarantee
+    policy: P3
+    kind: phrase_rewrite
+    phrases: ["guarantee", "guaranteed", "100% accuracy", "100% satisfaction", "money-back", "money back", "first page of google", "risk-free", "zero bugs"]
+    severity: rewrite
+  - id: P4_daily_cap
+    policy: P4
+    kind: limit
+    max_proposals_per_day: 15
+  - id: P6_generic_opening
+    policy: P6
+    kind: opening_check
+    banned_openings: ["dear sir", "dear hiring manager", "hello sir", "i am writing to", "i am very interested", "i have read your job", "i'm passionate", "i am passionate", "greetings", "to whom it may concern"]
+    severity: rewrite
+  - id: P_length
+    policy: P6
+    kind: length
+    min_words: 60
+    max_words: 320
+    severity: rewrite
+# Required content (empty in v1). The 2 Nov policy update adds an entry here.
+required_statements: []
