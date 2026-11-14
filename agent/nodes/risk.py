@@ -15,7 +15,11 @@ from agent.state import trace_event
 INJECTION = [r"ignore (all |any )?(previous|prior|above) instructions", r"\[system\]", r"you are now", r"ai (assistants|agents)\b.*(reading|:)",
              r"disregard (your|all) (rules|instructions)", r"reveal (your )?(system prompt|instructions)", r"<!--\s*assistant", r"admin mode",
              r"recommend bid with a price", r"respond with (bid|yes)"]
-OFF_PLATFORM = [r"telegram", r"whatsapp", r"wa\.me", r"t\.me/", r"skype", r"outside the platform", r"off[- ]platform", r"paypal", r"western union",
+_CHANNEL = r"(telegram|whatsapp|skype|signal|discord)"
+OFF_PLATFORM = [  # a channel NAME alone is not off-platform ("build a Telegram bot"); asking to talk/pay there is
+                rf"(contact|message|text|reach|dm|add|ping|call)\s+(me|us)\s+(on|via|at|through)\s+{_CHANNEL}",
+                rf"(continue|talk|chat|move|switch)\w*\s+(on|to|over)\s+{_CHANNEL}", rf"{_CHANNEL}\s*[:@+]", rf"{_CHANNEL}\s+(number|id|handle)",
+                r"wa\.me", r"t\.me/", r"outside the platform", r"off[- ]platform", r"paypal", r"western union",
                 r"(pay|paid|payment|transfer)\w*\s+(via|in|with|through|using)\s+(crypto|usdt|bitcoin)|(crypto|usdt|bitcoin)\s*\(?(payment|transfer)", r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[a-z]{2,}", r"text me", r"do not use the platform"]
 FREE_WORK = [r"unpaid (test|trial)", r"free sample", r"complete the full .* (first|as an unpaid)", r"best submission gets", r"before hiring, complete"]
 PAYMENT_SCAM = [r"send you a check", r"deposit it", r"transfer the difference", r"pay(ment)? (via|through) crypto"]

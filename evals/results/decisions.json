@@ -1,6 +1,6 @@
 {
   "env": {
-    "commit": "b750167",
+    "commit": "76a1fb9",
     "profile": "offline",
     "rag_variant": "v_best",
     "embeddings": "BAAI/bge-small-en-v1.5",
@@ -8,29 +8,29 @@
     "python": "3.14.2",
     "machine": "AMD64 Family 23 Model 24 Stepping 1, AuthenticAMD",
     "cpu_count": 4,
-    "ts": "2026-11-14T16:58:43"
+    "ts": "2026-11-14T17:06:55"
   },
   "metrics": {
     "all": {
       "bid": {
-        "precision": 0.9526,
-        "recall": 0.9955,
-        "f1": 0.9736,
-        "tp": 221,
-        "fp": 11,
-        "fn": 1
-      },
-      "accuracy": 0.98,
-      "scam": {
-        "precision": 0.9833,
+        "precision": 0.9737,
         "recall": 1.0,
-        "f1": 0.9916,
+        "f1": 0.9867,
+        "tp": 222,
+        "fp": 6,
+        "fn": 0
+      },
+      "accuracy": 0.99,
+      "scam": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
         "tp": 59,
-        "fp": 1,
+        "fp": 0,
         "fn": 0
       },
       "price_in_band": 1.0,
-      "price_n": 221
+      "price_n": 222
     },
     "ai_ml": {
       "bid": {
@@ -77,23 +77,23 @@
     "type:multi_req": {
       "bid": {
         "precision": 1.0,
-        "recall": 0.9915,
-        "f1": 0.9957,
-        "tp": 117,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 118,
         "fp": 0,
-        "fn": 1
+        "fn": 0
       },
-      "accuracy": 0.9945,
+      "accuracy": 1.0,
       "scam": {
         "precision": 0.0,
         "recall": 0.0,
         "f1": 0.0,
         "tp": 0,
-        "fp": 1,
+        "fp": 0,
         "fn": 0
       },
       "price_in_band": 1.0,
-      "price_n": 117
+      "price_n": 118
     },
     "type:scam": {
       "bid": {
@@ -122,10 +122,10 @@
         "recall": 0.0,
         "f1": 0.0,
         "tp": 0,
-        "fp": 11,
+        "fp": 6,
         "fn": 0
       },
-      "accuracy": 0.9203,
+      "accuracy": 0.9565,
       "scam": {
         "precision": 0.0,
         "recall": 0.0,
@@ -202,14 +202,14 @@
     },
     "fullstack": {
       "bid": {
-        "precision": 0.9189,
+        "precision": 0.9577,
         "recall": 1.0,
-        "f1": 0.9577,
+        "f1": 0.9784,
         "tp": 68,
-        "fp": 6,
+        "fp": 3,
         "fn": 0
       },
-      "accuracy": 0.97,
+      "accuracy": 0.985,
       "scam": {
         "precision": 1.0,
         "recall": 1.0,
@@ -223,30 +223,30 @@
     },
     "data_analyst": {
       "bid": {
-        "precision": 0.9596,
-        "recall": 0.9896,
-        "f1": 0.9744,
-        "tp": 95,
-        "fp": 4,
-        "fn": 1
-      },
-      "accuracy": 0.975,
-      "scam": {
-        "precision": 0.9615,
+        "precision": 0.9796,
         "recall": 1.0,
-        "f1": 0.9804,
+        "f1": 0.9897,
+        "tp": 96,
+        "fp": 2,
+        "fn": 0
+      },
+      "accuracy": 0.99,
+      "scam": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
         "tp": 25,
-        "fp": 1,
+        "fp": 0,
         "fn": 0
       },
       "price_in_band": 1.0,
-      "price_n": 95
+      "price_n": 96
     }
   },
   "latency_per_job_s": {
-    "p50": 0.138,
-    "p95": 0.208,
-    "mean": 0.1404
+    "p50": 0.135,
+    "p95": 0.182,
+    "mean": 0.1324
   },
   "cost_per_job_usd": {
     "mean": 0.0,
@@ -254,8 +254,7 @@
   },
   "n_jobs": 600,
   "failure_taxonomy": {
-    "wrong_bid:off_domain": 11,
-    "false_scam": 1
+    "wrong_bid:off_domain": 6
   },
   "failures": [
     {
@@ -267,11 +266,11 @@
       "pred_action": "bid",
       "category": "wrong_bid:off_domain",
       "reasons": [
-        "fit 0.69 \u2265 0.5",
+        "fit 0.66 \u2265 0.5",
         "3/4 requirements backed by portfolio evidence",
         "'Tableau' \u2190 repo:ai_ml-agents-19"
       ],
-      "fit": 0.687,
+      "fit": 0.662,
       "missing": [
         "Excel"
       ],
@@ -287,11 +286,11 @@
       "pred_action": "bid",
       "category": "wrong_bid:off_domain",
       "reasons": [
-        "fit 0.72 \u2265 0.5",
+        "fit 0.65 \u2265 0.5",
         "3/4 requirements backed by portfolio evidence",
         "'recommender systems' \u2190 repo:fullstack-saas-dash-10"
       ],
-      "fit": 0.718,
+      "fit": 0.646,
       "missing": [
         "machine learning"
       ],
@@ -307,57 +306,15 @@
       "pred_action": "bid",
       "category": "wrong_bid:off_domain",
       "reasons": [
-        "fit 0.73 \u2265 0.5",
+        "fit 0.70 \u2265 0.5",
         "3/4 requirements backed by portfolio evidence",
         "'marketing analytics' \u2190 case:fullstack-saas-dash-10"
       ],
-      "fit": 0.726,
+      "fit": 0.701,
       "missing": [
         "Looker"
       ],
       "price": 41.0,
-      "fair_band": null
-    },
-    {
-      "job_id": "j-05e4e0ea90",
-      "persona": "fullstack",
-      "job_type": "off_domain",
-      "title": "A tested warehouse model (SQL, data engineering)",
-      "gold_action": "skip",
-      "pred_action": "bid",
-      "category": "wrong_bid:off_domain",
-      "reasons": [
-        "fit 0.53 \u2265 0.5",
-        "2/4 requirements backed by portfolio evidence",
-        "'SQL' \u2190 repo:fullstack-booking-12"
-      ],
-      "fit": 0.525,
-      "missing": [
-        "data engineering",
-        "ETL"
-      ],
-      "price": 44.0,
-      "fair_band": null
-    },
-    {
-      "job_id": "j-40e417c89b",
-      "persona": "fullstack",
-      "job_type": "off_domain",
-      "title": "A tested warehouse model (SQL, data engineering)",
-      "gold_action": "skip",
-      "pred_action": "bid",
-      "category": "wrong_bid:off_domain",
-      "reasons": [
-        "fit 0.53 \u2265 0.5",
-        "2/4 requirements backed by portfolio evidence",
-        "'SQL' \u2190 repo:fullstack-booking-12"
-      ],
-      "fit": 0.525,
-      "missing": [
-        "data engineering",
-        "ETL"
-      ],
-      "price": 36.0,
       "fair_band": null
     },
     {
@@ -369,76 +326,15 @@
       "pred_action": "bid",
       "category": "wrong_bid:off_domain",
       "reasons": [
-        "fit 0.70 \u2265 0.5",
+        "fit 0.68 \u2265 0.5",
         "3/4 requirements backed by portfolio evidence",
         "'SQL' \u2190 repo:fullstack-booking-12"
       ],
-      "fit": 0.701,
+      "fit": 0.676,
       "missing": [
         "Looker"
       ],
       "price": 43.0,
-      "fair_band": null
-    },
-    {
-      "job_id": "j-bfae0b7ebb",
-      "persona": "fullstack",
-      "job_type": "off_domain",
-      "title": "Behavioural segments (Python, clustering)",
-      "gold_action": "skip",
-      "pred_action": "bid",
-      "category": "wrong_bid:off_domain",
-      "reasons": [
-        "fit 0.52 \u2265 0.5",
-        "2/4 requirements backed by portfolio evidence",
-        "'Python' \u2190 repo:fullstack-booking-12"
-      ],
-      "fit": 0.523,
-      "missing": [
-        "clustering",
-        "pandas"
-      ],
-      "price": 37.0,
-      "fair_band": null
-    },
-    {
-      "job_id": "j-5a0955fe69",
-      "persona": "data_analyst",
-      "job_type": "multi_req",
-      "title": "Creating a Telegram Bot for Delivering Excel-Based Sports Forecasts",
-      "gold_action": "bid",
-      "pred_action": "skip",
-      "category": "false_scam",
-      "reasons": [
-        "risk 0.85: off_platform (Telegram); low_rating (rating 3.75)"
-      ],
-      "fit": 0.97,
-      "missing": [],
-      "price": null,
-      "fair_band": [
-        27.0,
-        47.0
-      ]
-    },
-    {
-      "job_id": "j-3da7746c06",
-      "persona": "data_analyst",
-      "job_type": "off_domain",
-      "title": "An automatic classifier (Python, NLP)",
-      "gold_action": "skip",
-      "pred_action": "bid",
-      "category": "wrong_bid:off_domain",
-      "reasons": [
-        "fit 0.54 \u2265 0.5",
-        "2/4 requirements backed by portfolio evidence",
-        "'Python' \u2190 proposal:data_analyst-027"
-      ],
-      "fit": 0.541,
-      "missing": [
-        "NLP",
-        "text classification"
-      ],
-      "price": 40.0,
       "fair_band": null
     },
     {
@@ -479,27 +375,6 @@
         "Node.js"
       ],
       "price": 26.0,
-      "fair_band": null
-    },
-    {
-      "job_id": "j-f2fcfb0684",
-      "persona": "data_analyst",
-      "job_type": "off_domain",
-      "title": "Weekly sku-level forecasts (Python, time series)",
-      "gold_action": "skip",
-      "pred_action": "bid",
-      "category": "wrong_bid:off_domain",
-      "reasons": [
-        "fit 0.51 \u2265 0.5",
-        "2/4 requirements backed by portfolio evidence",
-        "'Python' \u2190 proposal:data_analyst-027"
-      ],
-      "fit": 0.514,
-      "missing": [
-        "forecasting",
-        "machine learning"
-      ],
-      "price": 40.0,
       "fair_band": null
     }
   ]
