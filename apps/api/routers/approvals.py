@@ -3,6 +3,7 @@ checkpointer, so a page refresh (or an API restart) never loses one."""
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel, Field
 from sqlalchemy import select
 
 from apps.api import db
@@ -26,6 +27,29 @@ async def pending(user: dict = Depends(current_user)):
             p = st["interrupts"][0]
             out.append(Pending(thread_id=r.thread_id, kind=r.kind, title=(p.get("job") or {}).get("title") or p.get("thread_id"), payload=p))
     return out
+
+
+class RegenIn(BaseModel):
+    paragraph: str = Field(min_length=10, max_length=3000)
+    instruction: str | None = Field(None, max_length=300)
+
+
+@router.post("/{thread_id}/regenerate", response_model=dict)
+async def regenerate(thread_id: str, body: RegenIn, user: dict = Depends(current_user)):
+    """Rewrite ONE paragraph of a pending draft, grounded in the same evidence; the result goes back into the
+    editor (it is only sent if the user then approves it as an edit, which re-runs Compliance)."""
+    from agent import llm
+    from rag.verify import apply_fixes, verify_claims
+    if f":{user['id']}:" not in thread_id:
+        raise HTTPException(403, "not your thread")
+    st = (await (await tasks.runtime()).state("bid", thread_id))["values"]
+    ev = "\n".join(f"- {v['claim']} [{', '.join(v['evidence_ids'])}]" for v in (st.get("verification") or {}).get("verdicts", []) if v["label"] == "supported")
+    out = llm.complete_text("writer", llm.prompt("writer") + "\nRewrite ONLY the paragraph given; output the paragraph text only.",
+                            f"PARAGRAPH:\n{body.paragraph}\n\nINSTRUCTION: {body.instruction or 'make it more specific to the client'}\n\nSUPPORTED CLAIMS YOU MAY USE:\n{ev}",
+                            max_tokens=400)
+    text = out or body.paragraph
+    v = verify_claims(text, user["persona"], use_llm=False)
+    return {"text": apply_fixes(text, v), "llm": bool(out), "removed_unsupported": sum(x.label == "unsupported" for x in v)}
 
 
 @router.post("/{thread_id}", response_model=RunStarted)

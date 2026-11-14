@@ -446,6 +446,66 @@
     ]
    }
   },
+  "/api/approvals/{thread_id}/regenerate": {
+   "post": {
+    "tags": [
+     "approvals"
+    ],
+    "summary": "Regenerate",
+    "description": "Rewrite ONE paragraph of a pending draft, grounded in the same evidence; the result goes back into the\neditor (it is only sent if the user then approves it as an edit, which re-runs Compliance).",
+    "operationId": "regenerate_api_approvals__thread_id__regenerate_post",
+    "security": [
+     {
+      "HTTPBearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "thread_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string",
+       "title": "Thread Id"
+      }
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/RegenIn"
+       }
+      }
+     }
+    },
+    "responses": {
+     "200": {
+      "description": "Successful Response",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "additionalProperties": true,
+         "title": "Response Regenerate Api Approvals  Thread Id  Regenerate Post"
+        }
+       }
+      }
+     },
+     "422": {
+      "description": "Validation Error",
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/HTTPValidationError"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
   "/api/approvals/{thread_id}": {
    "post": {
     "tags": [
@@ -1707,6 +1767,33 @@
      "payload"
     ],
     "title": "Pending"
+   },
+   "RegenIn": {
+    "properties": {
+     "paragraph": {
+      "type": "string",
+      "maxLength": 3000,
+      "minLength": 10,
+      "title": "Paragraph"
+     },
+     "instruction": {
+      "anyOf": [
+       {
+        "type": "string",
+        "maxLength": 300
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "Instruction"
+     }
+    },
+    "type": "object",
+    "required": [
+     "paragraph"
+    ],
+    "title": "RegenIn"
    },
    "RunStarted": {
     "properties": {
