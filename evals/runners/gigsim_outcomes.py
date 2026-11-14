@@ -100,9 +100,10 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--jobs", type=int, default=20, help="bid jobs per persona in the fixed set")
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--out", default="gigsim_outcomes", help="e.g. gigsim_outcomes_open for the Groq profile run")
     a = ap.parse_args()
     res = asyncio.run(main_async(3 if a.smoke else a.jobs))
-    write("gigsim_outcomes" + ("_smoke" if a.smoke else ""), res)
+    write(a.out + ("_smoke" if a.smoke else ""), res)
 
 
 if __name__ == "__main__":

@@ -49,7 +49,8 @@ def kappa(a: list[int], b: list[int], k: int = 5) -> float:
 
 
 def make_sheet() -> None:
-    res = json.loads((RESULTS / "gigsim_outcomes.json").read_text())
+    src = RESULTS / "gigsim_outcomes_open.json"  # prefer LLM-written proposals when they exist
+    res = json.loads((src if src.exists() else RESULTS / "gigsim_outcomes.json").read_text())
     rows = [r for v in res["variants"].values() for r in v["rows"]] + res["x2_ab"]["rows_B"]
     jobs = {}
     for p in ("ai_ml", "fullstack", "data_analyst"):
