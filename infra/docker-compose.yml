@@ -1,0 +1,64 @@
+# docker compose -f infra/docker-compose.yml up --build
+# Starts web, API, worker, the three MCP servers, GigSim, Postgres (checkpointer + store + app DB),
+# Redis (Arq queue) and Ollama (local open models for the `local` profile).
+name: gigbid
+x-py: &py
+  build: { context: .., dockerfile: infra/docker/python.Dockerfile }
+  env_file: [../.env]
+  environment: &pyenv
+    DATABASE_URL: postgresql://gigbid:gigbid@postgres:5432/gigbid
+    REDIS_URL: redis://redis:6379
+    MCP_TRANSPORT: http
+    MCP_HOST: 0.0.0.0
+    PORTFOLIO_MCP_URL: http://portfolio-mcp:8201/mcp
+    MARKETPLACE_MCP_URL: http://marketplace-mcp:8202/mcp
+    WORKSPACE_MCP_URL: http://workspace-mcp:8203/mcp
+    GIGSIM_URL: http://gigsim:8100
+    GIGBID_HOME: /data
+  volumes: [gigbid-data:/data]
+  restart: unless-stopped
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment: { POSTGRES_USER: gigbid, POSTGRES_PASSWORD: gigbid, POSTGRES_DB: gigbid }
+    volumes: [pg-data:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U gigbid"], interval: 5s, retries: 20 }
+  redis:
+    image: redis:7-alpine
+  ollama:
+    image: ollama/ollama:0.5.4
+    volumes: [ollama:/root/.ollama]
+    profiles: ["local"]
+  gigsim:
+    <<: *py
+    command: uvicorn gigsim.app:app --host 0.0.0.0 --port 8100
+    environment: { <<: *pyenv, GIGSIM_DB: /data/gigsim.db, GIGSIM_AUTOTICK_SECONDS: "30" }
+  portfolio-mcp:
+    <<: *py
+    command: python -m mcp_servers.portfolio.server --http --port 8201
+  marketplace-mcp:
+    <<: *py
+    command: python -m mcp_servers.marketplace.server
+    depends_on: [gigsim]
+  workspace-mcp:
+    <<: *py
+    command: python -m mcp_servers.workspace.server
+  api:
+    <<: *py
+    command: uvicorn apps.api.main:app --host 0.0.0.0 --port 8000
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_started }
+      marketplace-mcp: { condition: service_started }
+    ports: ["8000:8000"]
+  worker:
+    <<: *py
+    command: arq worker.main.WorkerSettings
+    depends_on: [api]
+  web:
+    build: { context: .., dockerfile: infra/docker/web.Dockerfile }
+    depends_on: [api]
+    ports: ["8080:80"]
+
+volumes: { gigbid-data: {}, pg-data: {}, ollama: {} }

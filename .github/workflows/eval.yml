@@ -1,0 +1,20 @@
+name: eval
+on: [pull_request, workflow_dispatch]
+jobs:
+  smoke-eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -e ".[dev]"
+      - run: python scripts/generate_personas.py && python scripts/prepare_data.py
+      - name: 30-job smoke eval with failure thresholds
+        env:
+          PYTHONPATH: .
+          GIGBID_PROFILE: ${{ secrets.GROQ_API_KEY && 'open' || 'offline' }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: make eval-smoke PY=python
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: smoke-eval, path: evals/results/*_smoke.json }

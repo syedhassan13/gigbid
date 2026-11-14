@@ -175,6 +175,10 @@ def main() -> None:
     rows, kprofile = load_kaggle()
     stats = pricing_stats(rows) if rows else {}
     stats_source = "kaggle" if stats else "synthetic_fallback"
+    committed = DEV / "pricing_stats.json"
+    if not stats and committed.exists() and json.loads(committed.read_text()).get("source", "").startswith("kaggle"):
+        stats = json.loads(committed.read_text())["stats"]  # deployments ship only the committed Kaggle aggregates
+        stats_source = "kaggle (committed aggregates)"
     if not stats:
         stats = SYNTH_STATS
     kprofile["total_rows"] = len(rows)
