@@ -44,3 +44,10 @@ append-only audit log `var/audit/marketplace.jsonl` holding user, tool, PII-mask
 ## Tool-design study (R&D A)
 `python -m evals.runners.tool_design` compares fine-grained, coarse (action-dispatch) and rewritten-description
 tool sets on 40 tasks with known correct calls → `evals/results/tool_design.json`.
+
+## MCP Inspector screenshots
+Captured with the official MCP Inspector (v0.16.5) over Streamable HTTP (marketplace with bearer-token auth):
+![portfolio tools](images/inspector_portfolio_tools.png)
+![portfolio search_evidence call](images/inspector_portfolio_call.png)
+![marketplace tools (bearer auth)](images/inspector_marketplace_tools.png)
+![workspace tools](images/inspector_workspace_tools.png)
