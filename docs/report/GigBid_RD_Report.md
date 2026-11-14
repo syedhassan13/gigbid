@@ -1,6 +1,6 @@
 # GigBid: R&D design review
 
-*AI-4016 · Individual · Repository commit `66f2fd0` · every number cites a file in `evals/results/`.*
+*AI-4016 · Individual · Repository commit `bf94439` · every number cites a file in `evals/results/`.*
 
 **Profiles.** Retrieval and decision numbers are model-independent (embeddings + rules). Proposal-text numbers were produced with the `offline` profile; where that is `offline`, the writer is the deterministic template fallback, not an LLM. Results produced with the Groq `open` profile are reported separately where available.
 
@@ -81,8 +81,16 @@ Why each agent exists (merged/split decisions): the Scout and Pricing Strategist
 
 ## 6. The change request (2 Nov platform policy update)
 
-GigSim policy v2 (commit *GigSim: platform policy update v2*) raised Connects for fixed jobs ≥ $1,000 (16 → 24) and hourly jobs (12 → 16) and made an AI-assistance disclosure mandatory (missing ⇒ HTTP 422). **What we edited:** one line of configuration, the `required_statements` entry in `data/policy_pack/rules.yaml`, which the Compliance Guard appends and the writer is told about. Connects prices needed **no** change: they are read from the marketplace per job and flow into the expected-value check and the dry-run preview. Commit: `b750167 Absorb platform policy update v2: add mandatory AI-assistance disclosure to the policy pack (config only)`; diff: `data/policy_pack/rules.yaml | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)`; wall-clock to absorb, incl. tests: about 7 s of edits + test run. **What it says:** keeping rules and prices in configuration and data (not prompts or code) makes platform changes cheap; the remaining risk is that a rule needing *new semantics* (e.g. a per-client cap) still needs code in `compliance.py`.
+GigSim policy v2 (commit *GigSim: platform policy update v2*) raised Connects for fixed jobs ≥ $1,000 (16 → 24) and hourly jobs (12 → 16) and made an AI-assistance disclosure mandatory (missing ⇒ HTTP 422). **What we edited:** one line of configuration, the `required_statements` entry in `data/policy_pack/rules.yaml`, which the Compliance Guard appends and the writer is told about. Connects prices needed **no** change: they are read from the marketplace per job and flow into the expected-value check and the dry-run preview. Commit: `4037a4a Fix compliance over-redaction of interview slots; human-readable slot times; regression tests`; diff: `.gitignore                        |   1 +
+ agent/nodes/liaison.py            |   2 +-
+ agent/tracing.py                  |   2 +-
+ data/policy_pack/rules.yaml       |   3 ++-
+ docs/report/GigBid_RD_Report.html |   9 ++++++++-
+ docs/report/GigBid_RD_Report.md   |   3 ++-
+ docs/report/GigBid_RD_Report.pdf  | Bin 167271 -> 168149 bytes
+ scripts/build_report.py           |   1 +
+ tests/unit/test_regressions.py    |  21 +++++++++++++++++++++
+ 9 files changed, 37 insertions(+), 5 deletions(-)`; wall-clock to absorb, incl. tests: about 7 s of edits + test run. **What it says:** keeping rules and prices in configuration and data (not prompts or code) makes platform changes cheap; the remaining risk is that a rule needing *new semantics* (e.g. a per-client cap) still needs code in `compliance.py`.
 
 ## 7. Signature extension: X2 proposal experiments
 
