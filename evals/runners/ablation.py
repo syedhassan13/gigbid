@@ -19,13 +19,13 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None)
     a = ap.parse_args()
     best = variant_config("v_best")
-    ablations = {
+    ablations = {  # remove each component of the shipped pipeline, and add back the two rejected ones
         "full (v_best)": best,
-        "- decomposition": dataclasses.replace(best, query="whole", name="abl_no_decomp"),
-        "- hybrid (dense only)": dataclasses.replace(best, retrieval="dense", name="abl_dense"),
-        "- reranker": dataclasses.replace(best, rerank=False, name="abl_no_rerank"),
-        "- outcome boost": dataclasses.replace(best, outcome_boost=False, name="abl_no_outcome"),
         "- contextual chunks": dataclasses.replace(best, chunking="structure", name="abl_no_context"),
+        "- hybrid (dense only)": dataclasses.replace(best, retrieval="dense", name="abl_dense"),
+        "- outcome boost": dataclasses.replace(best, outcome_boost=False, name="abl_no_outcome"),
+        "+ requirement decomposition": dataclasses.replace(best, query="decompose", name="abl_plus_decomp"),
+        "+ cross-encoder rerank": dataclasses.replace(best, rerank=True, name="abl_plus_rerank"),
     }
     out = {}
     for label, cfg in ablations.items():
