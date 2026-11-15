@@ -10,6 +10,8 @@ pinned: false
 
 # GigBid: a multi-agent freelancer copilot
 
+**Syed Muhammad Hassan · i230519 · Section C · AI-4016**
+
 GigBid finds freelance jobs, decides whether they are worth bidding on, writes proposals in which **every claim
 links to real portfolio evidence**, and manages client conversations. **Nothing reaches a client until you
 approve it.**

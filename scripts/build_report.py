@@ -49,7 +49,10 @@ def main() -> None:
     md = []
     A = md.append
     A("# GigBid: R&D design review\n")
+    A("**Syed Muhammad Hassan · Roll No. i230519 · Section C**\n")
     A(f"*AI-4016 · Individual · Repository commit `{commit}` · every number cites a file in `evals/results/`.*\n")
+    A("Live app: https://gigbid-a109.onrender.com · Code: https://github.com/syedhassan13/gigbid · "
+      "Demo video: https://github.com/syedhassan13/gigbid/releases/tag/v1.0\n")
     A("**Profiles.** Retrieval and decision numbers are model-independent (embeddings + rules). Proposal-text numbers were produced with the "
       f"`{(out or {}).get('env', {}).get('profile', '?')}` profile; where that is `offline`, the writer is the deterministic template fallback, "
       "not an LLM. Results produced with the Groq `open` profile are reported separately where available.\n")

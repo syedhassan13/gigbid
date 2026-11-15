@@ -1,6 +1,10 @@
 # GigBid: R&D design review
 
-*AI-4016 · Individual · Repository commit `37705c4` · every number cites a file in `evals/results/`.*
+**Syed Muhammad Hassan · Roll No. i230519 · Section C**
+
+*AI-4016 · Individual · Repository commit `1fbb501` · every number cites a file in `evals/results/`.*
+
+Live app: https://gigbid-a109.onrender.com · Code: https://github.com/syedhassan13/gigbid · Demo video: https://github.com/syedhassan13/gigbid/releases/tag/v1.0
 
 **Profiles.** Retrieval and decision numbers are model-independent (embeddings + rules). Proposal-text numbers were produced with the `offline` profile; where that is `offline`, the writer is the deterministic template fallback, not an LLM. Results produced with the Groq `open` profile are reported separately where available.
 
