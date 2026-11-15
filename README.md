@@ -21,7 +21,7 @@ Upwork and GitHub MCP) · FastAPI + React · durable Postgres checkpoints · ope
 
 | | |
 |---|---|
-| Live app | _add your Hugging Face Space URL_ (reviewer login in the private Classroom comment) |
+| Live app | https://gigbid-a109.onrender.com (Render free tier: first load may take ~50 s to wake; reviewer login in the private Classroom comment) |
 | Demo video (3 min) | _add link_ · automated walkthrough: [docs/images/demo_walkthrough.mp4](docs/images/demo_walkthrough.mp4) |
 | Source | https://github.com/syedhassan13/gigbid |
 | Portfolio MCP server | [`mcp_servers/portfolio`](mcp_servers/portfolio/README.md): `uvx --from git+https://github.com/syedhassan13/gigbid gigbid-portfolio-mcp` |
